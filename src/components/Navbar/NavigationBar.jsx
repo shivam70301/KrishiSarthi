@@ -171,56 +171,58 @@ function NavigationBar() {
 
         {/* Location Dropdown */}
         <div className="nav-link" 
-          onMouseEnter={toggleLocationDropdown}
-          onMouseLeave={toggleLocationDropdown}
-          style={{
-            marginRight: '1rem',
-            display: 'inline-flex',
-            alignItems: 'center',
-            backgroundColor: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            position: 'relative',
-          }}
-        >
-          <img src={locationIcon} alt="Location" style={{
-            width: '20px', // Reduced icon size
-            height: '20px',
-            marginRight: '0.5rem'
-          }} />
-          <span style={{
-            marginRight: '0.5rem' 
-          }}>{selectedLocation}</span> {/* Display selected location */}
-          {showLocationDropdown && (
-            <div className="location-dropdown" style={{
-              position: 'absolute',
-              top: '100%',
-              left: '0',
-              backgroundColor: '#fff',
-              padding: '8px 12px',
-              borderRadius: '4px',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-              zIndex: 1,
-            }}>
-              {maharashtraDistricts.map((district) => (
-                <button 
-                  className="dropdown-item" 
-                  key={district} 
-                  onClick={() => handleLocationSelect(district)} 
-                  style={{
-                    padding: '4px 8px',
-                    marginBottom: '4px',
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    width: '100%'
-                  }}>
-                  {district}
-                </button>
-              ))}
-            </div>
-          )}
+      onMouseEnter={toggleLocationDropdown}
+      onMouseLeave={toggleLocationDropdown}
+      style={{
+        marginRight: '1rem',
+        display: 'inline-flex',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        position: 'relative',
+      }}
+    >
+      <img src={locationIcon} alt="Location" style={{
+        width: '20px', // Reduced icon size
+        height: '20px',
+        marginRight: '0.5rem'
+      }} />
+      <span style={{
+        marginRight: '0.5rem' 
+      }}>{selectedLocation}</span> {/* Display selected location */}
+      {showLocationDropdown && (
+        <div className="location-dropdown" style={{
+          position: 'absolute',
+          top: '100%',
+          left: '0',
+          backgroundColor: '#fff',
+          padding: '8px 12px',
+          borderRadius: '4px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+          zIndex: 1,
+          maxHeight: '200px', /* Set a maximum height for the dropdown */
+          overflowY: 'auto' /* Add a vertical scrollbar */
+        }}>
+          {maharashtraDistricts.map((district) => (
+            <button 
+              className="dropdown-item" 
+              key={district} 
+              onClick={() => handleLocationSelect(district)} 
+              style={{
+                padding: '4px 8px',
+                marginBottom: '4px',
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                width: '100%'
+              }}>
+              {district}
+            </button>
+          ))}
         </div>
+      )}
+    </div>
         {/* Watchlist Button */}
         <button className="nav-link"
           onMouseEnter={() => handleIconHover('Watchlist')}

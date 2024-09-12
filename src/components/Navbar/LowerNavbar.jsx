@@ -44,7 +44,7 @@ const Navbar = () => {
         <li className="nav-item">
           <button className="nav-button">
             <img src={policies} alt="Policies" className="nav-icon" />
-            <p className="nav-text">Government Policies & Schemes</p>
+            <p className="nav-text">Government Schemes</p>
           </button>
         </li>
         <li className="nav-item">
@@ -73,8 +73,8 @@ const Navbar = () => {
           align-items: center;
         }
         .nav-icon {
-          width: 50px;
-          height: 50px;
+          width: 60px;
+          height: 60px;
           border-radius: 50%; /* Make the icons rounded */
         }
         .nav-text {
