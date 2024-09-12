@@ -86,7 +86,7 @@ function NavigationBar() {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      height: '60px' // Set a fixed height for the navbar 
+      height: '75px' // Set a fixed height for the navbar 
     }}>
       <div className="logo-container" style={{
         display: 'flex',
@@ -329,42 +329,6 @@ function NavigationBar() {
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
             }}>
               Profile
-            </div>
-          )}
-        </button>
-        <button className="nav-link"
-          onMouseEnter={() => handleIconHover('About')}
-          onMouseLeave={handleIconLeave}
-          style={{
-            marginRight: '1rem',
-            display: 'inline-flex',
-            alignItems: 'center',
-            backgroundColor: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            position: 'relative',
-          }}
-        >
-          <img src={about} alt="About" style={{
-            width: '18px', // Reduced icon size
-            height: '18px',
-            marginRight: '0.5rem'
-          }} />
-          {/* <span style={{
-            display: 'inline-block' 
-          }}></span>  */}
-          {hoveredIcon === 'About' && (
-            <div className="tooltip" style={{
-              position: 'absolute',
-              top: '100%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              backgroundColor: '#fff',
-              padding: '8px 12px',
-              borderRadius: '4px',
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
-            }}>
-              About
             </div>
           )}
         </button>

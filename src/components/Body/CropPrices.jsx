@@ -22,6 +22,12 @@ function CropPrices() {
     Carrot: { price: 20, change: 10, image: carrot },
   });
 
+  const [showMore, setShowMore] = useState(false);
+
+  const handleShowMore = () => {
+    setShowMore(!showMore);
+  };
+
   return (
     <div
       style={{
@@ -43,7 +49,7 @@ function CropPrices() {
           color: "#333", // Darker text color
         }}
       >
-        Crop Prices
+        Crops & Vegetables Prices
       </h1>
       <div
         style={{
@@ -52,44 +58,79 @@ function CropPrices() {
           gap: "20px",
         }}
       >
-        {Object.keys(cropPrices).map((crop, index) => (
-          <div
-            key={index}
-            style={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              border: "1px solid #ddd",
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-              borderRadius: "20px", // Added rounded corners
-              display: "flex", // Use flexbox for layout
-              alignItems: "center", // Center align items vertically
-            }}
-          >
-            <div style={{ marginRight: "20px" }}>
-              <img
-                src={cropPrices[crop].image}
-                alt={crop}
-                style={{
-                  maxWidth: "170px",
-                  height: "auto",
-                }}
-              />
-              <h2 style={{ marginTop: 0, fontWeight: "bold" }}>
-                {crop.charAt(0).toUpperCase() + crop.slice(1)}
-              </h2>
+        {Object.keys(cropPrices)
+          .slice(0, showMore ? Object.keys(cropPrices).length : 6) // Show all or first 6
+          .map((crop, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundColor: "#fff",
+                padding: "20px",
+                border: "1px solid #ddd",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px", // Added rounded corners
+                display: "flex", // Use flexbox for layout
+                alignItems: "center", // Center align items vertically
+              }}
+            >
+              <div style={{ marginRight: "20px" }}>
+                <img
+                  src={cropPrices[crop].image}
+                  alt={crop}
+                  style={{
+                    maxWidth: "170px",
+                    height: "auto",
+                  }}
+                />
+                <h2 style={{ marginTop: 0, fontWeight: "bold" }}>
+                  {crop.charAt(0).toUpperCase() + crop.slice(1)}
+                </h2>
+              </div>
+              <div>
+                <p style={{ marginBottom: "10px" }}>
+                  <b>Price:</b>₹{cropPrices[crop].price}/kg
+                </p>
+                <p style={{ marginBottom: "10px" }}>
+                  <b>Change:</b> {cropPrices[crop].change > 0 ? "+" : "-"}
+                  {Math.abs(cropPrices[crop].change)}₹
+                </p>
+              </div>
             </div>
-            <div>
-              <p style={{ marginBottom: "10px" }}>
-                <b>Price:</b>₹{cropPrices[crop].price}/kg
-              </p>
-              <p style={{ marginBottom: "10px" }}>
-                <b>Change:</b> {cropPrices[crop].change > 0 ? "+" : "-"}
-                {Math.abs(cropPrices[crop].change)}₹
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
+      {showMore ? ( // Show "Show Less" button when more items are visible
+        <button
+          style={{
+            display: "block",
+            margin: "20px auto",
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={handleShowMore}
+        >
+          Show Less
+        </button>
+      ) : (
+        <button
+          style={{
+            display: "block",
+            margin: "20px auto",
+            padding: "10px 20px",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={handleShowMore}
+        >
+          View All
+        </button>
+      )}
     </div>
   );
 }
