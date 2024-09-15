@@ -53,19 +53,29 @@ const Navbar = () => {
             <p className="nav-text">Agriculture Tools</p>
           </button>
         </li>
+        <li className="nav-item">
+          <button className="nav-button">
+            <img src={tool} alt="Tool" className="nav-icon" />
+            <p className="nav-text">Agriculture Tools</p>
+          </button>
+        </li>
       </ul>
       <style jsx>{`
         .navbar {
           background-color: #f0f0f0;
           padding: 1rem;
           display: flex;
-          justify-content: space-around;
-          align-items: center;
+          justify-content: center;
+          overflow-x: auto; /* Allows horizontal scrolling if needed */
         }
         .nav-list {
           list-style: none;
           display: flex;
-          gap: 4rem; /* Increased gap for more space */
+          gap: 4rem; /* Horizontal gap between items */
+          flex-wrap: nowrap; /* Keeps items in a single row */
+          padding: 0;
+          margin: 0;
+          min-width: 100%; /* Ensures the list takes up full width */
         }
         .nav-item {
           display: flex;
@@ -75,23 +85,47 @@ const Navbar = () => {
         .nav-icon {
           width: 60px;
           height: 60px;
-          border-radius: 50%; /* Make the icons rounded */
+          border-radius: 50%; /* Rounded icons */
         }
         .nav-text {
           text-align: center;
-          margin-top: 5px; /* Add some spacing between icon and text */
+          margin-top: 5px;
         }
         .nav-button {
           background-color: transparent;
           border: none;
           padding: 0;
           cursor: pointer;
-          display: flex; /* Align icon and text together */
-          flex-direction: column; /* Stack icon and text */
-          align-items: center; /* Center the icon and text */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .nav-button:hover {
           background-color: #ccc;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+          .nav-list {
+            gap: 1rem; /* Smaller gap on medium screens */
+          }
+          .nav-icon {
+            width: 50px;
+            height: 50px; /* Smaller icons */
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nav-list {
+            gap: 0.5rem; /* Even smaller gap on small screens */
+          }
+          .nav-icon {
+            width: 40px;
+            height: 40px; /* Even smaller icons */
+          }
+          .nav-text {
+            font-size: 0.7rem; /* Smaller text */
+          }
         }
       `}</style>
     </nav>

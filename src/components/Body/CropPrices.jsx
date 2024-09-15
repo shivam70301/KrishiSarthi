@@ -73,12 +73,12 @@ function CropPrices() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid layout
           gap: "20px",
         }}
       >
         {Object.keys(cropPrices)
-          .slice(0, showMore ? Object.keys(cropPrices).length : 6)
+          .slice(0, showMore ? Object.keys(cropPrices).length : 8)
           .map((crop, index) => (
             <div
               key={index}
@@ -89,31 +89,31 @@ function CropPrices() {
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
                 borderRadius: "20px",
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
+                textAlign: "center",
               }}
             >
-              <div style={{ marginRight: "20px" }}>
-                <img
-                  src={cropPrices[crop].image}
-                  alt={crop}
-                  style={{
-                    maxWidth: "170px",
-                    height: "auto",
-                  }}
-                />
-                <h2 style={{ marginTop: 0, fontWeight: "bold" }}>
-                  {crop.charAt(0).toUpperCase() + crop.slice(1)}
-                </h2>
-              </div>
-              <div>
-                <p style={{ marginBottom: "10px" }}>
-                  <b>Price:</b>₹{cropPrices[crop].price}/kg
-                </p>
-                <p style={{ marginBottom: "10px" }}>
-                  <b>Change:</b> {cropPrices[crop].change > 0 ? "+" : "-"}
-                  {Math.abs(cropPrices[crop].change)}₹
-                </p>
-              </div>
+              <img
+                src={cropPrices[crop].image}
+                alt={crop}
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  marginBottom: "10px",
+                }}
+              />
+              <h2 style={{ margin: "10px 0", fontWeight: "bold" }}>
+                {crop.charAt(0).toUpperCase() + crop.slice(1)}
+              </h2>
+              <p style={{ marginBottom: "10px" }}>
+                <b>Price:</b> ₹{cropPrices[crop].price}/kg
+              </p>
+              <p>
+                <b>Change:</b> {cropPrices[crop].change > 0 ? "+" : "-"}
+                {Math.abs(cropPrices[crop].change)}₹
+              </p>
             </div>
           ))}
       </div>
