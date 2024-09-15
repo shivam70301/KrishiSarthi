@@ -28,6 +28,7 @@ function About() {
         justifyContent: "center",
         alignItems: "center",
         padding: "20px", // Reduced padding
+        boxSizing: "border-box",
       }}
     >
       <div
@@ -42,10 +43,18 @@ function About() {
           borderRadius: "10px",
           boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)", // Reduced shadow size
           gap: "30px", // Adjusted gap
+          boxSizing: "border-box",
+          width: "100%", // Ensure it fits within its container
+          flexWrap: "wrap", // Allow wrapping on smaller screens
         }}
       >
         {/* Left Side: About Information and Logo */}
-        <div style={{ flex: 1 }}>
+        <div
+          style={{
+            flex: 1,
+            minWidth: "300px", // Ensures a minimum width for better readability
+          }}
+        >
           <img
             src={logo}
             alt="KrishiSarthi Logo"
@@ -77,7 +86,12 @@ function About() {
         </div>
 
         {/* Right Side: Feedback Form */}
-        <div style={{ flex: 1 }}>
+        <div
+          style={{
+            flex: 1,
+            minWidth: "300px", // Ensures a minimum width for better readability
+          }}
+        >
           <h2 style={{ fontSize: "1.8rem", color: "#333", marginBottom: "15px" }}> {/* Adjusted font size */}
             We Value Your Feedback!
           </h2>
@@ -155,6 +169,38 @@ function About() {
           )}
         </div>
       </div>
+
+      {/* Media Queries */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          div {
+            flex-direction: column;
+            max-height: none;
+            padding: 10px;
+          }
+          .content-container {
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+        @media (max-width: 480px) {
+          h1 {
+            font-size: 1.5rem;
+          }
+          h2 {
+            font-size: 1.4rem;
+          }
+          p, input, textarea, button {
+            font-size: 0.8rem;
+          }
+          textarea {
+            height: 100px;
+          }
+          img {
+            max-width: 100px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
