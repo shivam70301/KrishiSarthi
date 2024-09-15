@@ -3,7 +3,6 @@ import logo from '../../assets/logo.png';
 import star from '../../assets/star.png';
 import bell from '../../assets/bell.png';
 import person from '../../assets/person.png';
-import about from '../../assets/about.png';
 import translateIcon from '../../assets/translator.png'; 
 import locationIcon from '../../assets/location.png'; 
 
@@ -86,7 +85,7 @@ function NavigationBar() {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      height: '75px' // Set a fixed height for the navbar 
+      height: '75px', // Set a fixed height for the navbar 
     }}>
       <div className="logo-container" style={{
         display: 'flex',

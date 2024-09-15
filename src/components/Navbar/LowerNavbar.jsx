@@ -5,7 +5,7 @@ import cropdisease from '../../assets/cropdisease.png';
 import croppest from '../../assets/croppest.png';
 import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
-import weather from '../../assets/weather.png';
+import tool from '../../assets/tool.png';
 
 const Navbar = () => {
   return (
@@ -49,8 +49,8 @@ const Navbar = () => {
         </li>
         <li className="nav-item">
           <button className="nav-button">
-            <img src={weather} alt="Weather" className="nav-icon" />
-            <p className="nav-text">Weather Forecast</p>
+            <img src={tool} alt="Tool" className="nav-icon" />
+            <p className="nav-text">Agriculture Tools</p>
           </button>
         </li>
       </ul>

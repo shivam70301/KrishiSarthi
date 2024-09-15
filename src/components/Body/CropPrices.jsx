@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import wheat from "../../assets/wheat.png";
 import rice from "../../assets/rice.png";
 import corn from "../../assets/corn.png";
@@ -11,15 +11,15 @@ import carrot from "../../assets/carrot.png";
 
 function CropPrices() {
   const [cropPrices, setCropPrices] = useState({
-    wheat: { price: 20, change: 10, image: wheat },
-    Rice: { price: 20, change: 10, image: rice },
-    Corn: { price: 20, change: 10, image: corn },
-    Sugarcane: { price: 20, change: 10, image: sugarcane },
-    Potato: { price: 20, change: 10, image: potato },
-    Brinjal: { price: 20, change: 10, image: brinjal },
-    Onions: { price: 20, change: 10, image: onion },
-    Tomato: { price: 20, change: 10, image: tomato },
-    Carrot: { price: 20, change: 10, image: carrot },
+    wheat: { price: 40, previousPrice: 25, image: wheat },
+    rice: { price: 18, previousPrice: 20, image: rice },
+    corn: { price: 22, previousPrice: 21, image: corn },
+    sugarcane: { price: 25, previousPrice: 20, image: sugarcane },
+    potato: { price: 19, previousPrice: 18, image: potato },
+    brinjal: { price: 21, previousPrice: 19, image: brinjal },
+    onion: { price: 23, previousPrice: 20, image: onion },
+    tomato: { price: 17, previousPrice: 16, image: tomato },
+    carrot: { price: 26, previousPrice: 24, image: carrot },
   });
 
   const [showMore, setShowMore] = useState(false);
@@ -27,6 +27,25 @@ function CropPrices() {
   const handleShowMore = () => {
     setShowMore(!showMore);
   };
+
+  // Function to calculate price change based on previous and current prices
+  const calculatePriceChanges = () => {
+    const updatedPrices = { ...cropPrices };
+
+    Object.keys(updatedPrices).forEach((crop) => {
+      const currentPrice = updatedPrices[crop].price;
+      const previousPrice = updatedPrices[crop].previousPrice;
+
+      updatedPrices[crop].change = currentPrice - previousPrice; // Calculate change
+    });
+
+    setCropPrices(updatedPrices);
+  };
+
+  // Calculate price changes when the component renders
+  React.useEffect(() => {
+    calculatePriceChanges();
+  }, []);
 
   return (
     <div
@@ -37,16 +56,16 @@ function CropPrices() {
         backgroundColor: "#f7f7f7",
         border: "1px solid #ddd",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-        borderRadius: "10px", // Added rounded corners
+        borderRadius: "10px",
       }}
     >
       <h1
         style={{
           textAlign: "center",
-          fontSize: "3rem", // Larger heading size
+          fontSize: "3rem",
           fontWeight: "bold",
-          marginBottom: "20px", // Increased spacing
-          color: "#333", // Darker text color
+          marginBottom: "20px",
+          color: "#333",
         }}
       >
         Crops & Vegetables Prices
@@ -59,7 +78,7 @@ function CropPrices() {
         }}
       >
         {Object.keys(cropPrices)
-          .slice(0, showMore ? Object.keys(cropPrices).length : 6) // Show all or first 6
+          .slice(0, showMore ? Object.keys(cropPrices).length : 6)
           .map((crop, index) => (
             <div
               key={index}
@@ -68,9 +87,9 @@ function CropPrices() {
                 padding: "20px",
                 border: "1px solid #ddd",
                 boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px", // Added rounded corners
-                display: "flex", // Use flexbox for layout
-                alignItems: "center", // Center align items vertically
+                borderRadius: "20px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <div style={{ marginRight: "20px" }}>
@@ -98,7 +117,7 @@ function CropPrices() {
             </div>
           ))}
       </div>
-      {showMore ? ( // Show "Show Less" button when more items are visible
+      {showMore ? (
         <button
           style={{
             display: "block",
