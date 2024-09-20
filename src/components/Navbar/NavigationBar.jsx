@@ -82,8 +82,8 @@ function NavigationBar() {
               className="translator-dropdown"
               style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
             >
-              <button className="dropdown-item">English</button>
-              <button className="dropdown-item">मराठी</button>
+              <div className="dropdown-item">English</div>
+              <div className="dropdown-item">मराठी</div>
             </div>
           )}
         </div>
@@ -101,13 +101,13 @@ function NavigationBar() {
               style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
             >
               {maharashtraDistricts.map((district) => (
-                <button
+                <div
                   key={district}
                   className="dropdown-item"
                   onClick={() => handleLocationSelect(district)}
                 >
                   {district}
-                </button>
+                </div>
               ))}
             </div>
           )}
@@ -152,15 +152,15 @@ function NavigationBar() {
           // top: 0px;
           // z-index: 111;
           background-color: #228b22;
-          padding: 0.5rem 1rem;
+          padding: 1rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
           height: 75px;
           white-space: nowrap;
           box-sizing: border-box;
-          overflow-x: auto; /* Enable horizontal scrolling */
-          overflow-y: hidden; /* Disable vertical scrolling */
+          overflow-x: auto;
+          overflow-y: hidden;
         }
 
         .nav-bar::-webkit-scrollbar {
@@ -216,6 +216,8 @@ function NavigationBar() {
           align-items: center;
           position: relative;
           cursor: pointer;
+          flex-shrink: 0; /* Prevent elements from shrinking */
+          white-space: nowrap; /* Prevent text wrapping */
         }
 
         .nav-link img {
@@ -232,11 +234,12 @@ function NavigationBar() {
           border-radius: 4px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
           z-index: 1000;
-          width: 200px;
+          width: auto; /* Allow dropdown to expand horizontally */
           max-height: 200px;
           overflow-y: auto;
           display: flex;
           flex-direction: column;
+          flex-wrap: nowrap; /* Prevent wrapping to the next line */
         }
 
         .dropdown-item {
@@ -244,7 +247,7 @@ function NavigationBar() {
           background-color: transparent;
           border: none;
           cursor: pointer;
-          width: 100%;
+          width: auto; /* Allow dropdown items to expand horizontally */
           text-align: left;
           border-bottom: 1px solid #ccc;
         }
@@ -288,7 +291,7 @@ function NavigationBar() {
 
           .translator-dropdown,
           .location-dropdown {
-            width: 100%;
+            width: auto; /* Allow dropdown to expand horizontally */
             max-width: 200px;
           }
         }

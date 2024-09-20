@@ -14,7 +14,7 @@ const Navbar = () => {
         <li className="nav-item">
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
-              <Link className="btn btn-primary display-4" to="/crops">
+              <Link to="/crops">
                 <img src={soil} alt="Soil Information" className="nav-icon" />
                 All Crops
               </Link>
@@ -67,9 +67,6 @@ const Navbar = () => {
       </ul>
       <style jsx>{`
         .navbar {
-          // position: sticky;
-          // top: 11%;
-          // z-index: 111;
           background-color: #f0f0f0;
           padding: 1rem;
           display: flex;
