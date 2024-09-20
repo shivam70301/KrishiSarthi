@@ -5,34 +5,33 @@ import cropdisease from '../../assets/cropdisease.png';
 import croppest from '../../assets/croppest.png';
 import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
-import tool from '../../assets/tool.png';
-
+import tool from '../../assets/Agriculture_Plan.png';
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar">
       <ul className="nav-list">
         <li className="nav-item">
           <button className="nav-button">
-            <img src={soil} alt="Soil Information" className="nav-icon" />
+            <div className="navbar-buttons mbr-section-btn">
+              <Link className="btn btn-primary display-4" to="/crops">
+                <img src={soil} alt="Soil Information" className="nav-icon" />
+                All Crops
+              </Link>
+            </div>
+          </button>
+        </li>
+
+        <li className="nav-item">
+          <button className="nav-button">
+            <img src={crop} alt="Crop Recommendation" className="nav-icon" />
             <p className="nav-text">Soil Information</p>
           </button>
         </li>
         <li className="nav-item">
           <button className="nav-button">
-            <img src={crop} alt="Crop Recommendation" className="nav-icon" />
-            <p className="nav-text">Crop Recommendation</p>
-          </button>
-        </li>
-        <li className="nav-item">
-          <button className="nav-button">
             <img src={cropdisease} alt="Crop Diseases" className="nav-icon" />
-            <p className="nav-text">Crop Diseases</p>
-          </button>
-        </li>
-        <li className="nav-item">
-          <button className="nav-button">
-            <img src={croppest} alt="Pesticides" className="nav-icon" />
-            <p className="nav-text">Pesticides</p>
+            <p className="nav-text">Crop Recommendation</p>
           </button>
         </li>
         <li className="nav-item">
@@ -43,25 +42,34 @@ const Navbar = () => {
         </li>
         <li className="nav-item">
           <button className="nav-button">
+            <img src={tool} alt="Plan" className="nav-icon" />
+            <p className="nav-text">Agriculture Plan</p>
+          </button>
+        </li>
+        <li className="nav-item">
+          <button className="nav-button">
             <img src={policies} alt="Policies" className="nav-icon" />
             <p className="nav-text">Government Schemes</p>
           </button>
         </li>
         <li className="nav-item">
           <button className="nav-button">
-            <img src={tool} alt="Tool" className="nav-icon" />
-            <p className="nav-text">Agriculture Tools</p>
+            <img src={croppest} alt="Pesticides" className="nav-icon" />
+            <p className="nav-text">Pesticides</p>
           </button>
         </li>
         <li className="nav-item">
           <button className="nav-button">
             <img src={tool} alt="Tool" className="nav-icon" />
-            <p className="nav-text">Agriculture Tools</p>
+            <p className="nav-text">Fair & Events</p>
           </button>
         </li>
       </ul>
       <style jsx>{`
         .navbar {
+          // position: sticky;
+          // top: 11%;
+          // z-index: 111;
           background-color: #f0f0f0;
           padding: 1rem;
           display: flex;
@@ -131,5 +139,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;

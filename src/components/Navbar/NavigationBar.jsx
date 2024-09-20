@@ -72,10 +72,16 @@ function NavigationBar() {
 
       <div className="nav-links" ref={dropdownRef}>
         {/* Translator Dropdown */}
-        <div className="nav-link" onClick={(e) => toggleDropdown('translator', e)}>
+        <div
+          className="nav-link"
+          onClick={(e) => toggleDropdown("translator", e)}
+        >
           <img src={translateIcon} alt="Translator" />
-          {showDropdown === 'translator' && (
-            <div className="translator-dropdown" style={{ left: dropdownPosition.left, top: dropdownPosition.top }}>
+          {showDropdown === "translator" && (
+            <div
+              className="translator-dropdown"
+              style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
+            >
               <button className="dropdown-item">English</button>
               <button className="dropdown-item">मराठी</button>
             </div>
@@ -83,11 +89,17 @@ function NavigationBar() {
         </div>
 
         {/* Location Dropdown */}
-        <div className="nav-link" onClick={(e) => toggleDropdown('location', e)}>
+        <div
+          className="nav-link"
+          onClick={(e) => toggleDropdown("location", e)}
+        >
           <img src={locationIcon} alt="Location" />
           <span>{selectedLocation}</span>
-          {showDropdown === 'location' && (
-            <div className="location-dropdown" style={{ left: dropdownPosition.left, top: dropdownPosition.top }}>
+          {showDropdown === "location" && (
+            <div
+              className="location-dropdown"
+              style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
+            >
               {maharashtraDistricts.map((district) => (
                 <button
                   key={district}
@@ -102,31 +114,44 @@ function NavigationBar() {
         </div>
 
         {/* Other Icons */}
-        <button className="nav-link" onMouseEnter={() => setHoveredIcon('Watchlist')} onMouseLeave={() => setHoveredIcon(null)}>
+        <button
+          className="nav-link"
+          onMouseEnter={() => setHoveredIcon("Watchlist")}
+          onMouseLeave={() => setHoveredIcon(null)}
+        >
           <img src={star} alt="Watchlist" />
-          {hoveredIcon === 'Watchlist' && (
+          {hoveredIcon === "Watchlist" && (
             <div className="tooltip">Watchlist</div>
           )}
         </button>
 
-        <button className="nav-link" onMouseEnter={() => setHoveredIcon('Notification')} onMouseLeave={() => setHoveredIcon(null)}>
+        <button
+          className="nav-link"
+          onMouseEnter={() => setHoveredIcon("Notification")}
+          onMouseLeave={() => setHoveredIcon(null)}
+        >
           <img src={bell} alt="Notification" />
-          {hoveredIcon === 'Notification' && (
+          {hoveredIcon === "Notification" && (
             <div className="tooltip">Notification</div>
           )}
         </button>
 
-        <button className="nav-link" onMouseEnter={() => setHoveredIcon('Profile')} onMouseLeave={() => setHoveredIcon(null)}>
+        <button
+          className="nav-link"
+          onMouseEnter={() => setHoveredIcon("Profile")}
+          onMouseLeave={() => setHoveredIcon(null)}
+        >
           <img src={person} alt="Profile" />
-          {hoveredIcon === 'Profile' && (
-            <div className="tooltip">Profile</div>
-          )}
+          {hoveredIcon === "Profile" && <div className="tooltip">Profile</div>}
         </button>
       </div>
 
       <style jsx>{`
         .nav-bar {
-          background-color: #228B22;
+          // position: sticky;
+          // top: 0px;
+          // z-index: 111;
+          background-color: #228b22;
           padding: 0.5rem 1rem;
           display: flex;
           justify-content: space-between;
@@ -165,7 +190,7 @@ function NavigationBar() {
 
         .logo-text {
           font-size: 24px;
-          color: #FFFFFF;
+          color: #ffffff;
           font-weight: bold;
         }
 
@@ -199,7 +224,8 @@ function NavigationBar() {
           margin-right: 0.5rem;
         }
 
-        .translator-dropdown, .location-dropdown {
+        .translator-dropdown,
+        .location-dropdown {
           position: fixed; /* Fixed to avoid clipping */
           background-color: #fff;
           padding: 8px 0;
@@ -260,7 +286,8 @@ function NavigationBar() {
             height: 20px;
           }
 
-          .translator-dropdown, .location-dropdown {
+          .translator-dropdown,
+          .location-dropdown {
             width: 100%;
             max-width: 200px;
           }

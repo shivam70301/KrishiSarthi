@@ -1,20 +1,17 @@
+// App.js
 import React from "react";
-import NavigationBar from "./components/Navbar/NavigationBar";
-import LowerNavbar from "./components/Navbar/LowerNavbar";
-import CropPrices from "./components/Body/CropPrices";
-import MarketInsights from './components/Body/MarketInsights'
-import About from "./components/Footer/About";
-import WeatherForecast from "./components/Body/WeatherForecast";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainContent from "./components/MainContent/MainContent";
+import AllCrops from "./components/Navbar/AllCrops";
+
 function App() {
   return (
-    <div>
-      <NavigationBar />
-      <LowerNavbar />
-      <MarketInsights/>
-      <WeatherForecast/>
-      <CropPrices />
-      <About/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/crops" element={<AllCrops />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
