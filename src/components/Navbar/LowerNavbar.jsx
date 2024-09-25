@@ -1,7 +1,6 @@
 import React from 'react';
 import soil from '../../assets/soil.png';
 import crop from '../../assets/crop.png';
-import cropdisease from '../../assets/cropdisease.png';
 import croppest from '../../assets/croppest.png';
 import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
@@ -11,59 +10,104 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <ul className="nav-list">
+
+
         <li className="nav-item">
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
-              <Link to="/crops">
-                <img src={soil} alt="Soil Information" className="nav-icon" />
+              <Link to="/All_Crops">
+                <img src={crop} alt="All Crops" className="nav-icon" />
                 All Crops
               </Link>
             </div>
           </button>
         </li>
 
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={crop} alt="Crop Recommendation" className="nav-icon" />
-            <p className="nav-text">Soil Information</p>
+          <div className="navbar-buttons mbr-section-btn">
+              <Link to="/Soil_Information">
+            <img src={soil} alt="Soil Information" className="nav-icon" />
+            Soil Information
+            </Link>
+            </div>
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={cropdisease} alt="Crop Diseases" className="nav-icon" />
-            <p className="nav-text">Crop Recommendation</p>
+            <div className="navbar-buttons mbr-section-btn">
+              <Link to="/Crop_Recommendation"><img src={crop} alt="Crop Recommendation" className="nav-icon" />
+              Crop Recommendation</Link>
+            </div>
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={kgyan} alt="KGyan" className="nav-icon" />
-            <p className="nav-text">KGyan</p>
+            <div className="navbar-buttons mbr-section-btn">
+              <Link to="/K_Gyan">
+              <img src={kgyan} alt="KGyan" className="nav-icon" />
+              KGyan
+              </Link>
+            </div>
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={tool} alt="Plan" className="nav-icon" />
-            <p className="nav-text">Agriculture Plan</p>
+            <div>
+              <Link to="/Agriculture_Plan">
+              <img src={tool} alt="Plan" className="nav-icon" />
+           Agriculture Plan
+              </Link>
+            </div>
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={policies} alt="Policies" className="nav-icon" />
-            <p className="nav-text">Government Schemes</p>
+            <div>
+              <Link to ="/Policies">
+              <img src={policies} alt="Policies" className="nav-icon" />
+              Government Schemes
+              </Link>
+            </div>
+           
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={croppest} alt="Pesticides" className="nav-icon" />
-            <p className="nav-text">Pesticides</p>
+            <div>
+              <Link to="/Pesticides">
+              <img src={croppest} alt="Pesticides" className="nav-icon" />
+              Pesticides
+              </Link>
+            </div>
           </button>
         </li>
+
+
         <li className="nav-item">
           <button className="nav-button">
-            <img src={tool} alt="Tool" className="nav-icon" />
-            <p className="nav-text">Fair & Events</p>
+            <div>
+              <Link to="/Fair_Events">
+              <img src={tool} alt="Tool" className="nav-icon" />
+              Fair & Events
+              </Link>
+            </div>
+    
           </button>
         </li>
+
+
       </ul>
       <style jsx>{`
         .navbar {
