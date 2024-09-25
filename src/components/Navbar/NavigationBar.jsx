@@ -148,9 +148,6 @@ function NavigationBar() {
 
       <style jsx>{`
         .nav-bar {
-          // position: sticky;
-          // top: 0px;
-          // z-index: 111;
           background-color: #228b22;
           padding: 1rem;
           display: flex;
@@ -159,21 +156,7 @@ function NavigationBar() {
           height: 75px;
           white-space: nowrap;
           box-sizing: border-box;
-          overflow-x: auto;
-          overflow-y: hidden;
-        }
-
-        .nav-bar::-webkit-scrollbar {
-          height: 6px; /* Adjust the height of the scrollbar */
-        }
-
-        .nav-bar::-webkit-scrollbar-thumb {
-          background-color: #888;
-          border-radius: 10px;
-        }
-
-        .nav-bar::-webkit-scrollbar-thumb:hover {
-          background-color: #555;
+          overflow: hidden; /* Remove scrollbars */
         }
 
         .logo-container {
@@ -267,8 +250,7 @@ function NavigationBar() {
           .nav-bar {
             padding: 0.5rem;
             height: auto;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: hidden; /* Remove scrollbars */
           }
 
           .logo-text {
@@ -292,7 +274,8 @@ function NavigationBar() {
           .translator-dropdown,
           .location-dropdown {
             width: auto; /* Allow dropdown to expand horizontally */
-            max-width: 200px;
+            max-width: 100%; /* Limit max width */
+            overflow-x: hidden; /* Remove horizontal scrollbar */
           }
         }
       `}</style>

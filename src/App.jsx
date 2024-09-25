@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainContent from "./components/MainContent/MainContent";
-import AllCrops from "./components/Navbar/Pages/All_Crops";
+import All_Crops from "./components/Navbar/Pages/All_Crops";
 import Soil_Information from "./components/Navbar/Pages/Soil_Information";
 import Crop_Recommendation from "./components/Navbar/Pages/Crop_Recommendation";
 import K_Gyan from "./components/Navbar/Pages/K_Gyan";
@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainContent />} />
-        <Route path="/All_Crops" element={<AllCrops />} />
+        <Route path="/All_Crops" element={<All_Crops />} />
         <Route path="/Soil_Information" element={<Soil_Information />} />
         <Route path="/Crop_Recommendation" element={<Crop_Recommendation />} />
         <Route path="/K_Gyan" element={<K_Gyan />} />
