@@ -14,10 +14,14 @@ const cropsData = [
     name: 'Wheat',
     image: wheat, // Use the imported image
     growingTechnique: 'Plant in well-drained soil with full sun exposure.',
-    diseases: 'Rust, Blight, and Fusarium.',
+    diseases: 'Rust, Blight, Fusarium.',
     benefits: 'Rich in carbohydrates and proteins.',
     climate: 'Temperate climate with moderate rainfall.',
     watering: 'Moderate watering, especially during dry spells.',
+    soil: 'Loamy soil with neutral pH.',
+    fertilizer: 'Apply nitrogen and phosphorus-based fertilizers.',
+    pestControl: 'Use fungicides to control rust and blight.',
+    harvesting: 'Harvest when wheat turns golden yellow and hard.',
   },
   {
     id: 2,
@@ -28,6 +32,10 @@ const cropsData = [
     benefits: 'Staple food rich in carbohydrates.',
     climate: 'Warm and humid climate.',
     watering: 'Water regularly to maintain flooded conditions.',
+    soil: 'Clay or silt soils that can hold water.',
+    fertilizer: 'Apply urea-based fertilizers in stages.',
+    pestControl: 'Use resistant varieties and crop rotation to control pests.',
+    harvesting: 'Harvest when rice grains turn golden and dry.',
   },
   {
     id: 3,
@@ -38,6 +46,10 @@ const cropsData = [
     benefits: 'Versatile crop used for food and fuel.',
     climate: 'Warm climate with plenty of sunlight.',
     watering: 'Regular watering, especially during pollination.',
+    soil: 'Well-drained loamy soil.',
+    fertilizer: 'Apply nitrogen-rich fertilizers at planting and early growth stages.',
+    pestControl: 'Use insecticides and crop rotation to control rootworms.',
+    harvesting: 'Harvest when ears are full and kernels are firm.',
   },
   // Add more crops as needed
 ];
@@ -90,7 +102,7 @@ const AllCrops = () => {
               <img 
                 src={selectedCrop.image} 
                 alt={selectedCrop.name} 
-                className="img-fluid mb-3 crop-image" 
+                className="img-fluid mb-3 crop-image d-block mx-auto" 
               />
               <h5>Growing Technique:</h5>
               <p>{selectedCrop.growingTechnique}</p>
@@ -102,10 +114,18 @@ const AllCrops = () => {
               <p>{selectedCrop.climate}</p>
               <h5>Watering Requirements:</h5>
               <p>{selectedCrop.watering}</p>
+              <h5>Soil Type:</h5>
+              <p>{selectedCrop.soil}</p>
+              <h5>Fertilizer Requirements:</h5>
+              <p>{selectedCrop.fertilizer}</p>
+              <h5>Pest Control:</h5>
+              <p>{selectedCrop.pestControl}</p>
+              <h5>Harvesting:</h5>
+              <p>{selectedCrop.harvesting}</p>
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleClose}>
               Close
             </Button>
           </Modal.Footer>
