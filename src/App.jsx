@@ -9,6 +9,9 @@ import Agriculture_Plan from "./components/Navbar/Pages/Agriculture_Plan";
 import Policies from "./components/Navbar/Pages/Policies";
 import Pesticides from "./components/Navbar/Pages/Pesticides";
 import Fair_Events from "./components/Navbar/Pages/Fair_Events";
+import Watchlist from "./components/Navbar/Pages/Watchlist";
+import Notification from "./components/Navbar/Pages/Notification";
+import Profile from "./components/Navbar/Pages/Profile";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
         <Route path="/Policies" element={<Policies />} />
         <Route path="/Pesticides" element={<Pesticides />} />
         <Route path="/Fair_Events" element={<Fair_Events />} />
+        <Route path="/Watchlist" element={<Watchlist />} />
+        <Route path="/Notification" element={<Notification />} />
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

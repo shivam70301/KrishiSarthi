@@ -11,7 +11,6 @@ const Lower_Navbar = () => {
     <nav className="navbar">
       <ul className="nav-list">
 
-
         <li className="nav-item">
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">

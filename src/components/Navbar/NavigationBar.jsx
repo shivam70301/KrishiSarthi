@@ -5,6 +5,7 @@ import bell from '../../assets/bell.png';
 import person from '../../assets/person.png';
 import translateIcon from '../../assets/translator.png';       
 import locationIcon from '../../assets/location.png';
+import { Link } from "react-router-dom";
 
 // Sample districts of Maharashtra (replace with your actual data)
 const maharashtraDistricts = [
@@ -119,6 +120,7 @@ function NavigationBar() {
           onMouseEnter={() => setHoveredIcon("Watchlist")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
+          <Link to="/Watchlist">
           <img src={star} alt="Watchlist" />
           {hoveredIcon === "Watchlist" && (
             <div className="hover-content">
@@ -126,6 +128,7 @@ function NavigationBar() {
               {/* Add watchlist items dynamically here */}
             </div>
           )}
+          </Link>
         </div>
 
         <div
@@ -133,13 +136,17 @@ function NavigationBar() {
           onMouseEnter={() => setHoveredIcon("Notification")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
+          <Link to= "/Notification">
           <img src={bell} alt="Notification" />
           {hoveredIcon === "Notification" && (
             <div className="hover-content">
-              <div>Notifications</div>
+              <div>
+                Notifications
+                </div>
               {/* Add notification items dynamically here */}
             </div>
           )}
+          </Link>
         </div>
 
         <div
@@ -147,6 +154,7 @@ function NavigationBar() {
           onMouseEnter={() => setHoveredIcon("Profile")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
+          <Link to ="/Profile">
           <img src={person} alt="Profile" />
           {hoveredIcon === "Profile" && (
             <div className="hover-content">
@@ -154,7 +162,7 @@ function NavigationBar() {
               {/* Add profile details dynamically here */}
              
             </div>
-          )}
+          )}</Link>
         </div>
       </div>
 
