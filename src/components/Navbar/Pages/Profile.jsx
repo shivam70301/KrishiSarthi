@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Button, Alert, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Profile = () => {
@@ -14,7 +14,8 @@ const Profile = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      setUser({ email, name, phone }); // Dummy user object
+      // Dummy user object with a photo
+      setUser({ email, name, phone, photo: 'https://via.placeholder.com/150' });
       setError('');
     } else {
       setError('Please enter both email and password');
@@ -24,7 +25,8 @@ const Profile = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     if (email && password && name && phone) {
-      setUser({ email, name, phone }); // Dummy user object
+      // Dummy user object with a photo
+      setUser({ email, name, phone, photo: 'https://via.placeholder.com/150' });
       setError('');
     } else {
       setError('Please fill all fields');
@@ -34,7 +36,6 @@ const Profile = () => {
   const toggleForm = () => {
     setIsLogin(!isLogin);
     setError('');
-    // Clear fields when toggling forms
     setEmail('');
     setPassword('');
     setName('');
@@ -47,16 +48,16 @@ const Profile = () => {
         <Col md={6}>
           {error && <Alert variant="danger">{error}</Alert>}
           {user ? (
-            <Card className="p-4 shadow-sm text-center">
+            <Card className="p-4 shadow-sm text-center profile-card">
+              <Image src={user.photo} roundedCircle className="profile-pic mb-3" />
               <Card.Title>Welcome, {user.name}!</Card.Title>
               <Card.Body>
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Phone:</strong> {user.phone}</p>
-                {/* Display more profile details here */}
               </Card.Body>
             </Card>
           ) : (
-            <Card className="p-4 shadow-sm">
+            <Card className="p-4 shadow-sm form-card">
               <Card.Title>{isLogin ? 'Login' : 'Sign Up'}</Card.Title>
               <Form onSubmit={isLogin ? handleLogin : handleSignup}>
                 {!isLogin && (
@@ -107,7 +108,7 @@ const Profile = () => {
                   </Form.Group>
                 )}
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="w-100">
                   {isLogin ? 'Login' : 'Sign Up'}
                 </Button>
               </Form>
@@ -123,12 +124,22 @@ const Profile = () => {
       </Row>
 
       <style>{`
-        .card {
+        .profile-card {
+          animation: fadeIn 0.5s;
+        }
+
+        .form-card {
           transition: transform 0.2s ease;
         }
 
-        .card:hover {
-          transform: scale(1.05);
+        .form-card:hover {
+          transform: scale(1.02);
+        }
+
+        .profile-pic {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
         }
 
         .alert {
