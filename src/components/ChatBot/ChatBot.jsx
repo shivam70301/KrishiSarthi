@@ -17,6 +17,8 @@ const ChatButton = () => {
         border: 'none',
         backgroundColor: 'transparent',
         cursor: 'pointer',
+        padding: 0, // Ensures no padding
+        outline: 'none', // Removes any focus outline
       }}
       onClick={handleClick}
     >

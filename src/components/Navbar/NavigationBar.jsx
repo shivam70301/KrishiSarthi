@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png';
 import star from '../../assets/star.png';
 import bell from '../../assets/bell.png';
 import person from '../../assets/person.png';
-import translateIcon from '../../assets/translator.png';
+import translateIcon from '../../assets/translator.png';       
 import locationIcon from '../../assets/location.png';
 
 // Sample districts of Maharashtra (replace with your actual data)
@@ -114,171 +114,179 @@ function NavigationBar() {
         </div>
 
         {/* Other Icons */}
-        <button
+        <div
           className="nav-link"
           onMouseEnter={() => setHoveredIcon("Watchlist")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <img src={star} alt="Watchlist" />
           {hoveredIcon === "Watchlist" && (
-            <div className="tooltip">Watchlist</div>
+            <div className="hover-content">
+              <div>Watchlist</div>
+              {/* Add watchlist items dynamically here */}
+            </div>
           )}
-        </button>
+        </div>
 
-        <button
+        <div
           className="nav-link"
           onMouseEnter={() => setHoveredIcon("Notification")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <img src={bell} alt="Notification" />
           {hoveredIcon === "Notification" && (
-            <div className="tooltip">Notification</div>
+            <div className="hover-content">
+              <div>Notifications</div>
+              {/* Add notification items dynamically here */}
+            </div>
           )}
-        </button>
+        </div>
 
-        <button
+        <div
           className="nav-link"
           onMouseEnter={() => setHoveredIcon("Profile")}
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <img src={person} alt="Profile" />
-          {hoveredIcon === "Profile" && <div className="tooltip">Profile</div>}
-        </button>
+          {hoveredIcon === "Profile" && (
+            <div className="hover-content">
+              <div>Profile</div>
+              {/* Add profile details dynamically here */}
+             
+            </div>
+          )}
+        </div>
       </div>
 
       <style jsx>{`
-        .nav-bar {
-          background-color: #228b22;
-          padding: 1rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 75px;
-          white-space: nowrap;
-          box-sizing: border-box;
-          overflow: hidden; /* Remove scrollbars */
-        }
+  .nav-bar {
+    background-color: #228b22;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+    white-space: nowrap;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
 
-        .logo-container {
-          display: flex;
-          align-items: center;
-          flex-shrink: 0;
-        }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
 
-        .logo-container img {
-          width: 50px;
-          height: 50px;
-          margin-right: 0.5rem;
-        }
+  .logo-container img {
+    width: 50px;
+    height: 50px;
+    margin-right: 0.5rem;
+  }
 
-        .logo-text {
-          font-size: 24px;
-          color: #ffffff;
-          font-weight: bold;
-        }
+  .logo-text {
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: bold;
+  }
 
-        input {
-          padding: 8px;
-          border: 1px solid #ccc;
-          border-radius: 20px;
-          font-size: 16px;
-          width: 300px;
-          max-width: 100%;
-        }
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    width: 300px;
+    max-width: 100%;
+  }
 
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          flex-shrink: 0;
-          white-space: nowrap;
-        }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
 
-        .nav-link {
-          display: inline-flex;
-          align-items: center;
-          position: relative;
-          cursor: pointer;
-          flex-shrink: 0; /* Prevent elements from shrinking */
-          white-space: nowrap; /* Prevent text wrapping */
-        }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
 
-        .nav-link img {
-          width: 20px;
-          height: 20px;
-          margin-right: 0.5rem;
-        }
+  .nav-link img {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+  }
 
-        .translator-dropdown,
-        .location-dropdown {
-          position: fixed; /* Fixed to avoid clipping */
-          background-color: #fff;
-          padding: 8px 0;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-          z-index: 1000;
-          width: auto; /* Allow dropdown to expand horizontally */
-          max-height: 200px;
-          overflow-y: auto;
-          display: flex;
-          flex-direction: column;
-          flex-wrap: nowrap; /* Prevent wrapping to the next line */
-        }
+  .translator-dropdown,
+  .location-dropdown {
+    position: fixed;
+    background-color: #fff;
+    padding: 8px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
 
-        .dropdown-item {
-          padding: 8px 12px;
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-          width: auto; /* Allow dropdown items to expand horizontally */
-          text-align: left;
-          border-bottom: 1px solid #ccc;
-        }
+  .dropdown-item {
+    padding: 8px 12px;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
 
-        .tooltip {
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          transform: translateX(-50%);
-          background-color: #fff;
-          padding: 8px 12px;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+  .hover-content {
+    position: absolute;
+    top: 130%; /* Adjust to show hover text below the icon */
+    left: 40%; /* Start at the middle of the icon */
+    transform: translateX(-50%); /* Center it horizontally */
+    background-color: white; /* White background */
+    color: black; /* Black text color */
+    padding: 8 px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* High z-index to ensure it appears on top */
+    white-space: nowrap;
+    font-size: 14px;
 
-        @media (max-width: 768px) {
-          .nav-bar {
-            padding: 0.5rem;
-            height: auto;
-            overflow: hidden; /* Remove scrollbars */
-          }
+  }
 
-          .logo-text {
-            font-size: 20px;
-          }
+  .hover-content div {
+    margin-bottom: 4px;
+  }
 
-          input {
-            width: 100%;
-            max-width: 200px;
-          }
+  .hover-content div:last-child {
+    margin-bottom: 0;
+  }
 
-          .nav-links {
-            gap: 0.5rem;
-          }
+  @media screen and (max-width: 768px) {
+    .nav-bar {
+      flex-direction: column;
+    }
 
-          .nav-link img {
-            width: 20px;
-            height: 20px;
-          }
+    input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
 
-          .translator-dropdown,
-          .location-dropdown {
-            width: auto; /* Allow dropdown to expand horizontally */
-            max-width: 100%; /* Limit max width */
-            overflow-x: hidden; /* Remove horizontal scrollbar */
-          }
-        }
-      `}</style>
+    .nav-links {
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+`}</style>
+
     </nav>
   );
 }

@@ -6,7 +6,7 @@ import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
 import tool from '../../assets/Agriculture_Plan.png';
 import { Link } from "react-router-dom";
-const Navbar = () => {
+const Lower_Navbar = () => {
   return (
     <nav className="navbar">
       <ul className="nav-list">
@@ -182,4 +182,4 @@ const Navbar = () => {
 };
 
 
-export default Navbar;
+export default Lower_Navbar;
