@@ -52,7 +52,38 @@ function About() {
                 </p>
               </div>
 
-              {/* Right Side: Feedback Form */}
+              {/* Right Side: FAQ Section */}
+              <div className="col-md-6">
+                <h2 className="h4 text-dark">Frequently Asked Questions</h2>
+                <div className="faq-item" onClick={() => toggleFaq(1)}>
+                  <strong>Q1: What is KrishiSarthi?</strong>
+                  {openFaq === 1 && (
+                    <p>A1: KrishiSarthi is a platform designed to empower farmers with information and tools to improve their agricultural practices.</p>
+                  )}
+                </div>
+                <div className="faq-item" onClick={() => toggleFaq(2)}>
+                  <strong>Q2: How can I get started?</strong>
+                  {openFaq === 2 && (
+                    <p>A2: Simply register on our platform, and you will have access to a wealth of resources tailored for farmers.</p>
+                  )}
+                </div>
+                <div className="faq-item" onClick={() => toggleFaq(3)}>
+                  <strong>Q3: Is the service free to use?</strong>
+                  {openFaq === 3 && (
+                    <p>A3: Yes, KrishiSarthi offers free services to empower farmers with knowledge and resources.</p>
+                  )}
+                </div>
+                <div className="faq-item" onClick={() => toggleFaq(4)}>
+                  <strong>Q4: How can I provide feedback?</strong>
+                  {openFaq === 4 && (
+                    <p>A4: You can provide feedback using the form on this page or by contacting us directly through email or phone.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Feedback Form Section */}
+            <div className="row mt-4"> {/* Reduced margin-top */}
               <div className="col-md-6">
                 <h2 className="h4 text-dark mb-4 fade-in">
                   We Value Your Feedback!
@@ -70,7 +101,8 @@ function About() {
                       value={feedback.name}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-2 border rounded feedback-input"
+                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
+                      style={{ fontSize: "0.9rem" }} // Smaller font size
                     />
                     <input
                       type="email"
@@ -79,7 +111,8 @@ function About() {
                       value={feedback.email}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-2 border rounded feedback-input"
+                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
+                      style={{ fontSize: "0.9rem" }} // Smaller font size
                     />
                     <textarea
                       name="message"
@@ -87,19 +120,21 @@ function About() {
                       value={feedback.message}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-2 border rounded feedback-input"
-                      style={{ height: "100px", resize: "none" }} // Reduced height
+                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
+                      style={{ height: "80px", resize: "none", fontSize: "0.9rem" }} // Reduced height and font size
                     />
-                    <button type="submit" className="btn btn-success feedback-button">
+                    <button
+                      type="submit"
+                      className="btn btn-success feedback-button"
+                      style={{ fontSize: "0.9rem", padding: "5px 10px" }} // Smaller button with reduced padding
+                    >
                       Submit Feedback
                     </button>
                   </form>
                 )}
               </div>
-            </div>
 
-            {/* Contact Information */}
-            <div className="row mt-4"> {/* Reduced margin-top */}
+              {/* Contact Information */}
               <div className="col-md-6">
                 <h2 className="h4 text-dark">Contact Us</h2>
                 <p>
@@ -126,35 +161,6 @@ function About() {
                   <a href="#" className="social-icon">
                     <i className="fab fa-threads"></i> Threads
                   </a>
-                </div>
-              </div>
-
-              {/* FAQ Section with Toggle */}
-              <div className="col-md-6">
-                <h2 className="h4 text-dark">Frequently Asked Questions</h2>
-                <div className="faq-item" onClick={() => toggleFaq(1)}>
-                  <strong>Q1: What is KrishiSarthi?</strong>
-                  {openFaq === 1 && (
-                    <p>A1: KrishiSarthi is a platform designed to empower farmers with information and tools to improve their agricultural practices.</p>
-                  )}
-                </div>
-                <div className="faq-item" onClick={() => toggleFaq(2)}>
-                  <strong>Q2: How can I get started?</strong>
-                  {openFaq === 2 && (
-                    <p>A2: Simply register on our platform, and you will have access to a wealth of resources tailored for farmers.</p>
-                  )}
-                </div>
-                <div className="faq-item" onClick={() => toggleFaq(3)}>
-                  <strong>Q3: Is the service free to use?</strong>
-                  {openFaq === 3 && (
-                    <p>A3: Yes, KrishiSarthi offers free services to empower farmers with knowledge and resources.</p>
-                  )}
-                </div>
-                <div className="faq-item" onClick={() => toggleFaq(4)}>
-                  <strong>Q4: How can I provide feedback?</strong>
-                  {openFaq === 4 && (
-                    <p>A4: You can provide feedback using the form on this page or by contacting us directly through email or phone.</p>
-                  )}
                 </div>
               </div>
             </div>

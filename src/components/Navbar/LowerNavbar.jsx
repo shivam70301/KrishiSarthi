@@ -94,11 +94,11 @@ const Lower_Navbar = () => {
       <style jsx>{`
         .navbar {
           background-color: #f0f0f0;
-          padding: 1rem;
+          padding: 0.5rem;
           display: flex;
           justify-content: center;
           overflow-x: auto;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: rgb(51, 51, 51) 0px 0px 0px 3px;
         }
         .nav-list {
           list-style: none;

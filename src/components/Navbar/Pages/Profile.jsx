@@ -2,20 +2,30 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const districts = [
+  "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara",
+  "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli",
+  "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban",
+  "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar",
+  "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg",
+  "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"
+];
+
 const Profile = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [district, setDistrict] = useState('');
+  const [photo, setPhoto] = useState(null);
   const [user, setUser] = useState(null);
   const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      // Dummy user object with a photo
-      setUser({ email, name, phone, photo: 'https://via.placeholder.com/150' });
+      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/150' });
       setError('');
     } else {
       setError('Please enter both email and password');
@@ -24,12 +34,18 @@ const Profile = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    if (email && password && name && phone) {
-      // Dummy user object with a photo
-      setUser({ email, name, phone, photo: 'https://via.placeholder.com/150' });
+    if (email && password && name && phone && district) {
+      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/150' });
       setError('');
     } else {
       setError('Please fill all fields');
+    }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhoto(file);
     }
   };
 
@@ -40,6 +56,8 @@ const Profile = () => {
     setPassword('');
     setName('');
     setPhone('');
+    setDistrict('');
+    setPhoto(null);
   };
 
   return (
@@ -50,27 +68,70 @@ const Profile = () => {
           {user ? (
             <Card className="p-4 shadow-sm text-center profile-card">
               <Image src={user.photo} roundedCircle className="profile-pic mb-3" />
-              <Card.Title>Welcome, {user.name}!</Card.Title>
+              <Card.Title className="profile-title">Welcome, {user.name}!</Card.Title>
               <Card.Body>
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Phone:</strong> {user.phone}</p>
+                <p><strong>District:</strong> {user.district}</p>
+                <Button variant="primary" className="home-button" onClick={() => window.location.reload()}>
+                  Home
+                </Button>
               </Card.Body>
             </Card>
           ) : (
             <Card className="p-4 shadow-sm form-card">
-              <Card.Title>{isLogin ? 'Login' : 'Sign Up'}</Card.Title>
+              <Card.Title className="form-title">{isLogin ? 'Login' : 'Sign Up'}</Card.Title>
               <Form onSubmit={isLogin ? handleLogin : handleSignup}>
                 {!isLogin && (
-                  <Form.Group controlId="formBasicName">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter your name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </Form.Group>
+                  <>
+                    <Form.Group controlId="formBasicName">
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter your name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPhone">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicDistrict">
+                      <Form.Label>District</Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        required
+                      >
+                        <option value="">Select your district</option>
+                        {districts.map((district, index) => (
+                          <option key={index} value={district}>{district}</option>
+                        ))}
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPhoto">
+                      <Form.Label>Profile Photo</Form.Label>
+                      <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePhotoChange}
+                        required
+                      />
+                      {photo && <Image src={URL.createObjectURL(photo)} rounded className="mt-3" style={{ width: '100px', height: '100px' }} />}
+                    </Form.Group>
+                  </>
                 )}
 
                 <Form.Group controlId="formBasicEmail">
@@ -95,26 +156,13 @@ const Profile = () => {
                   />
                 </Form.Group>
 
-                {!isLogin && (
-                  <Form.Group controlId="formBasicPhone">
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                    />
-                  </Form.Group>
-                )}
-
-                <Button variant="primary" type="submit" className="w-100">
+                <Button variant="primary" type="submit" className="w-100 submit-button">
                   {isLogin ? 'Login' : 'Sign Up'}
                 </Button>
               </Form>
-              <p className="mt-3">
+              <p className="mt-3 toggle-form-text">
                 {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}
-                <Button variant="link" onClick={toggleForm}>
+                <Button variant="link" onClick={toggleForm} className="toggle-form-button">
                   {isLogin ? 'Sign Up' : 'Login'}
                 </Button>
               </p>
@@ -126,6 +174,11 @@ const Profile = () => {
       <style>{`
         .profile-card {
           animation: fadeIn 0.5s;
+          transition: transform 0.2s ease;
+        }
+
+        .profile-card:hover {
+          transform: scale(1.02); /* Scale up on hover */
         }
 
         .form-card {
@@ -133,7 +186,19 @@ const Profile = () => {
         }
 
         .form-card:hover {
-          transform: scale(1.02);
+          transform: scale(1.02); /* Scale up on hover */
+        }
+
+        .profile-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #333;
+        }
+
+        .form-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #007bff;
         }
 
         .profile-pic {
@@ -144,6 +209,38 @@ const Profile = () => {
 
         .alert {
           animation: fadeIn 0.5s;
+        }
+
+        .submit-button {
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-button:hover {
+          background-color: #0056b3; /* Darker blue on hover */
+          transform: scale(1.05); /* Slightly scale up on hover */
+        }
+
+        .toggle-form-button {
+          font-weight: bold;
+          color: #007bff;
+          text-decoration: underline; /* Underline link */
+          transition: color 0.3s;
+        }
+
+        .toggle-form-button:hover {
+          color: #0056b3; /* Darker blue on hover */
+        }
+
+        .home-button {
+          margin-top: 20px;
+          background-color: #28a745; /* Green */
+          border: none;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .home-button:hover {
+          background-color: #218838; /* Darker green on hover */
+          transform: scale(1.05); /* Slightly scale up on hover */
         }
 
         @keyframes fadeIn {
