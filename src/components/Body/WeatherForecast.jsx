@@ -1,9 +1,8 @@
 // WeatherForecast.js
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-
-// Import react-responsive-carousel CSS
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Function to format date as dd/mm/yyyy
 const formatDate = (dateString) => {
@@ -14,25 +13,6 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 };
 
-const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 1
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-  
 const WeatherForecast = () => {
   // Sample weather data with dates
   const weatherData = [
@@ -57,74 +37,9 @@ const WeatherForecast = () => {
 
   const chunks = splitIntoChunks(weatherData);
 
-  const carouselStyle = {
-    width: '100%',
-    margin: '0 auto',
-  };
-
-  const slideStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: '20px',
-    boxSizing: 'border-box',
-  };
-
-  const dayContainerStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  };
-
-  const dayStyle = {
-    display: 'inline-block',
-    textAlign: 'center',
-    margin: '0 10px',
-    flex: '0 0 23%', // Adjust width to fit exactly 4 days in one row
-    boxSizing: 'border-box',
-  };
-
-  const dateStyle = {
-    fontSize: '14px',
-    color: '#888',
-    margin: '5px 0',
-  };
-
-  const iconStyle = {
-    fontSize: '24px',
-    margin: '5px 0',
-  };
-
-  const tempStyle = {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    margin: '5px 0',
-  };
-
-  const conditionStyle = {
-    fontSize: '14px',
-    margin: '5px 0',
-  };
-
-  const descriptionStyle = {
-    fontSize: '12px',
-    color: '#555',
-  };
-
-  const titleStyle = {
-    textAlign: 'center',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    margin: '20px 0',
-    color: '#333',
-    marginBottom: '20px',      
-  };
   return (
-    <div style={carouselStyle}>
-      <h2 style={titleStyle}>Weather Forecast</h2>
+    <div className="container my-5">
+      <h2 className="text-center mb-5 animated-title">🌦️ Weather Forecast</h2>
       <Carousel
         showThumbs={false}
         showStatus={false}
@@ -132,25 +47,116 @@ const WeatherForecast = () => {
         useKeyboardArrows
         autoPlay
         interval={5000}
-        responsive={responsive}
+        transitionTime={700}
+        className="animated-carousel"
       >
         {chunks.map((chunk, index) => (
-          <div key={index} style={slideStyle}>
-            <div style={dayContainerStyle}>
-              {chunk.map((day, i) => (
-                <div key={i} style={dayStyle}>
-                  <p style={dateStyle}>{formatDate(day.date)}</p>
-                  <h4>{day.day}</h4>
-                  <div style={iconStyle}>{day.icon}</div>
-                  <p style={tempStyle}>{day.temp}</p>
-                  <p style={conditionStyle}>{day.condition}</p>
-                  <p style={descriptionStyle}>{day.description}</p>
-                </div>
-              ))}
-            </div>
+          <div key={index} className="d-flex justify-content-around weather-slide">
+            {chunk.map((day, i) => (
+              <div key={i} className="day-card p-3">
+                <p className="date">{formatDate(day.date)}</p>
+                <h4 className="day-name">{day.day}</h4>
+                <div className="weather-icon">{day.icon}</div>
+                <p className="temperature">{day.temp}</p>
+                <p className="condition">{day.condition}</p>
+                <p className="description">{day.description}</p>
+              </div>
+            ))}
           </div>
         ))}
       </Carousel>
+      <style>{`
+        /* Carousel Animation */
+        .animated-carousel {
+          animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Title Animation */
+        .animated-title {
+          font-size: 2.5rem;
+          color: #007bff;
+          animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+          from { transform: translateY(-50px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* Weather Slide */
+        .weather-slide {
+          padding: 30px;
+          border-radius: 10px;
+          background-color: #f0f8ff;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          animation: zoomIn 0.7s ease-out;
+        }
+
+        @keyframes zoomIn {
+          from { transform: scale(0.9); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Day Cards */
+        .day-card {
+          width: 22%;
+          background: linear-gradient(135deg, #007bff, #33b5e5);
+          color: #fff;
+          text-align: center;
+          border-radius: 10px;
+          transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .day-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styling for Elements */
+        .date {
+          font-size: 0.9rem;
+          margin-bottom: 5px;
+          font-weight: 500;
+        }
+
+        .day-name {
+          font-size: 1.4rem;
+          margin-bottom: 10px;
+        }
+
+        .weather-icon {
+          font-size: 2.5rem;
+          margin-bottom: 10px;
+        }
+
+        .temperature {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        .condition {
+          font-size: 1rem;
+          margin-bottom: 10px;
+        }
+
+        .description {
+          font-size: 0.9rem;
+          color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+          .day-card {
+            width: 45%;
+            margin-bottom: 20px;
+          }
+        }
+      `}</style>
     </div>
   );
 };
