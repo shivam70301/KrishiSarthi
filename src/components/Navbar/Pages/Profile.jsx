@@ -28,7 +28,7 @@ const Profile = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/150' });
+      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/100' });
       setError('');
     } else {
       setError('Please enter both email and password');
@@ -38,7 +38,7 @@ const Profile = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     if (email && password && name && phone && district) {
-      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/150' });
+      setUser({ email, name, phone, district, photo: photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/100' });
       setError('');
     } else {
       setError('Please fill all fields');
@@ -64,7 +64,7 @@ const Profile = () => {
   };
 
   const goToHomePage = () => {
-    navigate('/'); // Redirect to the main homepage (adjust this route if needed)
+    navigate('/'); // Redirect to the main homepage
   };
 
   return (
@@ -74,7 +74,9 @@ const Profile = () => {
           {error && <Alert variant="danger">{error}</Alert>}
           {user ? (
             <Card className="p-4 shadow-sm text-center profile-card">
-              <Image src={user.photo} roundedCircle className="profile-pic mb-3" />
+              <div className="image-container">
+                <Image src={user.photo} roundedCircle className="profile-pic mb-3" />
+              </div>
               <Card.Title className="profile-title">Welcome, {user.name}!</Card.Title>
               <Card.Body>
                 <p><strong>Email:</strong> {user.email}</p>
@@ -136,7 +138,7 @@ const Profile = () => {
                         onChange={handlePhotoChange}
                         required
                       />
-                      {photo && <Image src={URL.createObjectURL(photo)} rounded className="mt-3" style={{ width: '100px', height: '100px' }} />}
+                      {photo && <Image src={URL.createObjectURL(photo)} rounded className="mt-3" style={{ width: '80px', height: '80px' }} />}
                     </Form.Group>
                   </>
                 )}
@@ -178,8 +180,99 @@ const Profile = () => {
         </Col>
       </Row>
 
-      {/* Same styles as provided before */}
+      <style>{`
+        .profile-card {
+          animation: fadeIn 0.5s;
+          background-color: #f8f9fa; /* Lighter background */
+          transition: transform 0.2s ease, background-color 0.3s;
+        }
+
+        .profile-card:hover {
+          transform: scale(1.02); /* Scale up on hover */
+          background-color: #e2e6ea; /* Change background on hover */
+        }
+
+        .form-card {
+          transition: transform 0.2s ease;
+        }
+
+        .form-card:hover {
+          transform: scale(1.02); /* Scale up on hover */
+        }
+
+        .image-container {
+          display: flex;
+          justify-content: center; /* Centers the image horizontally */
+        }
+
+        .profile-title {
+          font-size: 1.75rem;
+          font-weight: bold;
+          color: #333;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .form-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #007bff;
+          font-family: 'Arial', sans-serif;
+        }
+
+        .profile-pic {
+          width: 250px; /* Adjusted profile image size */
+          height: 250px;
+          object-fit: cover;
+          margin: 0 auto; /* Center the image */
+        }
+
+        .alert {
+          animation: fadeIn 0.5s;
+        }
+
+        .submit-button {
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-button:hover {
+          background-color: #0056b3; /* Darker blue on hover */
+          transform: scale(1.05); /* Slightly scale up on hover */
+        }
+
+        .toggle-form-button {
+          font-weight: bold;
+          color: #007bff;
+          text-decoration: underline; /* Underline link */
+          transition: color 0.3s;
+        }
+
+        .toggle-form-button:hover {
+          color: #0056b3; /* Darker blue on hover */
+        }
+
+        .home-button {
+          margin-top: 20px;
+          background-color: #28a745; /* Green */
+          border: none;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .home-button:hover {
+          background-color: #218838; /* Darker green on hover */
+          transform: scale(1.05); /* Slightly scale up on hover */
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </Container>
   );
 };
+
 export default Profile;

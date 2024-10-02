@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../assets/logo.png';
 import star from '../../assets/star.png';
 import bell from '../../assets/bell.png';
-import person from '../../assets/person.png';
+import profile from '../../assets/profile.png';
 import translateIcon from '../../assets/translator.png';       
 import locationIcon from '../../assets/location.png';
 import { Link } from "react-router-dom";
@@ -157,7 +157,7 @@ function NavigationBar() {
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <Link to="/Profile">
-            <img src={person} alt="Profile" />
+            <img src={profile} alt="Profile" />
             {hoveredIcon === "Profile" && (
               <div className="hover-content">
                 <div>Profile</div>
@@ -169,14 +169,14 @@ function NavigationBar() {
       </div>
 
       <style jsx>{`
-        /* Base style for larger screens (laptops and desktops) */
+/* Base style for larger screens (laptops and desktops) */
 .nav-bar {
-  background-color: #3d7c47;
+  background-color: #3d7c47; 
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px; /* Reduce height for large screens */
+  height: 100px;
   white-space: nowrap;
   box-sizing: border-box;
   overflow: hidden;
@@ -185,15 +185,15 @@ function NavigationBar() {
 /* For large screens (desktops, large laptops) */
 @media (min-width: 1024px) {
   .nav-bar {
-    height: 80px; /* Adjust height for large desktops */
-    padding: 1rem 3rem; /* Increase padding */
+    height: 80px;
+    padding: 1rem 3rem;
   }
 }
 
 /* For medium screens (tablets, smaller laptops) */
 @media (max-width: 1024px) {
   .nav-bar {
-    height: 70px; /* Smaller height for tablets */
+    height: 70px;
     padding: 0.8rem 1.5rem;
   }
 }
@@ -201,26 +201,27 @@ function NavigationBar() {
 /* For small screens (phones, small tablets) */
 @media (max-width: 768px) {
   .nav-bar {
-    height: 60px; /* Adjust height for small screens */
-    padding: 0.5rem 1rem; /* Reduce padding */
-    flex-direction: column; /* Stack items vertically */
+    height: auto;
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+    align-items: center; /* Center items in a column */
   }
-  
-  /* Ensure the child elements inside the nav-bar are centered and adjust their styling */
+
   .nav-link {
-    margin-bottom: 0.5rem; /* Add space between stacked elements */
+    margin-bottom: 0.5rem;
   }
 }
 
 /* For extra small screens (small phones) */
 @media (max-width: 480px) {
   .nav-bar {
-    height: auto; /* Allow height to adjust automatically */
+    height: auto;
     padding: 0.5rem;
+    flex-direction: column;
   }
 
   .nav-link {
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px;
   }
 }
 
