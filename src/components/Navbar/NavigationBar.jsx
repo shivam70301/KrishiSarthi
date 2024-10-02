@@ -64,12 +64,14 @@ function NavigationBar() {
       </div>
 
       {/* Search Input */}
+      <div>
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
+      </div>
 
       <div className="nav-links" ref={dropdownRef}>
         {/* Translator Dropdown */}
@@ -90,6 +92,8 @@ function NavigationBar() {
         </div>
 
         {/* Location Dropdown */}
+
+        
         <div
           className="nav-link"
           onClick={(e) => toggleDropdown("location", e)}
@@ -165,17 +169,61 @@ function NavigationBar() {
       </div>
 
       <style jsx>{`
-        .nav-bar {
-          background-color: #3d7c47;
-          padding: 0.5rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 75px;
-          white-space: nowrap;
-          box-sizing: border-box;
-          overflow: hidden;
-        }
+        /* Base style for larger screens (laptops and desktops) */
+.nav-bar {
+  background-color: #3d7c47;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px; /* Reduce height for large screens */
+  white-space: nowrap;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* For large screens (desktops, large laptops) */
+@media (min-width: 1024px) {
+  .nav-bar {
+    height: 80px; /* Adjust height for large desktops */
+    padding: 1rem 3rem; /* Increase padding */
+  }
+}
+
+/* For medium screens (tablets, smaller laptops) */
+@media (max-width: 1024px) {
+  .nav-bar {
+    height: 70px; /* Smaller height for tablets */
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* For small screens (phones, small tablets) */
+@media (max-width: 768px) {
+  .nav-bar {
+    height: 60px; /* Adjust height for small screens */
+    padding: 0.5rem 1rem; /* Reduce padding */
+    flex-direction: column; /* Stack items vertically */
+  }
+  
+  /* Ensure the child elements inside the nav-bar are centered and adjust their styling */
+  .nav-link {
+    margin-bottom: 0.5rem; /* Add space between stacked elements */
+  }
+}
+
+/* For extra small screens (small phones) */
+@media (max-width: 480px) {
+  .nav-bar {
+    height: auto; /* Allow height to adjust automatically */
+    padding: 0.5rem;
+  }
+
+  .nav-link {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
 
         .logo-container {
           display: flex;
