@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../assets/logo.png"; // Import your logo
+import logo1 from "../../assets/logo1.png"; // Import your logo
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function About() {
@@ -36,7 +36,7 @@ function About() {
               {/* Left Side: About Information and Logo */}
               <div className="col-md-6 text-center">
                 <img
-                  src={logo}
+                  src={logo1}
                   alt="KrishiSarthi Logo"
                   className="mb-3 fade-in"
                   style={{ maxWidth: "120px" }}

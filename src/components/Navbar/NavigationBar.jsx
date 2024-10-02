@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import logo from '../../assets/logo.png';
-import star from '../../assets/star.png';
-import bell from '../../assets/bell.png';
+import logo from '../../assets/logo.svg';
+import watchlist from '../../assets/watchlist.png';
+import notification from '../../assets/notification.png';
 import profile from '../../assets/profile.png';
 import translateIcon from '../../assets/translator.png';       
 import locationIcon from '../../assets/location.png';
@@ -125,7 +125,7 @@ function NavigationBar() {
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <Link to="/Watchlist">
-            <img src={star} alt="Watchlist" />
+            <img src={watchlist} alt="Watchlist" />
             {hoveredIcon === "Watchlist" && (
               <div className="hover-content">
                 <div>Watchlist</div>
@@ -141,7 +141,7 @@ function NavigationBar() {
           onMouseLeave={() => setHoveredIcon(null)}
         >
           <Link to="/Notification">
-            <img src={bell} alt="Notification" />
+            <img src={notification} alt="Notification" />
             {hoveredIcon === "Notification" && (
               <div className="hover-content">
                 <div>Notifications</div>
@@ -171,7 +171,7 @@ function NavigationBar() {
       <style jsx>{`
 /* Base style for larger screens (laptops and desktops) */
 .nav-bar {
-  background-color: #3d7c47; 
+  background-color: #009400; 
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
