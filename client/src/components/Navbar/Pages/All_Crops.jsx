@@ -67,23 +67,21 @@ const AllCrops = () => {
                 alt={selectedCrop.name} 
                 className="img-fluid mb-3 crop-image d-block mx-auto" 
               />
-              <h5>Growing Technique:</h5>
-              <p>{selectedCrop.growingTechnique}</p>
-              <h5>Diseases:</h5>
-              <p>{selectedCrop.diseases}</p>
-              <h5>Benefits:</h5>
-              <p>{selectedCrop.benefits}</p>
-              <h5>Preferred Climate:</h5>
-              <p>{selectedCrop.climate}</p>
-              <h5>Watering Requirements:</h5>
-              <p>{selectedCrop.watering}</p>
-              <h5>Soil Type:</h5>
-              <p>{selectedCrop.soil}</p>
+              <h5>Seed Selection:</h5>
+              <p>{selectedCrop.seedSelection}</p>
+              <h5>Soil Preparation:</h5>
+              <p>{selectedCrop.soilPreparation}</p>
+              <h5>Planting:</h5>
+              <p>{selectedCrop.planting}</p>
+              <h5>Water Management:</h5>
+              <p>{selectedCrop.waterManagement}</p>
               <h5>Fertilizer Requirements:</h5>
               <p>{selectedCrop.fertilizer}</p>
-              <h5>Pest Control:</h5>
-              <p>{selectedCrop.pestControl}</p>
-              <h5>Harvesting:</h5>
+              <h5>Diseases:</h5>
+              <p>{selectedCrop.diseases}</p>
+              <h5>Pesticides:</h5>
+              <p>{selectedCrop.pesticides}</p>
+              <h5>Harvesting (Time & Methods):</h5>
               <p>{selectedCrop.harvesting}</p>
             </div>
           </Modal.Body>
@@ -94,7 +92,7 @@ const AllCrops = () => {
           </Modal.Footer>
         </Modal>
       )}
-     
+
       <style>{`
         .container {
           background-color: #f8f9fa; /* Light background for better contrast */

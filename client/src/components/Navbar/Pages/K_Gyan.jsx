@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const K_Gyan = () => {
-  const videos = [
-    {
-      id: 1,
-      title: 'Sustainable Farming Techniques',
-      url: 'https://www.youtube.com/embed/Ot8AJHlwfsk',
-    },
-    {
-      id: 2,
-      title: 'Organic Farming Practices',
-      url: 'https://www.youtube.com/embed/7HJQ9FU7FAg',
-    },
-    {
-      id: 3,
-      title: 'How to Grow Healthy Crops',
-      url: 'https://www.youtube.com/embed/MZKmkmDBI5c',
-    },
-  ];
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/K_Gyan');
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
 
   return (
     <div className="container my-5">
@@ -30,7 +28,7 @@ const K_Gyan = () => {
       </p>
       <div className="row">
         {videos.map((video) => (
-          <div className="col-md-4 col-sm-12 mb-4" key={video.id}>
+          <div className="col-md-4 col-sm-12 mb-4" key={video._id}>
             <div className="card h-100 shadow border-0 video-card">
               <div className="ratio ratio-16x9">
                 <iframe

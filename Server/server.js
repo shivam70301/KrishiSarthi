@@ -21,6 +21,7 @@ app.use(morgan("dev"));
 
 //ROUTES
 app.use("/api/AllCrops", require("./routes/AllCropsRoutes"));
+app.use("/api/K_Gyan", require("./routes/K_GyanRoutes"));
 
 //PORT
 const PORT = process.env.PORT || 8080;

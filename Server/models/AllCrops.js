@@ -1,18 +1,16 @@
-// server/models/Crop.js
 const mongoose = require('mongoose');
 
 const AllCropSchema = new mongoose.Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
-  growingTechnique: { type: String },
-  diseases: { type: String },
-  benefits: { type: String },
-  climate: { type: String },
-  watering: { type: String },
-  soil: { type: String },
+  seedSelection: { type: String },
+  soilPreparation: { type: String },
+  planting: { type: String },
+  waterManagement: { type: String },
   fertilizer: { type: String },
-  pestControl: { type: String },
-  harvesting: { type: String },
+  diseases: { type: String },
+  pesticides: { type: String },
+  harvesting: { type: String }, // Combined field for Time & Methods
 });
 
 const AllCrops = mongoose.model('AllCrops', AllCropSchema);
