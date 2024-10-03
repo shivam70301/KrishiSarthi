@@ -4,10 +4,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const K_Gyan = () => {
   const [videos, setVideos] = useState([]);
 
+  // Function to convert regular YouTube URL to embedded URL
+  const getEmbeddedUrl = (url) => {
+    const videoId = url.includes('watch?v=') ? url.split('v=')[1] : url.split('/').pop();
+    return `https://www.youtube.com/embed/${videoId}`;
+  };
+
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/K_Gyan');
+        const response = await fetch('http://localhost:8080/api/K_Gyan');
         const data = await response.json();
         setVideos(data);
       } catch (error) {
@@ -32,7 +38,7 @@ const K_Gyan = () => {
             <div className="card h-100 shadow border-0 video-card">
               <div className="ratio ratio-16x9">
                 <iframe
-                  src={video.url}
+                  src={getEmbeddedUrl(video.url)}  // Convert the URL before embedding
                   allowFullScreen
                   title={video.title}
                   className="embed-responsive-item"
