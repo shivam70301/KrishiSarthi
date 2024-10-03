@@ -28,10 +28,10 @@ function About() {
   };
 
   return (
-    <div className="container-fluid bg-light p-3" style={{ height: "100vh" }}> {/* Full viewport height */}
-      <div className="row justify-content-center h-100"> {/* Full height row */}
-        <div className="col-md-12 d-flex flex-column justify-content-between"> {/* Increased width to 12 */}
-          <div className="scrollable-container"> {/* Added scrollable container */}
+    <div className="container-fluid bg-light p-3" >
+      <div className="row justify-content-center h-100">
+        <div className="col-md-12 d-flex flex-column justify-content-between">
+          <div className="scrollable-container">
             <div className="row justify-content-center">
               {/* Left Side: About Information and Logo */}
               <div className="col-md-6 text-center">
@@ -45,10 +45,14 @@ function About() {
                   About KrishiSarthi
                 </h1>
                 <p className="lead text-muted fade-in">
-                  KrishiSarthi is your trusted companion in the world of agriculture. We provide valuable information on soil conditions, crop recommendations, pest control, and real-time market prices.
+                  KrishiSarthi is your trusted companion in the world of
+                  agriculture. We provide valuable information on soil
+                  conditions, crop recommendations, pest control, and real-time
+                  market prices.
                 </p>
                 <p className="text-muted fade-in">
-                  Join the KrishiSarthi community today for a smarter, sustainable farming future!
+                  Join the KrishiSarthi community today for a smarter,
+                  sustainable farming future!
                 </p>
               </div>
 
@@ -58,32 +62,45 @@ function About() {
                 <div className="faq-item" onClick={() => toggleFaq(1)}>
                   <strong>Q1: What is KrishiSarthi?</strong>
                   {openFaq === 1 && (
-                    <p>A1: KrishiSarthi is a platform designed to empower farmers with information and tools to improve their agricultural practices.</p>
+                    <p>
+                      A1: KrishiSarthi is a platform designed to empower farmers
+                      with information and tools to improve their agricultural
+                      practices.
+                    </p>
                   )}
                 </div>
                 <div className="faq-item" onClick={() => toggleFaq(2)}>
                   <strong>Q2: How can I get started?</strong>
                   {openFaq === 2 && (
-                    <p>A2: Simply register on our platform, and you will have access to a wealth of resources tailored for farmers.</p>
+                    <p>
+                      A2: Simply register on our platform, and you will have
+                      access to a wealth of resources tailored for farmers.
+                    </p>
                   )}
                 </div>
                 <div className="faq-item" onClick={() => toggleFaq(3)}>
                   <strong>Q3: Is the service free to use?</strong>
                   {openFaq === 3 && (
-                    <p>A3: Yes, KrishiSarthi offers free services to empower farmers with knowledge and resources.</p>
+                    <p>
+                      A3: Yes, KrishiSarthi offers free services to empower
+                      farmers with knowledge and resources.
+                    </p>
                   )}
                 </div>
                 <div className="faq-item" onClick={() => toggleFaq(4)}>
                   <strong>Q4: How can I provide feedback?</strong>
                   {openFaq === 4 && (
-                    <p>A4: You can provide feedback using the form on this page or by contacting us directly through email or phone.</p>
+                    <p>
+                      A4: You can provide feedback using the form on this page
+                      or by contacting us directly through email or phone.
+                    </p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* Feedback Form Section */}
-            <div className="row mt-4"> {/* Reduced margin-top */}
+            <div className="row mt-4">
               <div className="col-md-6">
                 <h2 className="h4 text-dark mb-4 fade-in">
                   We Value Your Feedback!
@@ -101,8 +118,8 @@ function About() {
                       value={feedback.name}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
-                      style={{ fontSize: "0.9rem" }} // Smaller font size
+                      className="mb-2 p-1 border rounded feedback-input"
+                      style={{ fontSize: "0.9rem" }}
                     />
                     <input
                       type="email"
@@ -111,8 +128,8 @@ function About() {
                       value={feedback.email}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
-                      style={{ fontSize: "0.9rem" }} // Smaller font size
+                      className="mb-2 p-1 border rounded feedback-input"
+                      style={{ fontSize: "0.9rem" }}
                     />
                     <textarea
                       name="message"
@@ -120,13 +137,17 @@ function About() {
                       value={feedback.message}
                       onChange={handleChange}
                       required
-                      className="mb-2 p-1 border rounded feedback-input" // Reduced padding
-                      style={{ height: "80px", resize: "none", fontSize: "0.9rem" }} // Reduced height and font size
+                      className="mb-2 p-1 border rounded feedback-input"
+                      style={{
+                        height: "80px",
+                        resize: "none",
+                        fontSize: "0.9rem",
+                      }}
                     />
                     <button
                       type="submit"
                       className="btn btn-success feedback-button"
-                      style={{ fontSize: "0.9rem", padding: "5px 10px" }} // Smaller button with reduced padding
+                      style={{ fontSize: "0.9rem", padding: "5px 10px" }}
                     >
                       Submit Feedback
                     </button>
@@ -138,7 +159,8 @@ function About() {
               <div className="col-md-6">
                 <h2 className="h4 text-dark">Contact Us</h2>
                 <p>
-                  <i className="fas fa-envelope"></i> Email: support@krishisarthi.com
+                  <i className="fas fa-envelope"></i> Email:
+                  support@krishisarthi.com
                 </p>
                 <p>
                   <i className="fas fa-phone"></i> Phone: +123 456 7890
@@ -147,7 +169,7 @@ function About() {
                   <i className="fas fa-comments"></i> WhatsApp: +123 456 7891
                 </p>
 
-                <h2 className="h4 text-dark mt-3">Follow Us</h2> {/* Reduced margin-top */}
+                <h2 className="h4 text-dark mt-3">Follow Us</h2>
                 <div className="social-links">
                   <a href="#" className="social-icon">
                     <i className="fab fa-instagram"></i> Instagram
@@ -171,19 +193,23 @@ function About() {
       {/* Styles for animations and hover effects */}
       <style jsx>{`
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
         .fade-in {
           animation: fadeIn 2s;
         }
         .scrollable-container {
-          max-height: 350px; /* Reduce height to fit the viewport */
-          overflow-y: auto; /* Enable vertical scrollbar */
-          border: 1px solid #ccc; /* Optional border */
-          border-radius: 5px; /* Rounded corners */
-          padding: 15px; /* Padding inside the container */
-          background: white; /* Background color */
+          max-height: 350px;
+          overflow-y: auto;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 15px;
+          background: white;
         }
         .social-links {
           display: flex;
@@ -200,32 +226,32 @@ function About() {
         }
         .social-icon:hover {
           color: #0056b3;
-          transform: scale(1.1); /* Scale up on hover */
+          transform: scale(1.1);
         }
         .feedback-input {
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .feedback-input:focus {
-          border-color: #007bff; /* Change border color on focus */
-          box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add box shadow */
+          border-color: #007bff;
+          box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
         .feedback-button {
           transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .feedback-button:hover {
-          background-color: #0056b3; /* Darker green on hover */
-          transform: scale(1.05); /* Scale up on hover */
+          background-color: #0056b3;
+          transform: scale(1.05);
         }
         .faq-item {
           margin-bottom: 15px;
           cursor: pointer;
           transition: background-color 0.3s ease;
           padding: 10px;
-          border: 1px solid transparent; /* To add hover effect */
+          border: 1px solid transparent;
         }
         .faq-item:hover {
-          background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
-          border: 1px solid rgba(0, 123, 255, 0.5); /* Blue border on hover */
+          background-color: rgba(0, 123, 255, 0.1);
+          border: 1px solid rgba(0, 123, 255, 0.5);
         }
         .faq-item strong {
           font-weight: bold;
