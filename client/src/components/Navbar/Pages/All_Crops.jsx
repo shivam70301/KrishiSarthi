@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Modal, Card, Row, Col, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -83,7 +84,14 @@ const cropsData = [
   },
 ];
 
+=======
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Card, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+>>>>>>> e8897b0acfe8418fd1d316b4721a04d028ad70bc
 const AllCrops = () => {
+  const [cropsData, setCropsData] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -94,9 +102,29 @@ const AllCrops = () => {
     setShow(true);
   };
 
+<<<<<<< HEAD
   const filteredCrops = cropsData.filter(crop =>
     crop.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+=======
+  // Fetch crops data from the backend
+  useEffect(() => {
+    const fetchCrops = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/AllCrops');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setCropsData(data);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+
+    fetchCrops();
+  }, []);
+>>>>>>> e8897b0acfe8418fd1d316b4721a04d028ad70bc
 
   return (
     <div className="container">
@@ -121,6 +149,7 @@ const AllCrops = () => {
       </Row>
       
       <Row>
+<<<<<<< HEAD
         {filteredCrops.map((crop) => (
           <Col md={3} key={crop.id} className="mb-3">
             <Card className="shadow border-0 rounded crop-card" onClick={() => handleShow(crop)}>
@@ -130,6 +159,12 @@ const AllCrops = () => {
                 className="crop-image"
                 aria-label={`Click to view details for ${crop.name}`}
               />
+=======
+        {cropsData.map((crop) => (
+          <Col md={4} key={crop._id} className="mb-4">
+            <Card className="shadow border-0 rounded crop-card">
+              <Card.Img variant="top" src={crop.image} className="crop-image" />
+>>>>>>> e8897b0acfe8418fd1d316b4721a04d028ad70bc
               <Card.Body>
                 <Card.Title className="font-weight-bold">{crop.name}</Card.Title>
               </Card.Body>
