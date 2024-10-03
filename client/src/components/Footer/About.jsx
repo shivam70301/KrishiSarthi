@@ -175,7 +175,7 @@ function About() {
                   <div className="social-icon">
                   
                       <img src={instagram} alt="Instagram" style={{ width: "20px", height: "20px" }} />
-                      Instagram
+                      <a href="https://www.instagram.com/accounts/login/" target="_blank">Instagram</a>
                     
                   </div>
                   <div className="social-icon">
