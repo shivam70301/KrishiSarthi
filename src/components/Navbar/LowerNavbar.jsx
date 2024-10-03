@@ -116,7 +116,7 @@ const Lower_Navbar = () => {
           transition: transform 0.3s ease, background-color 0.3s ease;
         }
         .nav-item:hover {
-          transform: scale(1.1 );
+          transform: scale(1.1);
           background-color: rgba(0, 128, 0, 0.1); /* Light green background on hover */
         }
         .nav-link {
@@ -169,18 +169,25 @@ const Lower_Navbar = () => {
             width: 80px;
             height: 80px;
           }
+          .nav-text {
+            font-size: 1rem;
+          }
         }
 
         @media (max-width: 480px) {
+          .navbar {
+            padding: 0.3rem;
+          }
           .nav-list {
             gap: 1rem;
+            padding: 0;
           }
           .nav-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
           }
           .nav-text {
-            font-size: 1rem;
+            font-size: 0.9rem;
           }
         }
 
