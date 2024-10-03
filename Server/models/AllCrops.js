@@ -1,7 +1,7 @@
 // server/models/Crop.js
 const mongoose = require('mongoose');
 
-const cropSchema = new mongoose.Schema({
+const AllCropSchema = new mongoose.Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
   growingTechnique: { type: String },
@@ -15,5 +15,5 @@ const cropSchema = new mongoose.Schema({
   harvesting: { type: String },
 });
 
-const AllCrops = mongoose.model('AllCrops', cropSchema);
+const AllCrops = mongoose.model('AllCrops', AllCropSchema);
 module.exports = AllCrops;
