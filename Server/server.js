@@ -1,26 +1,31 @@
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const morgan = require("morgan");
+const connectDB = require("./config/db");
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://krishisarthi0:ZiT6OAEKbsXwwiAH@krishisarthi.6j38d.mongodb.net/?retryWrites=true&w=majority&appName=KrishiSarthi";
+//DOTENV
+dotenv.config();
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+// MONGODB CONNECTION
+connectDB();
+
+//REST OBJECT
+const app = express();
+
+//middlewares
+app.use(cors());
+app.use(express.json());
+app.use(morgan("dev"));
+
+//ROUTES
+app.use("/api/AllCrops", require("./routes/AllCropsRoutes"));
+
+//PORT
+const PORT = process.env.PORT || 8080;
+
+//listen
+app.listen(PORT, () => {
+  console.log(`Server Runnning ${PORT}`.bgGreen.white);
 });
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
