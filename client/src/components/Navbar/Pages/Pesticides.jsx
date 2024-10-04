@@ -9,7 +9,6 @@ const styles = {
     borderRadius: '8px',
   },
   heading: {
-    textAlign: 'center',
     marginBottom: '2rem',
     fontSize: '3.5rem',
     fontWeight: 'bold',
@@ -114,10 +113,12 @@ const Pesticides = () => {
 
   return (
     <div className="container" style={styles.container}>
-      <h1 style={styles.heading}>Agriculture Pesticides</h1>
-      <p style={styles.subheading}>
-        Discover the best pesticides for your crops and protect your yield efficiently.
-      </p>
+      <div className="text-center">
+        <h1 style={styles.heading}>Agriculture Pesticides</h1>
+        <p style={styles.subheading}>
+          Discover the best pesticides for your crops and protect your yield efficiently.
+        </p>
+      </div>
       <div>
         {pesticides.length === 0 ? (
           <p style={styles.noData}>No pesticides available.</p>
