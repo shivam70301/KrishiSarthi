@@ -73,6 +73,12 @@ const K_Gyan = () => {
 
       {/* Inline CSS styles */}
       <style jsx>{`
+        body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
+
         .video-card {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
