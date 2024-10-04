@@ -25,6 +25,7 @@ app.use("/api/K_Gyan", require("./routes/K_GyanRoutes"));
 app.use("/api/Policies", require("./routes/PoliciesRoutes"));
 app.use("/api/Pesticides", require("./routes/PesticidesRoutes"));
 app.use("/api/Fair_Events", require("./routes/Fair_EventsRoutes"));
+app.use("/api/Notifications", require("./routes/NotificationsRoutes"));
 
 //PORT
 const PORT = process.env.PORT || 8080;
