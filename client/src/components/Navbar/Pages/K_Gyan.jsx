@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const K_Gyan = () => {
   const [videos, setVideos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Function to convert regular YouTube URL to embedded URL
   const getEmbeddedUrl = (url) => {
@@ -24,16 +25,31 @@ const K_Gyan = () => {
     fetchVideos();
   }, []);
 
+  // Function to filter videos based on search input
+  const filteredVideos = videos.filter((video) =>
+    video.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4 display-4" style={{ fontWeight: 'bold', color: '#2c3e50' }}>
         K Gyan: Agriculture Knowledge Videos
       </h1>
-      <p className="text-center mb-5" style={{ fontSize: '1.2rem', color: '#7f8c8d' }}>
-        Explore a collection of videos to help you gain insights into modern agricultural practices.
-      </p>
+      
+      {/* Search Bar */}
+      <div className="mb-5 text-center">
+        <input
+          type="text"
+          className="form-control search-bar"
+          placeholder="Search videos by title..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ width: '50%', margin: '0 auto', padding: '10px', fontSize: '1.1rem' }}
+        />
+      </div>
+
       <div className="row">
-        {videos.map((video) => (
+        {filteredVideos.map((video) => (
           <div className="col-md-4 col-sm-12 mb-4" key={video._id}>
             <div className="card h-100 shadow border-0 video-card">
               <div className="ratio ratio-16x9">
@@ -72,6 +88,14 @@ const K_Gyan = () => {
 
         .video-card:hover .card-title {
           color: #e67e22; /* Change to a more vibrant color on hover */
+        }
+
+        .search-bar {
+          transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:hover {
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
       `}</style>
     </div>
