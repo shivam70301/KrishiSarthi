@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const cropData = [
   {
@@ -33,177 +33,26 @@ const cropData = [
     unit: "1kg",
     img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
   },
-  {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-  {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-  {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-  {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-    {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-  // Add more crops and their respective image URLs here...
+  // Add more crops as needed...
 ];
 
 const CropPrices = () => {
-  const [visibleCount, setVisibleCount] = useState(10);
+  // Get today's date in the format YYYY-MM-DD
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const [visibleCount, setVisibleCount] = useState(5);
   const [showAll, setShowAll] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("2024-10-04");
+  const [selectedDate, setSelectedDate] = useState(getTodayDate); // Default to today's date
 
   const handleViewMore = () => {
     if (showAll) {
-      setVisibleCount(10); // Reset to the initial number when "View Less" is clicked
+      setVisibleCount(5); // Reset to the initial number when "View Less" is clicked
     } else {
       setVisibleCount(cropData.length); // Show all crops when "View More" is clicked
     }
@@ -225,6 +74,7 @@ const CropPrices = () => {
           id="date"
           value={selectedDate}
           onChange={handleDateChange}
+          max={getTodayDate()} // Restrict to today's date or earlier
           style={styles.dateInput}
         />
       </div>
@@ -245,7 +95,7 @@ const CropPrices = () => {
               <td style={styles.td}>
                 <div style={styles.cropCell}>
                   <img src={crop.img} alt={crop.name} style={styles.cropImage} />
-                  <span>{crop.name}</span> {/* Crop name beside the image */}
+                  <span>{crop.name}</span>
                 </div>
               </td>
               <td style={styles.td}>₹{crop.wholesale}</td>
@@ -276,16 +126,16 @@ const styles = {
     fontFamily: "Arial, sans-serif",
   },
   heading: {
-    fontSize: "4rem", // Increased font size
+    fontSize: "4rem",
     marginBottom: "30px",
-    color: "#fff", // White text
-    backgroundColor: "#28a745", // Green background
-    padding: "20px", // Padding inside the heading
-    borderRadius: "20px", // Rounded corners
-    display: "inline-block", // Makes the heading fit inside a rounded square
+    color: "#fff",
+    backgroundColor: "#28a745",
+    padding: "20px",
+    borderRadius: "20px",
+    display: "inline-block",
     animation: "fadeIn 1s",
-    width: "80%", // Set the width of the heading box (adjust as needed)
-    maxWidth: "800px", // Optional: set a max width to keep it from becoming too wide
+    width: "80%",
+    maxWidth: "800px",
   },
   dateSelector: {
     marginBottom: "20px",
@@ -312,15 +162,16 @@ const styles = {
     color: "#333",
     padding: "10px",
     textAlign: "center",
-    fontWeight: "bold", // Make header text bold
-    border: "2px solid #333", // Thicker border for header
+    fontWeight: "bold",
+    border: "2px solid #333",
   },
   td: {
-    border: "2px solid #333", // Thicker border for data cells
+    border: "2px solid #333",
     padding: "10px",
     textAlign: "center",
     transition: "background-color 0.3s ease",
-    fontWeight: "bold", // Make data text bold
+    fontWeight: "bold",
+    wordWrap: "break-word",
   },
   row: {
     transition: "background-color 0.3s",
@@ -334,6 +185,7 @@ const styles = {
     width: "40px",
     height: "40px",
     marginRight: "10px",
+    flexShrink: 0,
   },
   viewMoreBtn: {
     padding: "10px 20px",
@@ -355,18 +207,24 @@ const styles = {
     fontSize: "1rem",
     transition: "background-color 0.3s ease, transform 0.2s ease",
   },
+  
+  "@media (max-width: 600px)": {
+    td: {
+      display: "block",
+      width: "100%",
+      textAlign: "left",
+    },
+    th: {
+      display: "none",
+    },
+    cropCell: {
+      display: "block",
+      textAlign: "center",
+    },
+    cropImage: {
+      margin: "0 auto 10px",
+    },
+  },
 };
-
-
-// Apply hover effect on date input dynamically
-document.addEventListener("DOMContentLoaded", () => {
-  const dateInput = document.getElementById("date");
-  dateInput.addEventListener("mouseenter", () => {
-    dateInput.style.borderColor = styles.dateInputHover.borderColor;
-  });
-  dateInput.addEventListener("mouseleave", () => {
-    dateInput.style.borderColor = "#ddd";
-  });
-});
 
 export default CropPrices;

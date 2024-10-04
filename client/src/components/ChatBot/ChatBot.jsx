@@ -17,6 +17,7 @@ const ChatButton = () => {
     if (chatBotRef.current && !chatBotRef.current.contains(event.target)) {
       setShowChat(false);
     }
+    
   };
 
   useEffect(() => {
