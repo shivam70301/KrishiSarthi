@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import logo1 from "../../assets/logo1.png"; 
-import instagram from "../../assets/instagram.png"; 
-import x from "../../assets/x.png"; 
-import facebook from "../../assets/facebook.png"; 
-import threads from "../../assets/threads.png"; 
+import logo1 from "../../assets/logo1.png";
+import instagram from "../../assets/instagram.png";
+import x from "../../assets/x.png";
+import facebook from "../../assets/facebook.png";
+import threads from "../../assets/threads.png";
+import emailIcon from "../../assets/email.png"; // New email icon
+import mobileIcon from "../../assets/mobile.png"; // New mobile icon
+import whatsappIcon from "../../assets/whatsapp.png"; // New WhatsApp icon
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function About() {
@@ -160,41 +163,78 @@ function About() {
               {/* Contact Information */}
               <div className="col-md-6">
                 <h2 className="h4 text-dark">Contact Us</h2>
-                <p>
-                  <i className="fas fa-envelope"></i> Email: support@krishisarthi.com
-                </p>
-                <p>
-                  <i className="fas fa-phone"></i> Mobile: +123 456 7890
-                </p>
-                <p>
-                  <i className="fas fa-comments"></i> WhatsApp: +123 456 7891
-                </p>
-
-                <h2 className="h4 text-dark mt-3">Follow Us</h2>
-                <div className="social-links">
-                  <div className="social-icon">
-                  
-                      <img src={instagram} alt="Instagram" style={{ width: "20px", height: "20px" }} />
-                      <a href="https://www.instagram.com/accounts/login/" target="_blank">Instagram</a>
-                    
+                <div className="contact-info">
+                  <div className="contact-item">
+                    <a
+                      href="mailto:support@krishisarthi.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="d-flex align-items-center"
+                    >
+                      <img
+                        src={emailIcon}
+                        alt="Email"
+                        style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                      />
+                      <span>support@krishisarthi.com</span>
+                    </a>
                   </div>
-                  <div className="social-icon">
-                      <img src={x} alt="X" style={{ width: "20px", height: "20px" }} />
-                      krishisarthi
+                  <div className="contact-item">
+                    <img
+                      src={mobileIcon}
+                      alt="Mobile"
+                      style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                    />
+                    <span>+91 50045 67890</span>
                   </div>
-                  <div className="social-icon">
-                   
-                   <img src={facebook} alt="facebook" style={{ width: "20px", height: "20px" }} />
-                   krishisarthi
-                 
-               </div>
-                  <div className="social-icon">
-                    
-                      <img src={threads} alt="Threads" style={{ width: "20px", height: "20px" }} />
-                      krishisarthi
-               
+                  <div className="contact-item">
+                    <img
+                      src={whatsappIcon}
+                      alt="WhatsApp"
+                      style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                    />
+                    <span> +91 9898567891</span>
                   </div>
                 </div>
+
+                <h2 className="h4 text-dark mt-3">Follow Us</h2>
+               
+                <div className="social-links d-flex justify-content-end">
+  <a
+    href="https://www.instagram.com/accounts/login/"
+    target="_blank"
+    rel="noreferrer"
+  >
+    <img
+      src={instagram}
+      alt="Instagram"
+      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+    />
+  </a>
+  <a href="https://x.com/?lang=en" target="_blank" rel="noreferrer">
+    <img
+      src={x}
+      alt="X"
+      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+    />
+  </a>
+  <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
+    <img
+      src={facebook}
+      alt="Facebook"
+      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+    />
+  </a>
+  <a href="https://www.threads.net/login/" target="_blank" rel="noreferrer">
+    <img
+      src={threads}
+      alt="Threads"
+      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+    />
+  </a>
+</div>
+
+                
               </div>
             </div>
           </div>
@@ -231,13 +271,13 @@ function About() {
           text-decoration: none;
           color: #007bff;
           display: flex;
-          align-items: center;
+          align-items: end;
           gap: 8px;
-          transition: color 0.3s ease, transform 0.3s ease;
+          transition: color 0.3s ease, text-decoration 0.3s ease;
         }
         .social-icon:hover {
-          color: #0056b3;
-          transform: scale(1.1);
+          color: #ff5733; /* Change text color */
+          text-decoration: underline; /* Add underline on hover */
         }
         .feedback-input {
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -270,6 +310,14 @@ function About() {
         .faq-item p {
           margin: 0;
           padding: 10px 0;
+        }
+        .contact-info {
+          margin-top: 10px; /* Space between heading and icons */
+        }
+        .contact-item {
+          margin-bottom: 10px; /* Space between each contact item */
+          display: flex;
+          align-items: center; /* Center items vertically */
         }
       `}</style>
     </div>
