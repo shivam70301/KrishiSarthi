@@ -26,7 +26,7 @@ const Policies = () => {
     <div className="container my-5">
       <header className="text-center mb-5">
         <h1 className="display-4 font-weight-bold text-primary">Government Schemes for Farmers</h1>
-        <p className="lead text-muted">
+        <p className="lead text-muted" >
           Discover various schemes launched by the Indian Government to support farmers and enhance agricultural productivity.
         </p>
       </header>
@@ -76,6 +76,11 @@ const Policies = () => {
       <style jsx>{`
         header {
           margin-bottom: 40px;
+        }
+            body {
+          background-color: #d0eedf; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
         }
 
         .card {
