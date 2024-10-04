@@ -4,6 +4,7 @@ import 'animate.css'; // Import Animate.css for animations
 
 const FairsAndEvents = () => {
   const [events, setEvents] = useState([]);
+  const [expanded, setExpanded] = useState({}); // Track expanded cards
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -19,20 +20,43 @@ const FairsAndEvents = () => {
     fetchEvents();
   }, []);
 
+  // Handle expand/collapse for a card
+  const handleExpandClick = (index) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Toggle the expanded state
+    }));
+  };
+
   return (
-    <div className="container mt-5">
+    <div className="mt-5" style={{ backgroundColor: '#99cccc', minHeight: '100vh', padding: '0' }}>
       <style>{`
+        body {
+          background-color: #99cccc;
+          margin: 0;
+          padding: 0;
+        }
         .page-heading {
           font-size: 3rem;
           font-weight: bold;
-          color: #007bff;
+          color: #003300;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
           margin-bottom: 2rem;
         }
         .list-group-item {
-          background-color: #f9f9f9;
+          background-color: #99cc99;
           border: 1px solid #ddd;
           transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          padding: 20px;
+          overflow: hidden;
+          max-width: 85%; /* Increased card width */
+          margin: 0 auto; /* Center the card */
+        }
+        .list-group-item.expanded {
+          height: auto; /* Expand to fit content when expanded */
         }
         .list-group-item:hover {
           transform: translateY(-5px);
@@ -40,6 +64,31 @@ const FairsAndEvents = () => {
         }
         img {
           border-radius: 8px;
+          width: 100%; /* Make the image take the full width on small screens */
+          max-width: 250px; /* Max width for larger screens */
+          height: auto; /* Auto height to maintain aspect ratio */
+          object-fit: cover; /* Ensure the image fits within the fixed dimensions */
+          margin-right: 20px;
+        }
+        .event-info {
+          flex-grow: 1;
+        }
+        .event-title {
+          font-size: 1.5rem;
+          margin-top: 1rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .event-description {
+          display: -webkit-box;
+          -webkit-line-clamp: 3; /* Limit description to 3 lines */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .expanded .event-description {
+          -webkit-line-clamp: unset; /* Remove line clamping for expanded cards */
         }
         .btn-primary {
           background-color: #28a745; /* Custom button color */
@@ -54,34 +103,35 @@ const FairsAndEvents = () => {
         Upcoming Fairs and Events
       </h2>
 
-      <div className="list-group">
+      <div className="d-flex flex-column align-items-center" style={{ width: '100%' }}>
         {events.length === 0 ? (
-          <p>No events found.</p>
+          <p className="text-center">No events found.</p>
         ) : (
           events.map((event, index) => (
             <div
-              className="list-group-item mb-4 p-3 animate__animated animate__fadeInUp"
+              className={`list-group-item mb-4 animate__animated animate__fadeInUp ${expanded[index] ? 'expanded' : ''}`}
               key={index}
             >
-              <div className="row">
-                <div className="col-md-4">
+              <div className="row w-100">
+                <div className="col-sm-4 col-md-3">
                   <img
                     src={event.image}
                     alt={event.title}
                     className="img-fluid rounded"
-                    style={{ maxHeight: '200px', objectFit: 'cover' }}
                   />
                 </div>
-                <div className="col-md-8">
-                  <h5 className="mt-2">{event.title}</h5>
+                <div className="col-sm-8 col-md-9 event-info">
+                  <h5 className="event-title">{event.title}</h5>
                   <p>
                     <strong>Location:</strong> {event.location}
                   </p>
                   <p>
                     <strong>Date:</strong> {event.date}
                   </p>
-                  <p>{event.description}</p>
-                  <button className="btn btn-primary">Learn More</button>
+                  <p className="event-description">{event.description}</p>
+                  <button className="btn btn-primary mt-2" onClick={() => handleExpandClick(index)}>
+                    {expanded[index] ? 'Close' : 'Learn More'}
+                  </button>
                 </div>
               </div>
             </div>
