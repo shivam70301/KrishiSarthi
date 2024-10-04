@@ -7,32 +7,25 @@ const cropRecommendations = [
   {
     name: 'Wheat',
     image: wheat,
-    growingTechnique: 'Sow seeds in well-drained soil during winter for a good harvest.',
-    detailedInfo: 'Wheat is a cereal grain and a staple food for many cultures around the world. It requires a cool growing season and should be sown early in the winter.',
-    techniqueDetails: 'Use soil testing to determine pH and nutrient levels, ensuring it is around 6.0 to 7.0 pH. Fertilize with nitrogen and potassium for better yield.',
+    detailedInfo: 'Wheat is a cereal grain and a staple food for many cultures worldwide. It thrives in a cool growing season, typically sown in early winter for optimal yield. Wheat prefers well-drained soil with a pH level between 6.0 and 7.0. Regular soil testing is essential to determine nutrient levels. Fertilizing with nitrogen and potassium can significantly enhance growth and production. This crop plays a crucial role in food security and can be used for various products, including bread, pasta, and cereals.',
   },
   {
     name: 'Rice',
     image: 'path/to/rice.jpg',
-    growingTechnique: 'Plant in flooded fields and provide adequate water management.',
-    detailedInfo: 'Rice is a staple food for more than half of the world\'s population. It grows well in warm and humid climates with abundant water.',
-    techniqueDetails: 'Plant seedlings in nursery beds and transplant them to puddled fields. Maintain water levels between 5-10 cm during the growing season.',
+    detailedInfo: 'Rice is a staple food for more than half of the world\'s population and is a vital source of carbohydrates. It grows best in warm, humid climates and requires abundant water for irrigation. The cultivation of rice involves flooding the fields, which helps suppress weeds and pests. Additionally, rice plants can thrive in different soil types but prefer those rich in organic matter. Proper management of water levels during the growth cycle is critical for maximizing yield, especially during the flowering and grain-filling stages.',
   },
   {
     name: 'Maize',
     image: 'path/to/maize.jpg',
-    growingTechnique: 'Requires warm weather, sow in rows with adequate spacing.',
-    detailedInfo: 'Maize, also known as corn, is a major cereal grain worldwide. It thrives in warm temperatures and requires full sun.',
-    techniqueDetails: 'Ensure soil is well-drained and fertilize with phosphorus at planting. Practice crop rotation to maintain soil fertility.',
+    detailedInfo: 'Maize, commonly known as corn, is a major cereal grain and is crucial for both human consumption and animal feed. It requires warm temperatures and thrives in full sunlight, making it ideal for summer planting. Adequate soil moisture is essential for seed germination and growth. Maize is often planted in rows with appropriate spacing to ensure sufficient air circulation and nutrient access. It benefits from the application of phosphorus at planting to enhance root development, and implementing crop rotation can improve soil health and yield over time.',
   },
   {
     name: 'Pulses',
     image: 'path/to/pulses.jpg',
-    growingTechnique: 'Plant in well-drained soil with full sunlight exposure.',
-    detailedInfo: 'Pulses are a group of legumes that are important for their high protein content and nitrogen-fixing abilities.',
-    techniqueDetails: 'Inoculate seeds with the right rhizobia bacteria before planting. Ensure soil is moderately fertile and avoid excessive nitrogen fertilizer.',
+    detailedInfo: 'Pulses are legumes known for their high protein content and beneficial nitrogen-fixing properties, which enhance soil fertility. These crops, which include lentils, chickpeas, and beans, thrive in well-drained soil with full sunlight exposure. Pulses can grow in various climates but prefer moderate temperatures. Before planting, seeds should be inoculated with the appropriate rhizobia bacteria to optimize nitrogen fixation. Pulses also help improve the overall health of the cropping system, making them a valuable addition to crop rotation.',
   },
 ];
+
 
 const styles = {
   container: {

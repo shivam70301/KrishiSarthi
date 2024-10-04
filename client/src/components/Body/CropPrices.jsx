@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const cropData = [
   {
@@ -37,18 +37,17 @@ const cropData = [
 ];
 
 const CropPrices = () => {
-  // Get today's date in the format YYYY-MM-DD
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+    const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   const [visibleCount, setVisibleCount] = useState(5);
   const [showAll, setShowAll] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(getTodayDate); // Default to today's date
+  const [selectedDate, setSelectedDate] = useState(getTodayDate()); // Default to today's date
 
   const handleViewMore = () => {
     if (showAll) {
@@ -95,7 +94,7 @@ const CropPrices = () => {
               <td style={styles.td}>
                 <div style={styles.cropCell}>
                   <img src={crop.img} alt={crop.name} style={styles.cropImage} />
-                  <span>{crop.name}</span>
+                  <span style={styles.cropText}>{crop.name}</span>
                 </div>
               </td>
               <td style={styles.td}>₹{crop.wholesale}</td>
@@ -179,13 +178,18 @@ const styles = {
   cropCell: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "left",
+    justifyContent: "center", // Center the content horizontally
+    flexDirection: "column", // Stack image and text vertically
+    textAlign: "center", // Center text
   },
   cropImage: {
     width: "40px",
     height: "40px",
-    marginRight: "10px",
+    marginBottom: "5px", // Space between image and text
     flexShrink: 0,
+  },
+  cropText: {
+    fontSize: "0.9rem", // Adjust font size if necessary
   },
   viewMoreBtn: {
     padding: "10px 20px",
@@ -209,20 +213,22 @@ const styles = {
   },
   
   "@media (max-width: 600px)": {
+    th: {
+      display: "none",
+    },
     td: {
       display: "block",
       width: "100%",
       textAlign: "left",
     },
-    th: {
-      display: "none",
-    },
     cropCell: {
-      display: "block",
-      textAlign: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column", // Stack image and text vertically on smaller screens
     },
     cropImage: {
-      margin: "0 auto 10px",
+      margin: "0 auto 5px",
     },
   },
 };
