@@ -1,53 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const pesticidesData = [
-  {
-    name: 'Pesticide A',
-    description: 'Effective against various pests. It is commonly used in crops to prevent pest damage and improve yield.',
-    category: 'Insecticide',
-    application: 'Spray',
-    image: 'path/to/pesticideA.jpg', // Replace with actual image path
-  },
-  {
-    name: 'Pesticide B',
-    description: 'Controls fungal infections. Helps protect crops from mildew and other fungal diseases.',
-    category: 'Fungicide',
-    application: 'Soil Drench',
-    image: 'path/to/pesticideB.jpg', // Replace with actual image path
-  },
-  {
-    name: 'Pesticide C',
-    description: 'Prevents weed growth. Effective in maintaining soil health across various crops.',
-    category: 'Herbicide',
-    application: 'Granules',
-    image: 'path/to/pesticideC.jpg', // Replace with actual image path
-  },
-  // Add more pesticide data as needed
-];
 
 const styles = {
   container: {
     marginTop: '4rem',
     padding: '2rem',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f4f4f4',
     borderRadius: '8px',
   },
   heading: {
     textAlign: 'center',
     marginBottom: '2rem',
-    fontSize: '3rem',
+    fontSize: '3.5rem',
     fontWeight: 'bold',
-    background: 'linear-gradient(to right, #4facfe, #00f2fe)',
+    background: 'linear-gradient(90deg, #ff8a00, #e52e71)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     display: 'inline-block',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
   },
   subheading: {
     textAlign: 'center',
     marginBottom: '2rem',
-    fontSize: '1.25rem',
+    fontSize: '1.5rem',
     color: '#6c757d',
+    fontStyle: 'italic',
   },
   card: {
     display: 'flex',
@@ -56,48 +33,96 @@ const styles = {
     marginBottom: '2rem',
     border: 'none',
     padding: '1rem',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    borderRadius: '12px',
+    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
   },
   cardHover: {
     transform: 'scale(1.05)',
-    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.15)',
+    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)',
   },
   image: {
-    width: '180px',
-    height: '180px',
+    width: '200px',
+    height: '200px',
     objectFit: 'cover',
-    marginRight: '1.5rem',
-    borderRadius: '10px',
+    marginRight: '2rem',
+    borderRadius: '15px',
+    border: '2px solid #ddd',
   },
   cardBody: {
     flex: 1,
     textAlign: 'left',
   },
   cardTitle: {
-    fontSize: '1.75rem',
+    fontSize: '1.8rem',
     fontWeight: 'bold',
     color: '#007bff',
-    marginBottom: '0.5rem',
+    marginBottom: '0.75rem',
   },
   cardText: {
-    fontSize: '1rem',
+    fontSize: '1.1rem',
     color: '#6c757d',
+    lineHeight: '1.6',
+  },
+  btnLearnMore: {
+    marginTop: '1rem',
+    padding: '0.5rem 1rem',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    borderRadius: '8px',
+    backgroundColor: '#00aaff',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
+  btnLearnMoreHover: {
+    backgroundColor: '#007bff',
+  },
+  noData: {
+    textAlign: 'center',
+    fontSize: '1.5rem',
+    color: '#888',
   },
 };
 
 const Pesticides = () => {
+  const [pesticides, setPesticides] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from backend API
+  useEffect(() => {
+    const fetchPesticides = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/pesticides'); // Replace with your actual API URL
+        const data = await response.json();
+        setPesticides(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching pesticide data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPesticides();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container" style={styles.container}>
       <h1 style={styles.heading}>Agriculture Pesticides</h1>
       <p style={styles.subheading}>
-        Learn more about the best pesticides for your crops and how they can protect your yield.
+        Discover the best pesticides for your crops and protect your yield efficiently.
       </p>
       <div>
-        {pesticidesData.map((pesticide, index) => {
-          return (
+        {pesticides.length === 0 ? (
+          <p style={styles.noData}>No pesticides available.</p>
+        ) : (
+          pesticides.map((pesticide, index) => (
             <div
               className="card shadow-sm"
               style={styles.card}
@@ -108,15 +133,24 @@ const Pesticides = () => {
               <img src={pesticide.image} alt={pesticide.name} style={styles.image} />
               <div className="card-body" style={styles.cardBody}>
                 <h5 className="card-title" style={styles.cardTitle}>{pesticide.name}</h5>
-                <p className="card-text" style={styles.cardText}>
-                  {pesticide.description}
-                </p>
+                <p className="card-text" style={styles.cardText}>{pesticide.description}</p>
                 <p className="font-weight-bold">Category: {pesticide.category}</p>
+                <p className="font-weight-bold">Active Ingredient: {pesticide.activeIngredient}</p>
                 <p>Application: {pesticide.application}</p>
+                <p className="font-weight-bold">Precautions: {pesticide.precautions}</p>
+                <p className="font-weight-bold">Environmental Impact: {pesticide.environmentalImpact}</p>
+                <p className="font-weight-bold">Recommended Usage: {pesticide.recommendedUsage}</p>
+                <button
+                  style={styles.btnLearnMore}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = styles.btnLearnMoreHover.backgroundColor)}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = styles.btnLearnMore.backgroundColor)}
+                >
+                  Learn More
+                </button>
               </div>
             </div>
-          );
-        })}
+          ))
+        )}
       </div>
     </div>
   );
