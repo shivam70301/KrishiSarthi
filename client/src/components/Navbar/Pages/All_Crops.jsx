@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Card, Row, Col, Form } from 'react-bootstrap';
+import { Modal, Card, Row, Col, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'; 
-
 
 const AllCrops = () => {
   const [cropsData, setCropsData] = useState([]);
@@ -59,7 +58,7 @@ const AllCrops = () => {
       <Row>
         {filteredCrops.map((crop) => (
           <Col md={3} key={crop._id} className="mb-3"> {/* Use _id from MongoDB */}
-            <Card className="shadow border-0 rounded crop-card" onClick={() => handleShow(crop)}>
+            <Card className="shadow border-0 rounded crop-card text-center" onClick={() => handleShow(crop)}>
               <Card.Img
                 variant="top"
                 src={crop.image}
@@ -102,6 +101,12 @@ const AllCrops = () => {
               <p>{selectedCrop.pesticides}</p>
               <h5>Harvesting:</h5>
               <p>{selectedCrop.harvesting}</p>
+              {/* Close Button at the end of the modal body */}
+              <div className="text-center mt-4">
+                <Button variant="danger" onClick={handleClose}>
+                  Close
+                </Button>
+              </div>
             </div>
           </Modal.Body>
         </Modal>
@@ -109,18 +114,26 @@ const AllCrops = () => {
 
       <style>{`
         .container {
-          background-color: #f8f9fa;
+          background-color: #99cccc;
           padding: 20px;
           border-radius: 8px;
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        .stylish-heading {
-          font-family: 'Georgia', serif;
-          font-weight: bold;
-          color: #2c3e50;
-          text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
+.stylish-heading {
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #223634;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  border: 6px solid white; /* Add white border */
+  padding: 10px; /* Add padding for spacing */
+  border-radius: 8px; /* Optional: rounded corners */
+  display: inline-block; /* Make the border wrap around the text */
+  width: 80%; /* Set width to 80% of the parent container */
+  max-width: 600px; /* Set a max width to limit size */
+  margin: 20px auto; /* Center the heading and add margin above and below */
+}
+
 
         .search-bar {
           width: 100%;
@@ -183,6 +196,16 @@ const AllCrops = () => {
 
         p {
           color: #555;
+        }
+
+        .btn-danger {
+          background-color: #dc3545;
+          border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+          background-color: #c82333;
+          border-color: #bd2130;
         }
       `}</style>
     </div>
