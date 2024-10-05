@@ -199,7 +199,7 @@ function About() {
 
                 <h2 className="h4 text-dark mt-3">Follow Us</h2>
                
-                <div className="social-links d-flex justify-content-end">
+                <div className="social-links d-flex justify-content-start">
   <a
     href="https://www.instagram.com/accounts/login/"
     target="_blank"
@@ -208,31 +208,32 @@ function About() {
     <img
       src={instagram}
       alt="Instagram"
-      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+      style={{ width: "30px", height: "30px", margin: "0 5px" }}
     />
   </a>
   <a href="https://x.com/?lang=en" target="_blank" rel="noreferrer">
     <img
       src={x}
       alt="X"
-      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+      style={{ width: "30px", height: "30px", margin: "0 5px" }}
     />
   </a>
   <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
     <img
       src={facebook}
       alt="Facebook"
-      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+      style={{ width: "30px", height: "30px", margin: "0 5px" }}
     />
   </a>
   <a href="https://www.threads.net/login/" target="_blank" rel="noreferrer">
     <img
       src={threads}
       alt="Threads"
-      style={{ width: "30px", height: "30px", margin: "0 10px" }}
+      style={{ width: "30px", height: "30px", margin: "0 5px" }}
     />
   </a>
 </div>
+
 
                 
               </div>
@@ -262,23 +263,16 @@ function About() {
           padding: 15px;
           background: white;
         }
-        .social-links {
-          display: flex;
-          flex-direction: column; /* Arrange items vertically */
-          gap: 10px; /* Add space between each social icon */
-        }
-        .social-icon {
-          text-decoration: none;
-          color: #007bff;
-          display: flex;
-          align-items: end;
-          gap: 8px;
-          transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-        .social-icon:hover {
-          color: #ff5733; /* Change text color */
-          text-decoration: underline; /* Add underline on hover */
-        }
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  align-items: center;
+  justify-content: start; /* Align icons to the left */
+}
+
+
+     
         .feedback-input {
           transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
