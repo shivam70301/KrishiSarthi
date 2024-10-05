@@ -220,9 +220,9 @@ const styles = {
         color: '#888',
     },
     condition: {
-        fontSize: '1.5em',
-        margin: '10px 0',
-        color: '#4a90e2',
+        fontSize: '2em',
+        margin: '5px 0',
+        color: 'black',
     },
     forecast: {
         marginTop: '20px',
