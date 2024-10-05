@@ -1,40 +1,5 @@
-import React, { useState } from "react";
-
-const cropData = [
-  {
-    name: "Onion Big",
-    wholesale: 46,
-    retail: "53 - 58",
-    mall: "55 - 76",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Big image
-  },
-  {
-    name: "Onion Small",
-    wholesale: 50,
-    retail: "58 - 64",
-    mall: "60 - 83",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Onion Small image
-  },
-  {
-    name: "Tomato",
-    wholesale: 36,
-    retail: "41 - 46",
-    mall: "43 - 59",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Tomato image
-  },
-  {
-    name: "Green Chilli",
-    wholesale: 47,
-    retail: "54 - 60",
-    mall: "56 - 78",
-    unit: "1kg",
-    img: "https://via.placeholder.com/50", // Replace with the actual URL for Green Chilli image
-  },
-  // Add more crops as needed...
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const CropPrices = () => {
   const getTodayDate = () => {
@@ -45,17 +10,29 @@ const CropPrices = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const [crops, setCrops] = useState([]);
   const [visibleCount, setVisibleCount] = useState(5);
   const [showAll, setShowAll] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(getTodayDate()); // Default to today's date
+  const [selectedDate, setSelectedDate] = useState(getTodayDate());
+
+  // Fetch crops based on the selected date
+  useEffect(() => {
+    const fetchCrops = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/api/crops/scrape/${selectedDate}`);
+        console.log("Response data:", res.data);
+        setCrops(res.data);
+      } catch (error) {
+        console.error("Error fetching crop data", error);
+        setCrops([]);
+      }
+    };
+    fetchCrops();
+  }, [selectedDate]);
 
   const handleViewMore = () => {
-    if (showAll) {
-      setVisibleCount(5); // Reset to the initial number when "View Less" is clicked
-    } else {
-      setVisibleCount(cropData.length); // Show all crops when "View More" is clicked
-    }
-    setShowAll(!showAll); // Toggle the button text
+    setVisibleCount(showAll ? 5 : crops.length);
+    setShowAll(!showAll);
   };
 
   const handleDateChange = (event) => {
@@ -73,38 +50,42 @@ const CropPrices = () => {
           id="date"
           value={selectedDate}
           onChange={handleDateChange}
-          max={getTodayDate()} // Restrict to today's date or earlier
+          max={getTodayDate()}
           style={styles.dateInput}
         />
       </div>
 
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.th}>Crop</th>
-            <th style={styles.th}>Wholesale Price</th>
-            <th style={styles.th}>Retail Price</th>
-            <th style={styles.th}>Shopping Mall</th>
-            <th style={styles.th}>Units</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cropData.slice(0, visibleCount).map((crop, index) => (
-            <tr key={index} style={styles.row}>
-              <td style={styles.td}>
-                <div style={styles.cropCell}>
-                  <img src={crop.img} alt={crop.name} style={styles.cropImage} />
-                  <span style={styles.cropText}>{crop.name}</span>
-                </div>
-              </td>
-              <td style={styles.td}>₹{crop.wholesale}</td>
-              <td style={styles.td}>₹{crop.retail}</td>
-              <td style={styles.td}>₹{crop.mall}</td>
-              <td style={styles.td}>{crop.unit}</td>
+      {crops.length === 0 ? (
+        <p>No data available for the selected date.</p>
+      ) : (
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}>Crop</th>
+              <th style={styles.th}>Wholesale Price</th>
+              <th style={styles.th}>Retail Price</th>
+              <th style={styles.th}>Shopping Mall</th>
+              <th style={styles.th}>Units</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {crops.slice(0, visibleCount).map((crop, index) => (
+              <tr key={index} style={styles.row}>
+                <td style={styles.td}>
+                  <div style={styles.cropCell}>
+                    <img src={crop.img} alt={crop.name} style={styles.cropImage} />
+                    <span style={styles.cropText}>{crop.name}</span>
+                  </div>
+                </td>
+                <td style={styles.td}>₹{crop.wholesale}</td>
+                <td style={styles.td}>{crop.retail}</td>
+                <td style={styles.td}>{crop.mall}</td>
+                <td style={styles.td}>{crop.unit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <button
         onClick={handleViewMore}
@@ -116,6 +97,7 @@ const CropPrices = () => {
   );
 };
 
+// Styles for the component
 const styles = {
   container: {
     maxWidth: "1200px",
@@ -173,63 +155,45 @@ const styles = {
     wordWrap: "break-word",
   },
   row: {
-    transition: "background-color 0.3s",
+    transition: "background-color 0.3s ease",
+    "&:hover": {
+      backgroundColor: "#f2f2f2",
+    },
   },
   cropCell: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center", // Center the content horizontally
-    flexDirection: "column", // Stack image and text vertically
-    textAlign: "center", // Center text
+    justifyContent: "center",
   },
   cropImage: {
     width: "40px",
     height: "40px",
-    marginBottom: "5px", // Space between image and text
-    flexShrink: 0,
+    borderRadius: "50%",
+    marginRight: "10px",
   },
   cropText: {
-    fontSize: "0.9rem", // Adjust font size if necessary
+    fontWeight: "bold",
+    color: "#333",
   },
   viewMoreBtn: {
     padding: "10px 20px",
-    backgroundColor: "#28a745",
-    color: "white",
+    fontSize: "1rem",
+    backgroundColor: "#007bff",
+    color: "#fff",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    fontSize: "1rem",
-    transition: "background-color 0.3s ease, transform 0.2s ease",
+    transition: "background-color 0.3s ease",
   },
   viewLessBtn: {
     padding: "10px 20px",
+    fontSize: "1rem",
     backgroundColor: "#dc3545",
-    color: "white",
+    color: "#fff",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    fontSize: "1rem",
-    transition: "background-color 0.3s ease, transform 0.2s ease",
-  },
-  
-  "@media (max-width: 600px)": {
-    th: {
-      display: "none",
-    },
-    td: {
-      display: "block",
-      width: "100%",
-      textAlign: "left",
-    },
-    cropCell: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "column", // Stack image and text vertically on smaller screens
-    },
-    cropImage: {
-      margin: "0 auto 5px",
-    },
+    transition: "background-color 0.3s ease",
   },
 };
 

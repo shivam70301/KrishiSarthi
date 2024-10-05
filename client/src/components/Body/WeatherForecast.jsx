@@ -29,17 +29,18 @@ const weatherData = {
         { day: 'Thursday', temp: '18°C', condition: 'Cloudy', icon: icons.cloudy },
         { day: 'Friday', temp: '20°C', condition: 'Sunny', icon: icons.sunny },
     ],
-    MONTHLY: [
+    WEEKLY: [
         { week: 'Week 1', avgTemp: '20°C', condition: 'Sunny', icon: icons.sunny },
         { week: 'Week 2', avgTemp: '22°C', condition: 'Cloudy', icon: icons.cloudy },
         { week: 'Week 3', avgTemp: '19°C', condition: 'Rainy', icon: icons.rainy },
         { week: 'Week 4', avgTemp: '21°C', condition: 'Partly Cloudy', icon: icons.partlySunny },
     ],
-    AIR_QUALITY: {
-        aqi: 'Poor',
-        pm25: '55 µg/m³',
-        pm10: '90 µg/m³',
-    },
+    MONTHLY: [
+        { month: 'January', avgTemp: '20°C', condition: 'Sunny', icon: icons.sunny },
+        { month: 'February', avgTemp: '22°C', condition: 'Cloudy', icon: icons.cloudy },
+        { month: 'March', avgTemp: '19°C', condition: 'Rainy', icon: icons.rainy },
+        { month: 'April', avgTemp: '21°C', condition: 'Partly Cloudy', icon: icons.partlySunny },
+    ],
 };
 
 const WeatherForecast = () => {
@@ -83,10 +84,10 @@ const WeatherForecast = () => {
                         ))}
                     </div>
                 );
-            case 'MONTHLY':
+            case 'WEEKLY':
                 return (
                     <div style={styles.forecastSection}>
-                        {weatherData.MONTHLY.map((week, index) => (
+                        {weatherData.WEEKLY.map((week, index) => (
                             <div key={index} style={styles.forecastCard}>
                                 <h4>{week.week}</h4>
                                 <span style={styles.icon}>{week.icon}</span>
@@ -96,12 +97,17 @@ const WeatherForecast = () => {
                         ))}
                     </div>
                 );
-            case 'AIR QUALITY':
+            case 'MONTHLY':
                 return (
-                    <div style={styles.airQuality}>
-                        <p>AQI: {weatherData.AIR_QUALITY.aqi}</p>
-                        <p>PM2.5: {weatherData.AIR_QUALITY.pm25}</p>
-                        <p>PM10: {weatherData.AIR_QUALITY.pm10}</p>
+                    <div style={styles.forecastSection}>
+                        {weatherData.MONTHLY.map((month, index) => (
+                            <div key={index} style={styles.forecastCard}>
+                                <h4>{month.month}</h4>
+                                <span style={styles.icon}>{month.icon}</span>
+                                <p>Average Temp: {month.avgTemp}</p>
+                                <p>{month.condition}</p>
+                            </div>
+                        ))}
                     </div>
                 );
             default:
@@ -115,8 +121,8 @@ const WeatherForecast = () => {
             <div style={styles.buttonContainer}>
                 <NavButton isActive={selected === 'TODAY'} onClick={() => handleButtonClick('TODAY')}>TODAY</NavButton>
                 <NavButton isActive={selected === 'DAILY'} onClick={() => handleButtonClick('DAILY')}>DAILY</NavButton>
+                <NavButton isActive={selected === 'WEEKLY'} onClick={() => handleButtonClick('WEEKLY')}>WEEKLY</NavButton>
                 <NavButton isActive={selected === 'MONTHLY'} onClick={() => handleButtonClick('MONTHLY')}>MONTHLY</NavButton>
-                <NavButton isActive={selected === 'AIR QUALITY'} onClick={() => handleButtonClick('AIR QUALITY')}>AIR QUALITY</NavButton>
             </div>
             {renderContent()}
         </div>
@@ -142,42 +148,44 @@ const NavButton = ({ onClick, children, isActive }) => {
 // Styles
 const styles = {
     appContainer: {
-        padding: '30px',
+        padding: '20px',
         textAlign: 'center',
         background: 'linear-gradient(to right, #56ccf2, #2f80ed)',
-        minHeight: '100vh',
+        minHeight: '60vh',
         fontFamily: 'Arial, sans-serif',
     },
     heading: {
-        fontSize: '3em',
+        fontSize: '2.5em',
         color: '#fff',
-        marginBottom: '20px',
+        marginBottom: '15px',
     },
     buttonContainer: {
         display: 'flex',
         justifyContent: 'center',
-        marginBottom: '20px',
+        marginBottom: '15px',
     },
     navButton: {
-        padding: '15px 30px',
+        padding: '10px 20px',
         margin: '0 5px',
         border: 'none',
         borderRadius: '30px',
         cursor: 'pointer',
-        fontSize: '1em',
+        fontSize: '0.9em',
         transition: 'background-color 0.3s, color 0.3s',
     },
     weatherCard: {
         backgroundColor: '#fff',
-        padding: '20px',
+        padding: '15px',
         borderRadius: '15px',
-        margin: '20px auto',
+        margin: '15px auto',
         width: '80%',
-        maxWidth: '500px',
+        maxWidth: '300px',
         boxShadow: '0 8px 20px rgba(0,0,0,0.2)',
         color: '#333',
         transition: 'transform 0.3s',
         textAlign: 'center',
+        minHeight: '120px',
+        
     },
     header: {
         display: 'flex',
@@ -189,14 +197,14 @@ const styles = {
         color: '#4a90e2',
     },
     dateTime: {
-        fontSize: '1em',
+        fontSize: '0.9em',
         color: '#888',
     },
     date: {
         fontSize: '1.2em',
         fontWeight: 'bold',
         color: '#333',
-        margin: '10px 0',
+        margin: '5px 0',
     },
     iconContainer: {
         display: 'flex',
@@ -205,27 +213,27 @@ const styles = {
         alignItems: 'center',
     },
     icon: {
-        fontSize: '5em',
-        marginBottom: '10px',
+        fontSize: '4em',
+        marginBottom: '5px',
         transition: 'transform 0.3s',
     },
     temp: {
-        fontSize: '4em',
-        margin: '10px 0',
+        fontSize: '3em',
+        margin: '5px 0',
         color: '#333',
     },
     realFeel: {
-        fontSize: '0.8em', // Decrease font size
-        fontStyle: 'italic', // Make it italic
+        fontSize: '0.8em',
+        fontStyle: 'italic',
         color: '#888',
     },
     condition: {
-        fontSize: '2em',
+        fontSize: '1.8em',
         margin: '5px 0',
         color: 'black',
     },
     forecast: {
-        marginTop: '20px',
+        marginTop: '10px', // Adjusted margin
         fontStyle: 'italic',
         color: '#333',
     },
@@ -236,22 +244,17 @@ const styles = {
     },
     forecastCard: {
         backgroundColor: '#fff',
-        padding: '20px',
+        padding: '10px', // Adjusted padding
         borderRadius: '10px',
-        width: '200px',
+        width: '150px', // Adjusted width
         textAlign: 'center',
         boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
         transition: 'transform 0.3s',
-        margin: '10px',
+        margin: '5px', // Adjusted margin
         cursor: 'pointer',
+        minHeight: '120px', // Fixed height for the forecast cards
     },
-    forecastCardHover: {
-        transform: 'scale(1.05)',
-    },
-    airQuality: {
-        fontSize: '1.5em',
-        color: '#fff',
-    },
+
 };
 
 // Export the WeatherForecast component

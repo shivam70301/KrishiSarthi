@@ -5,21 +5,23 @@ const colors = require("colors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 
-//DOTENV
+// Load environment variables
 dotenv.config();
 
-// MONGODB CONNECTION
+// Connect to MongoDB
 connectDB();
 
-//REST OBJECT
+// Initialize Express
 const app = express();
 
-//middlewares
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-//ROUTES
+// Define routes
+app.use("/api/crops", require("./routes/CropRoutes"));
+// Add your other routes as needed
 app.use("/api/AllCrops", require("./routes/AllCropsRoutes"));
 app.use("/api/K_Gyan", require("./routes/K_GyanRoutes"));
 app.use("/api/Policies", require("./routes/PoliciesRoutes"));
@@ -27,10 +29,10 @@ app.use("/api/Pesticides", require("./routes/PesticidesRoutes"));
 app.use("/api/Fair_Events", require("./routes/Fair_EventsRoutes"));
 app.use("/api/Notifications", require("./routes/NotificationsRoutes"));
 
-//PORT
+// Define the port
 const PORT = process.env.PORT || 8080;
 
-//listen
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server Runnning ${PORT}`.bgGreen.white);
+  console.log(`Server Running on PORT ${PORT}`.bgGreen.white);
 });
