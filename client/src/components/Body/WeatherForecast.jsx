@@ -220,8 +220,9 @@ const styles = {
         alignItems: 'center',
     },
     icon: {
-        fontSize: '4em',
-        marginBottom: '5px',
+        fontSize: '6em',
+        marginBottom: '0px',
+        marginTop: '0px',
     },
     temp: {
         fontSize: '3em',
@@ -278,13 +279,17 @@ const styles = {
         backgroundColor: '#fff',
         padding: '10px',
         borderRadius: '10px',
-        width: '150px',
+        width: '200px',
+        maxWidth: '300px',
         textAlign: 'center',
         boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
         transition: 'transform 0.3s',
         margin: '5px',
         cursor: 'pointer',
-        minHeight: '120px',
+        minHeight: '296px',
+        maxHeight: '400px',
+        fontWeight: 'bold',     // Makes the text bold
+    fontSize: '1.2em'  
     },
 };
 
