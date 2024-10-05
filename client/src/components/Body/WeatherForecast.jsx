@@ -9,7 +9,7 @@ const icons = {
     thunderstorm: '⛈️',
 };
 
-// Mock weather data for today, daily, monthly, and air quality
+// Mock weather data for today, daily, weekly, and monthly forecasts
 const weatherData = {
     TODAY: {
         day: "Saturday",
@@ -18,8 +18,8 @@ const weatherData = {
         temperature: '33°C',
         realFeel: '40°C',
         realFeelShade: '37°C',
-        condition: 'Partly sunny',
-        lookingAhead: 'A thunderstorm late Sunday night',
+        condition: 'Partly Cloudy',
+        lookingAhead: 'Mostly sunny throughout the day.',
         icon: icons.partlySunny,
     },
     DAILY: [
@@ -60,13 +60,19 @@ const WeatherForecast = () => {
                             <h2 style={styles.dateTime}>{weatherData.TODAY.time}</h2>
                         </div>
                         <h2 style={styles.date}>{weatherData.TODAY.date}</h2>
-                        <div style={styles.iconContainer}>
-                            <span style={styles.icon}>{weatherData.TODAY.icon}</span>
-                            <h1 style={styles.temp}>{weatherData.TODAY.temperature}</h1>
+                        <div style={selected === 'TODAY' ? styles.iconTempSmall : styles.iconContainer}>
+                            <span style={selected === 'TODAY' ? styles.iconSmall : styles.icon}>
+                                {weatherData.TODAY.icon}
+                            </span>
+                            <h1 style={selected === 'TODAY' ? styles.tempSmall : styles.temp}>
+                                {weatherData.TODAY.temperature}
+                            </h1>
                         </div>
                         <p style={styles.realFeel}>RealFeel: <span style={styles.realFeelValue}>{weatherData.TODAY.realFeel}</span></p>
-                        <p style={styles.condition}>{weatherData.TODAY.condition}</p>
-                        <div style={styles.forecast}>
+                        <p style={selected === 'TODAY' ? styles.conditionNoMargin : styles.condition}>
+                            {weatherData.TODAY.condition}
+                        </p>
+                        <div style={selected === 'TODAY' ? styles.forecastNoMargin : styles.forecast}>
                             <p>{weatherData.TODAY.lookingAhead}</p>
                         </div>
                     </div>
@@ -148,11 +154,13 @@ const NavButton = ({ onClick, children, isActive }) => {
 // Styles
 const styles = {
     appContainer: {
-        padding: '20px',
+        padding: '1%',
         textAlign: 'center',
         background: 'linear-gradient(to right, #56ccf2, #2f80ed)',
         minHeight: '60vh',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'sans-serif , Arial',
+        marginLeft: '8%',
+        marginRight: '8%',
     },
     heading: {
         fontSize: '2.5em',
@@ -178,14 +186,12 @@ const styles = {
         padding: '15px',
         borderRadius: '15px',
         margin: '15px auto',
-        width: '80%',
+        width: '70%',
         maxWidth: '300px',
         boxShadow: '0 8px 20px rgba(0,0,0,0.2)',
         color: '#333',
         transition: 'transform 0.3s',
         textAlign: 'center',
-        minHeight: '120px',
-        
     },
     header: {
         display: 'flex',
@@ -215,12 +221,25 @@ const styles = {
     icon: {
         fontSize: '4em',
         marginBottom: '5px',
-        transition: 'transform 0.3s',
     },
     temp: {
         fontSize: '3em',
         margin: '5px 0',
         color: '#333',
+    },
+    iconTempSmall: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    iconSmall: {
+        fontSize: '2.5em',
+        marginBottom: '5px',
+    },
+    tempSmall: {
+        fontSize: '2em',
+        margin: '5px 0',
     },
     realFeel: {
         fontSize: '0.8em',
@@ -232,8 +251,20 @@ const styles = {
         margin: '5px 0',
         color: 'black',
     },
+    conditionNoMargin: {
+        fontSize: '1.8em',
+        margin: '0', // No margin for TODAY button
+        padding: '0', // No padding for TODAY button
+        color: 'black',
+    },
     forecast: {
-        marginTop: '10px', // Adjusted margin
+        marginTop: '10px',
+        fontStyle: 'italic',
+        color: '#333',
+    },
+    forecastNoMargin: {
+        marginTop: '0', // No margin for TODAY button
+        padding: '0', // No padding for TODAY button
         fontStyle: 'italic',
         color: '#333',
     },
@@ -244,18 +275,16 @@ const styles = {
     },
     forecastCard: {
         backgroundColor: '#fff',
-        padding: '10px', // Adjusted padding
+        padding: '10px',
         borderRadius: '10px',
-        width: '150px', // Adjusted width
+        width: '150px',
         textAlign: 'center',
         boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
         transition: 'transform 0.3s',
-        margin: '5px', // Adjusted margin
+        margin: '5px',
         cursor: 'pointer',
-        minHeight: '120px', // Fixed height for the forecast cards
+        minHeight: '120px',
     },
-
 };
 
-// Export the WeatherForecast component
 export default WeatherForecast;
