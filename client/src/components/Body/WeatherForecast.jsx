@@ -171,14 +171,15 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         marginBottom: '15px',
+        flexWrap: 'wrap',
     },
     navButton: {
         padding: '10px 20px',
-        margin: '0 5px',
+        margin: '5px',
         border: 'none',
         borderRadius: '30px',
         cursor: 'pointer',
-        fontSize: '0.9em',
+        fontSize: '1em',
         transition: 'background-color 0.3s, color 0.3s',
     },
     weatherCard: {
