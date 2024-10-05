@@ -220,7 +220,7 @@ const styles = {
         alignItems: 'center',
     },
     icon: {
-        fontSize: '6em',
+        fontSize: '7em',
         marginBottom: '0px',
         marginTop: '0px',
     },
@@ -289,7 +289,7 @@ const styles = {
         minHeight: '296px',
         maxHeight: '400px',
         fontWeight: 'bold',     // Makes the text bold
-    fontSize: '1.2em'  
+    fontSize: '1.1em'  
     },
 };
 
