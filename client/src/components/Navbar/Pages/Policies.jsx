@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap'; // Import Modal and Button from react-bootstrap
 
 const Policies = () => {
-  const [schemes, setSchemes] = useState([]);  // State to hold the fetched policies
-  const [expandedScheme, setExpandedScheme] = useState(null); // State to track expanded scheme
+  const [schemes, setSchemes] = useState([]); // State to hold the fetched policies
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [selectedScheme, setSelectedScheme] = useState(null); // State to hold the selected scheme for details
 
   // Fetch policies from backend API on component mount
   useEffect(() => {
@@ -13,20 +15,23 @@ const Policies = () => {
       .catch((error) => console.error('Error fetching policies:', error));
   }, []);
 
-  // Function to toggle the visibility of additional information
-  const toggleSchemeDetails = (id) => {
-    if (expandedScheme === id) {
-      setExpandedScheme(null); // Collapse if already expanded
-    } else {
-      setExpandedScheme(id); // Expand the selected scheme
-    }
+  // Function to open the modal and set the selected scheme
+  const handleShowModal = (scheme) => {
+    setSelectedScheme(scheme);
+    setShowModal(true);
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedScheme(null); // Reset selected scheme
   };
 
   return (
     <div className="container my-5">
       <header className="text-center mb-5">
         <h1 className="display-4 font-weight-bold text-primary">Government Schemes for Farmers</h1>
-        <p className="lead text-muted" >
+        <p className="lead text-muted">
           Discover various schemes launched by the Indian Government to support farmers and enhance agricultural productivity.
         </p>
       </header>
@@ -35,32 +40,18 @@ const Policies = () => {
         {schemes.map((scheme) => (
           <div className="col-lg-4 col-md-6 col-sm-12" key={scheme._id}>
             <div className="card h-100 shadow border-0">
-              <div className="card-body text-center">
-                <h5 className="card-title" style={{ fontWeight: '600', color: '#34495e' }}>
+              <div className="card-body d-flex flex-column">
+                <h5 className="card-title card-heading">
                   {scheme.title}
                 </h5>
                 <p className="card-text text-muted">{scheme.description}</p>
 
-                {/* Toggle additional information */}
-                {expandedScheme === scheme._id && (
-                  <>
-                    <p className="font-weight-bold">Objectives:</p>
-                    <p>{scheme.objectives}</p>
-                    <p className="font-weight-bold">Eligibility:</p>
-                    <p>{scheme.eligibility}</p>
-                    <p className="font-weight-bold">Benefits:</p>
-                    <p>{scheme.benefits}</p>
-                    <p className="font-weight-bold">Details:</p>
-                    <p>{scheme.details}</p>
-                  </>
-                )}
-
-                <div className="d-flex justify-content-between">
+                <div className="mt-auto d-flex justify-content-between">
                   <button
-                    className="btn btn-secondary mt-3"
-                    onClick={() => toggleSchemeDetails(scheme._id)}
+                    className="btn btn-view-more mt-3"
+                    onClick={() => handleShowModal(scheme)} // Open modal with selected scheme
                   >
-                    {expandedScheme === scheme._id ? 'Show Less' : 'View More'}
+                    View More
                   </button>
                   <a href={scheme.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-3">
                     Visit Website
@@ -72,12 +63,52 @@ const Policies = () => {
         ))}
       </div>
 
+      {/* Modal to display scheme details */}
+      <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
+        <Modal.Header closeButton className="text-center">
+          <Modal.Title className="w-100" style={{ color: '#28a745', textAlign: 'center' }}>
+            {selectedScheme?.title}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedScheme && (
+            <>
+              <p className="font-weight-bold">Objectives:</p>
+              <p>{selectedScheme.objectives}</p>
+              <p className="font-weight-bold">Eligibility:</p>
+              <p>{selectedScheme.eligibility}</p>
+              <p className="font-weight-bold">Benefits:</p>
+              <p>{selectedScheme.benefits}</p>
+              <p className="font-weight-bold">Details:</p>
+              <p>{selectedScheme.details}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          {/* Visit Website button */}
+          {selectedScheme && (
+            <a 
+              href={selectedScheme.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-success" // Green button
+            >
+              Visit Website
+            </a>
+          )}
+        </Modal.Footer>
+      </Modal>
+
       {/* Custom CSS styles */}
       <style jsx>{`
         header {
           margin-bottom: 40px;
         }
-            body {
+
+        body {
           background-color: #d0eedf; /* Change to your desired background color */
           margin: 0; /* Remove default margin */
           padding: 0; /* Remove default padding */
@@ -92,12 +123,49 @@ const Policies = () => {
           box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
         }
 
+        .card-body {
+          min-height: 250px; /* Ensures all card bodies have a minimum height */
+          display: flex;
+          flex-direction: column; /* Ensures content stacks vertically */
+        }
+
         .card-title {
+          font-size: 1.5rem; /* Increased font size for the title */
           color: #34495e;
+          font-weight: bold;
+          padding-bottom: 10px; /* Adds space between the title and border */
+          border-bottom: 2px solid #34495e; /* Adds a bottom border to the title */
+          text-align: center; /* Center-align the title */
         }
 
         .font-weight-bold {
           font-weight: bold;
+        }
+
+        .btn-view-more {
+          background-color: #28a745; /* Custom green color */
+          border-color: #28a745;
+          color: white;
+        }
+
+        .btn-view-more:hover {
+          background-color: #218838; /* Darker green on hover */
+          border-color: #1e7e34;
+        }
+
+        .btn-primary {
+          background-color: #007bff;
+          border-color: #007bff;
+        }
+
+        .btn-success {
+          background-color: #28a745; /* Green color for the Visit Website button */
+          border-color: #28a745;
+        }
+
+        .btn-success:hover {
+          background-color: #218838; /* Darker green on hover */
+          border-color: #1e7e34;
         }
       `}</style>
     </div>
