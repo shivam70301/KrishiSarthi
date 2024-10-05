@@ -73,13 +73,13 @@ const CropPrices = () => {
               <tr key={index} style={styles.row}>
                 <td style={styles.td}>
                   <div style={styles.cropCell}>
-                    <img src={crop.img} alt={crop.name} style={styles.cropImage} />
+                    <img src={crop.img || "default-image-url.jpg"} alt={crop.name} style={styles.cropImage} />
                     <span style={styles.cropText}>{crop.name}</span>
                   </div>
                 </td>
                 <td style={styles.td}>₹{crop.wholesale}</td>
-                <td style={styles.td}>{crop.retail}</td>
-                <td style={styles.td}>{crop.mall}</td>
+                <td style={styles.td}>₹{crop.retail}</td>
+                <td style={styles.td}>₹{crop.mall}</td>
                 <td style={styles.td}>{crop.unit}</td>
               </tr>
             ))}
@@ -150,50 +150,36 @@ const styles = {
     border: "2px solid #333",
     padding: "10px",
     textAlign: "center",
-    transition: "background-color 0.3s ease",
-    fontWeight: "bold",
-    wordWrap: "break-word",
-  },
-  row: {
-    transition: "background-color 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#f2f2f2",
-    },
   },
   cropCell: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
   },
   cropImage: {
     width: "40px",
     height: "40px",
-    borderRadius: "50%",
     marginRight: "10px",
+    borderRadius: "5px",
   },
   cropText: {
-    fontWeight: "bold",
+    fontSize: "1.1rem",
     color: "#333",
   },
   viewMoreBtn: {
-    padding: "10px 20px",
-    fontSize: "1rem",
     backgroundColor: "#007bff",
     color: "#fff",
+    padding: "10px 15px",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    transition: "background-color 0.3s ease",
   },
   viewLessBtn: {
-    padding: "10px 20px",
-    fontSize: "1rem",
     backgroundColor: "#dc3545",
     color: "#fff",
+    padding: "10px 15px",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    transition: "background-color 0.3s ease",
   },
 };
 

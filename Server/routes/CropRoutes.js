@@ -14,12 +14,12 @@ router.get("/scrape/:date", async (req, res) => {
 
     const crops = [];
     
-    // Modify the selectors as per actual HTML structure
+    // Scrape the crops data
     $('table tbody tr').each((index, element) => {
       const name = $(element).find('td').eq(0).text().trim();  // Vegetable Name
       const wholesale = parseFloat($(element).find('td').eq(1).text().trim().replace('₹', '').replace(',', ''));  // Wholesale Price
-      const retail = $(element).find('td').eq(2).text().trim();  // Retail Price
-      const mall = $(element).find('td').eq(3).text().trim();  // Shopping Mall Price
+      const retail = parseFloat($(element).find('td').eq(2).text().trim().replace('₹', '').replace(',', ''));  // Retail Price
+      const mall = parseFloat($(element).find('td').eq(3).text().trim().replace('₹', '').replace(',', ''));  // Shopping Mall Price
       const unit = $(element).find('td').eq(4).text().trim();  // Unit of Measure
 
       crops.push({
@@ -29,7 +29,7 @@ router.get("/scrape/:date", async (req, res) => {
         mall,
         unit,
         img: '', // Set this to the image URL if available
-        date: date,  // Assuming today's date matches the requested date
+        date: date,  // Store the requested date
       });
     });
 
