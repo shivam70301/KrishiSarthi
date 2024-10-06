@@ -39,7 +39,7 @@ const FairsAndEvents = () => {
         .page-heading {
           font-size: 3rem;
           font-weight: bold;
-          color: #003300;
+          color: #2c3e50;
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
           margin-bottom: 2rem;
         }

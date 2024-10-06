@@ -30,8 +30,10 @@ const Policies = () => {
   return (
     <div className="container my-5">
       <header className="text-center mb-5">
-        <h1 className="display-4 font-weight-bold text-primary">Government Schemes for Farmers</h1>
-        <p className="lead text-muted">
+        <h1 className="display-4 font-weight-bold main-heading">
+          Government Schemes for Farmers
+        </h1>
+        <p className="lead sub-heading">
           Discover various schemes launched by the Indian Government to support farmers and enhance agricultural productivity.
         </p>
       </header>
@@ -114,6 +116,14 @@ const Policies = () => {
           padding: 0; /* Remove default padding */
         }
 
+        .main-heading {
+          color: #2c3e50; /* Change to your desired color for the heading */
+        }
+
+        .sub-heading {
+          color: darkblack; /* Change to your desired color for the subheading */
+        }
+
         .card {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -131,7 +141,7 @@ const Policies = () => {
 
         .card-title {
           font-size: 1.5rem; /* Increased font size for the title */
-          color: #34495e;
+          color: darkblack;
           font-weight: bold;
           padding-bottom: 10px; /* Adds space between the title and border */
           border-bottom: 2px solid #34495e; /* Adds a bottom border to the title */

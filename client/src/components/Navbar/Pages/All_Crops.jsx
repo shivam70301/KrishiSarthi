@@ -35,14 +35,16 @@ const AllCrops = () => {
 
   return (
     <div className="container">
-      <Row className="align-items-center mb-5">
+      <Row className="align-items-center mb-3"> {/* Reduced margin below heading */}
         {/* Heading "All Crops" */}
-        <Col md={9} className="text-center">
+        <Col md={12} className="text-center">
           <h1 className="display-4 stylish-heading">All Crops</h1>
         </Col>
+      </Row>
 
-        {/* Search Bar on the right */}
-        <Col md={3} className="d-flex align-items-center justify-content-end">
+      {/* Sticky Search Bar below the heading */}
+      <Row className="mb-4 sticky-search-bar"> {/* Added sticky class */}
+        <Col md={12} className="d-flex justify-content-center">
           <Form.Group controlId="search" className="mb-0 search-bar">
             <Form.Control 
               type="text" 
@@ -54,7 +56,7 @@ const AllCrops = () => {
           </Form.Group>
         </Col>
       </Row>
-      
+
       <Row>
         {filteredCrops.map((crop) => (
           <Col md={3} key={crop._id} className="mb-3"> {/* Use _id from MongoDB */}
@@ -113,36 +115,53 @@ const AllCrops = () => {
       )}
 
       <style>{`
+         body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
         .container {
           background-color: #cae4c5;
           padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          // border-radius: 8px;
+          // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
-          .stylish-heading {
-  font-family: 'Georgia', serif;
+       .stylish-heading {
+  font-family: 'Georgia', serif; /* You can change this to another font if desired */
   font-weight: bold;
-  color: #223634;
+  color: #2c3e50;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   border: 6px solid white; /* Add white border */
   padding: 10px; /* Add padding for spacing */
-  border-radius: 8px; /* Optional: rounded corners */
+  border-top-left-radius: 30px; /* Circular top left corner */
+  border-top-right-radius: 30px; /* Circular top right corner */
+  border-bottom-left-radius: 0; /* Straight bottom left corner */
+  border-bottom-right-radius: 0; /* Straight bottom right corner */
   display: inline-block; /* Make the border wrap around the text */
   width: 80%; /* Set width to 80% of the parent container */
   max-width: 600px; /* Set a max width to limit size */
-  margin: 20px auto; /* Center the heading and add margin above and below */
+  margin: 0 auto; /* Center the heading with no extra margin above or below */
 }
 
+
+        .sticky-search-bar {
+          position: sticky;
+          top: 0; /* Stick to the top of the viewport */
+          background-color: #cae4c5; /* Match the container background */
+          z-index: 10; /* Ensure it stays above other elements */
+          padding: 10px 0; /* Optional: padding for aesthetics */
+        }
+
         .search-bar {
-          width: 100%;
+          width: 30%; /* Reduce the width of the search bar further */
         }
 
         .search-input {
-          padding: 10px;
+          padding: 8px; /* Adjust padding for a smaller search bar */
           font-size: 0.9rem;
           color: white;
           border: 2px solid #007bff;
-          border-radius: 5px;
+          border-radius: 25px; /* Circular edges for the search bar */
           transition: border-color 0.3s;
         }
 
@@ -174,6 +193,10 @@ const AllCrops = () => {
 
           .stylish-heading {
             font-size: 1.75rem;
+          }
+
+          .search-bar {
+            width: 70%; /* Make the search bar wider on smaller screens */
           }
         }
 

@@ -163,17 +163,22 @@ const CropRecommendations = () => {
       )}
 
       <style>{`
+       body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
         .container {
           background-color: #cae4c5;
           padding: 20px;
           border-radius: 8px;
-          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+         /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); */
         }
 
       .stylish-heading {
     font-family: 'Georgia', serif;
     font-weight: bold;
-    color: #254222;
+    color: #2c3e50;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid black; /* Adjust the thickness and color as needed */
     padding-bottom: 10px; /* Optional: adds some space between the text and the border */

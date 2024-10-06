@@ -69,7 +69,7 @@ const Notifications = () => {
 
         .page-title {
           font-size: 2.5rem;
-          color: #28a745;
+          color: #2c3e50;
           text-transform: uppercase;
           animation: titleAnimation 1.2s ease-in-out forwards;
         }

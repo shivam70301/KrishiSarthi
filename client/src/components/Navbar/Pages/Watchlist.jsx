@@ -94,7 +94,7 @@ const styles = {
   },
   header: {
     fontFamily: "'Poppins', sans-serif",
-    color: "#34495e",
+    color: "#2c3e50",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "2.5rem",
