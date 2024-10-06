@@ -127,7 +127,7 @@ const AllCrops = () => {
           // box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
        .stylish-heading {
-  font-family: 'Georgia', serif; /* You can change this to another font if desired */
+  font-family: serif, Georgia; /* You can change this to another font if desired */
   font-weight: bold;
   color: #2c3e50;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
@@ -141,6 +141,7 @@ const AllCrops = () => {
   width: 80%; /* Set width to 80% of the parent container */
   max-width: 600px; /* Set a max width to limit size */
   margin: 0 auto; /* Center the heading with no extra margin above or below */
+  text-transform: uppercase;
 }
 
 

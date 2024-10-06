@@ -101,7 +101,7 @@ const CropRecommendations = () => {
         {/* Heading "Crop Recommendations" */}
         <Col md={12} className="text-center">
           <div className="heading-container">
-            <h1 className="display-4 stylish-heading">Crop Recommendations</h1>
+            <h1 className="display-4 stylish-heading">CROPS FOR YOU</h1>
           </div>
         </Col>
       </Row>
@@ -176,7 +176,7 @@ const CropRecommendations = () => {
         }
 
       .stylish-heading {
-    font-family: 'Georgia', serif;
+    font-family: serif, Georgia;
     font-weight: bold;
     color: #2c3e50;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
