@@ -55,8 +55,8 @@ const CropPrices = () => {
               <tr key={index} style={styles.row}>
                 <td style={styles.td}><span style={styles.cropText}>{crop.name}</span></td>
                 <td style={styles.td}>₹{crop.wholesale}</td>
-                <td style={styles.td}>₹{crop.retail}</td>
-                <td style={styles.td}>₹{crop.mall}</td>
+                <td style={styles.td}>{crop.retail}</td>
+                <td style={styles.td}>{crop.mall}</td>
                 <td style={styles.td}>{crop.unit}</td>
               </tr>
             ))}

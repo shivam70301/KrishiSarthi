@@ -1,7 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
-const Crop = require("../models/Crop"); // Assuming you have a MongoDB model
+const Crop = require("../models/Crop");
 const router = express.Router();
 
 // Route to scrape data from the external website and return as JSON
@@ -17,8 +17,8 @@ router.get("/scrape/today", async (req, res) => {
     $('table tbody tr').each((index, element) => {
       const name = $(element).find('td').eq(1).text().trim();  // Vegetable Name
       const wholesale = parseFloat($(element).find('td').eq(2).text().trim().replace('₹', '').replace(',', ''));  // Wholesale Price
-      const retail = parseFloat($(element).find('td').eq(3).text().trim().replace('₹', '').replace(',', ''));  // Retail Price
-      const mall = parseFloat($(element).find('td').eq(4).text().trim().replace('₹', '').replace(',', ''));  // Shopping Mall Price
+      const retail = $(element).find('td').eq(3).text().trim();  // Retail Price (keep as string to include ranges)
+      const mall = $(element).find('td').eq(4).text().trim();  // Shopping Mall Price (keep as string to include ranges)
       const unit = $(element).find('td').eq(5).text().trim();  // Unit of Measure
 
       crops.push({
