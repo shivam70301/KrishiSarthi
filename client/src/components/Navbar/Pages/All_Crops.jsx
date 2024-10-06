@@ -114,7 +114,7 @@ const AllCrops = () => {
 
       <style>{`
         .container {
-          background-color: #99cccc;
+          background-color: #cae4c5;
           padding: 20px;
           border-radius: 8px;
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);

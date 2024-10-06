@@ -195,6 +195,12 @@ const SoilInformation = () => {
         body {
           font-family: 'Quicksand', sans-serif;
         }
+           body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
+
         .card {
           border-radius: 15px;
           transition: transform 0.2s;

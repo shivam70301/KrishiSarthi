@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // VideoCard Component to render individual video items
 const VideoCard = ({ video, onRemove }) => {
   return (
-    <Col xs={12} md={6} lg={4} style={styles.videoCard}>
+    <Col xs={12} md={6} lg={3} style={styles.videoCard}>
       <Card className="h-100" style={styles.animatedCard}>
         <div style={styles.videoThumbnail}>
           <Card.Img variant="top" src={video.thumbnail} alt={video.title} style={styles.thumbnailImg} />
@@ -40,12 +40,26 @@ const Watchlist = () => {
       thumbnail: "https://example.com/thumbnail2.jpg",
       videoLink: "https://youtube.com/example2",
     },
+    {
+      id: 3,
+      title: "Best practices for rice cultivation",
+      thumbnail: "https://example.com/thumbnail2.jpg",
+      videoLink: "https://youtube.com/example2",
+    },
     // Add more videos as needed
   ]);
 
   const removeFromWatchlist = (id) => {
     setWatchlist(watchlist.filter((video) => video.id !== id));
   };
+
+  // Apply body background color when component mounts
+  useEffect(() => {
+    document.body.style.backgroundColor = "#cae4c5"; // Green color
+    return () => {
+      document.body.style.backgroundColor = ""; // Reset background color when component unmounts
+    };
+  }, []);
 
   return (
     <Container fluid style={styles.watchlistContainer}>
@@ -68,11 +82,15 @@ const Watchlist = () => {
 // Styles Object
 const styles = {
   watchlistContainer: {
-    backgroundColor: "#f2f7f5",
+    backgroundColor: "#cae4c5",
     padding: "3rem",
-    borderRadius: "15px",
-    marginTop: "50px",
+    borderRadius: "0px",
+    marginTop: "0px",
     animation: "fadeInUp 1s ease",
+    width: "100vw",
+    marginLeft: "0px",
+    marginRight: "0px",
+    maxWidth: "100%",
   },
   header: {
     fontFamily: "'Poppins', sans-serif",
@@ -181,9 +199,9 @@ const animationStyles = `
 }`;
 
 // Append animation styles to document
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style');
-  styleSheet.type = 'text/css';
+if (typeof document !== "undefined") {
+  const styleSheet = document.createElement("style");
+  styleSheet.type = "text/css";
   styleSheet.innerText = animationStyles;
   document.head.appendChild(styleSheet);
 }

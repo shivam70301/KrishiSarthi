@@ -29,10 +29,10 @@ const FairsAndEvents = () => {
   };
 
   return (
-    <div className="mt-5" style={{ backgroundColor: '#99cccc', minHeight: '100vh', padding: '0' }}>
+    <div className="mt-5" style={{ backgroundColor: '#cae4c5', minHeight: '100vh', padding: '0' }}>
       <style>{`
         body {
-          background-color: #99cccc;
+          background-color: #cae4c5;
           margin: 0;
           padding: 0;
         }

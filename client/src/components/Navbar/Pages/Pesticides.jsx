@@ -81,7 +81,7 @@ const Pesticides = () => {
 const styles = {
   container: {
     padding: '2rem',
-    backgroundColor: '#99cc99', // Updated background color
+    backgroundColor: '#cae4c5', // Updated background color
   },
   
   heading: {

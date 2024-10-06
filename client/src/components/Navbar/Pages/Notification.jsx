@@ -61,6 +61,11 @@ const Notifications = () => {
         .notification-page {
           animation: slideIn 1s ease-in-out;
         }
+           body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
 
         .page-title {
           font-size: 2.5rem;
