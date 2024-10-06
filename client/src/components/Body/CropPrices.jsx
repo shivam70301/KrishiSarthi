@@ -6,12 +6,13 @@ const CropPrices = () => {
   const [visibleCount, setVisibleCount] = useState(5);
   const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search input
 
   // Fetch crops based on today's date
   const fetchCrops = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8080/api/crops/scrape/today`);  // Fetch today's data
+      const res = await axios.get(`http://localhost:8080/api/crops/scrape/today`); // Fetch today's data
       console.log("Response data:", res.data);
       setCrops(res.data);
     } catch (error) {
@@ -31,13 +32,32 @@ const CropPrices = () => {
     setShowAll(!showAll);
   };
 
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filter crops based on search term
+  const filteredCrops = crops.filter(crop =>
+    crop.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Today's Market Price</h1>
 
+      {/* Search Bar */}
+      <input
+        type="text"
+        placeholder="Search for a vegetable..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        style={styles.searchInput}
+      />
+
       {loading ? (
         <p>Loading...</p>
-      ) : crops.length === 0 ? (
+      ) : filteredCrops.length === 0 ? (
         <p>No data available.</p>
       ) : (
         <table style={styles.table}>
@@ -51,7 +71,7 @@ const CropPrices = () => {
             </tr>
           </thead>
           <tbody>
-            {crops.slice(0, visibleCount).map((crop, index) => (
+            {filteredCrops.slice(0, visibleCount).map((crop, index) => (
               <tr key={index} style={styles.row}>
                 <td style={styles.td}><span style={styles.cropText}>{crop.name}</span></td>
                 <td style={styles.td}>₹{crop.wholesale}</td>
@@ -145,6 +165,15 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
   },
+  searchInput: {
+    width: "80%",
+    maxWidth: "400px",
+    padding: "10px",
+    margin: "20px 0",
+    border: "2px solid #333",
+    borderRadius: "5px",
+    fontSize: "1rem",
+  }
 };
 
 export default CropPrices;
