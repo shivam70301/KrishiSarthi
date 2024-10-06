@@ -1,11 +1,12 @@
 import React from 'react';
 import 'animate.css'; // For animations
 import soil from '../../assets/soil.png';
-import crop from '../../assets/crop.png';
-import croppest from '../../assets/croppest.png';
+import allcrop from '../../assets/allcrop.png';
+import croprec from '../../assets/croprec.png';
+import pesticides from '../../assets/pesticides.png';
 import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
-import tool from '../../assets/Agriculture_Plan.png';
+import fair from '../../assets/fair.png';
 import { Link } from "react-router-dom";
 
 const Lower_Navbar = () => {
@@ -17,7 +18,7 @@ const Lower_Navbar = () => {
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
               <Link to="/All_Crops" className="nav-link">
-                <img src={crop} alt="All Crops" className="nav-icon" />
+                <img src={allcrop} alt="All Crops" className="nav-icon" />
                 <span className="nav-text">All Crops</span>
               </Link>
             </div>
@@ -39,7 +40,7 @@ const Lower_Navbar = () => {
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
               <Link to="/Crop_Recommendation" className="nav-link">
-                <img src={crop} alt="Crop Recommendation" className="nav-icon" />
+                <img src={croprec} alt="Crop Recommendation" className="nav-icon" />
                 <span className="nav-text">Crop Recommendation</span>
               </Link>
             </div>
@@ -72,7 +73,7 @@ const Lower_Navbar = () => {
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
               <Link to="/Pesticides" className="nav-link">
-                <img src={croppest} alt="Pesticides" className="nav-icon" />
+                <img src={pesticides} alt="Pesticides" className="nav-icon" />
                 <span className="nav-text">Pesticides</span>
               </Link>
             </div>
@@ -83,7 +84,7 @@ const Lower_Navbar = () => {
           <button className="nav-button">
             <div className="navbar-buttons mbr-section-btn">
               <Link to="/Fair_Events" className="nav-link">
-                <img src={tool} alt="Tool" className="nav-icon" />
+                <img src={fair} alt="Fair" className="nav-icon" />
                 <span className="nav-text">Fair & Events</span>
               </Link>
             </div>

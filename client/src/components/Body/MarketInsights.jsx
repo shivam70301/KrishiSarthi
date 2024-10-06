@@ -57,6 +57,13 @@ const MarketTrends = () => {
           <p className="animate__animated animate__fadeInUp animate__delay-2s">Sustainable farming practices are becoming more popular.</p>
           <p className="animate__animated animate__fadeInUp animate__delay-3s">Artisanal foods are gaining traction among consumers.</p>
         </div>
+
+        <div className="carousel-item-content animate__animated animate__fadeInLeft text-center p-4">
+          <h3 className="text-primary animate__animated animate__lightSpeedInLeft">Market Story</h3>
+          <p className="animate__animated animate__fadeInUp animate__delay-1s">In recent years, the global food industry has undergone a significant shift.</p>
+          <p className="animate__animated animate__fadeInUp animate__delay-2s">Consumers are more conscious about their food choices, focusing on health and sustainability.</p>
+          <p className="animate__animated animate__fadeInUp animate__delay-3s">Local and organic options are now considered premium commodities.</p>
+        </div>
       </Carousel>
 
       <style>{`
