@@ -164,6 +164,7 @@ const styles = {
         minHeight: '60vh',
         fontFamily: 'sans-serif, Arial',
         marginLeft: '8%',
+        marginBottom:'2%',
         marginRight: '8%',
         marginTop: '6.5%',
     },
