@@ -6,8 +6,6 @@ const cropSchema = new mongoose.Schema({
   retail: { type: Number, required: true },
   mall: { type: Number, required: true },
   unit: { type: String, required: true },
-  img: { type: String, required: true },
-  date: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Crop", cropSchema);

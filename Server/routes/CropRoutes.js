@@ -1,12 +1,11 @@
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
+const Crop = require("../models/Crop"); // Assuming you have a MongoDB model
 const router = express.Router();
-const Crop = require("../models/Crop");
 
 // Route to scrape data from the external website and return as JSON
-router.get("/scrape/:date", async (req, res) => {
-  const { date } = req.params;
+router.get("/scrape/today", async (req, res) => {
   try {
     const url = "https://vegetablemarketprice.com/market/maharashtra/today";
     const { data } = await axios.get(url);
@@ -16,11 +15,11 @@ router.get("/scrape/:date", async (req, res) => {
     
     // Scrape the crops data
     $('table tbody tr').each((index, element) => {
-      const name = $(element).find('td').eq(0).text().trim();  // Vegetable Name
-      const wholesale = parseFloat($(element).find('td').eq(1).text().trim().replace('₹', '').replace(',', ''));  // Wholesale Price
-      const retail = parseFloat($(element).find('td').eq(2).text().trim().replace('₹', '').replace(',', ''));  // Retail Price
-      const mall = parseFloat($(element).find('td').eq(3).text().trim().replace('₹', '').replace(',', ''));  // Shopping Mall Price
-      const unit = $(element).find('td').eq(4).text().trim();  // Unit of Measure
+      const name = $(element).find('td').eq(1).text().trim();  // Vegetable Name
+      const wholesale = parseFloat($(element).find('td').eq(2).text().trim().replace('₹', '').replace(',', ''));  // Wholesale Price
+      const retail = parseFloat($(element).find('td').eq(3).text().trim().replace('₹', '').replace(',', ''));  // Retail Price
+      const mall = parseFloat($(element).find('td').eq(4).text().trim().replace('₹', '').replace(',', ''));  // Shopping Mall Price
+      const unit = $(element).find('td').eq(5).text().trim();  // Unit of Measure
 
       crops.push({
         name,
@@ -28,10 +27,12 @@ router.get("/scrape/:date", async (req, res) => {
         retail,
         mall,
         unit,
-        img: '', // Set this to the image URL if available
-        date: date,  // Store the requested date
       });
     });
+
+    // Optional: Save to MongoDB or update existing records
+    await Crop.deleteMany();  // Delete old records
+    await Crop.insertMany(crops);  // Insert new records
 
     res.json(crops);  // Send the scraped data back as JSON
   } catch (error) {
