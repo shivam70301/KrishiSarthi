@@ -79,6 +79,11 @@ const MarketTrends = () => {
       </Carousel>
 
       <style>{`
+       body {
+          background-color: #cae4c5; /* Change to your desired background color */
+          margin: 0; /* Remove default margin */
+          padding: 0; /* Remove default padding */
+        }
         .carousel-item-content {
           background-image: linear-gradient(to bottom, #f7f7f7, #e7e7e7);
           border-radius: 15px; 
