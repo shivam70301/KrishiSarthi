@@ -34,7 +34,7 @@ const K_Gyan = () => {
   // Function to add a video to the watchlist
   const addToWatchlist = (video) => {
     setWatchlist((prevWatchlist) => [...prevWatchlist, video]);
-    alert(`${video.title} has been added to your watchlist!`); // Alert for confirmation
+    // Removed the alert notification
   };
 
   return (
