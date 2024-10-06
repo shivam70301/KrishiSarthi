@@ -6,6 +6,7 @@ import profile from '../../assets/profile.png';
 import translateIcon from '../../assets/translator.png';       
 import locationIcon from '../../assets/location.png';
 import { Link } from "react-router-dom";
+import GoogleTranslate from './GoogleTranslate'
 
 // Sample districts of Maharashtra (replace with your actual data)
 const maharashtraDistricts = [
@@ -167,6 +168,7 @@ function NavigationBar() {
           </Link>
         </div>
       </div>
+      <GoogleTranslate />
 
       <style jsx>{`
 /* Base style for larger screens (laptops and desktops) */
