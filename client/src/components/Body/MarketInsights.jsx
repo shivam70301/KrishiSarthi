@@ -43,7 +43,7 @@ const MarketTrends = () => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {/* Agronomy + Tech = Precision Agriculture Slide (moved to the top) */}
+        {/* Agronomy + Tech = Precision Agriculture Slide */}
         <div className="carousel-item-content animate__animated animate__fadeInUp text-center p-4">
           <div className="heading-container">
             <h3 className="heading-part animate__animated animate__zoomIn">Agronomy + Tech =</h3>
@@ -79,7 +79,7 @@ const MarketTrends = () => {
       </Carousel>
 
       <style>{`
-       body {
+        body {
           background-color: #cae4c5; /* Change to your desired background color */
           margin: 0; /* Remove default margin */
           padding: 0; /* Remove default padding */
@@ -88,7 +88,7 @@ const MarketTrends = () => {
           background-image: linear-gradient(to bottom, #f7f7f7, #e7e7e7);
           border-radius: 15px; 
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
-          min-height: 350px; 
+          min-height: 400px; 
           display: flex; 
           flex-direction: column; 
           justify-content: center; 
@@ -137,22 +137,31 @@ const MarketTrends = () => {
         .dot-active {
           background-color: #007bff; 
         }
-        
-        /* Optional: Adjust the overall carousel height */
-        .react-multi-carousel-list {
-          max-height: 450px; 
+
+        /* Consistent height for all carousel items */
+        .carousel-item-content {
+          height: 400px; /* Set a fixed height for consistency */
         }
 
         @media (max-width: 768px) {
           .carousel-item-content {
             padding: 20px; 
-            min-height: 300px ;
+            height: 300px; /* Adjust height for smaller screens */
           }
           .heading-part {
             font-size: 2rem; 
           }
           .small-text {
             font-size: 0.9rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .heading-part {
+            font-size: 1.5rem; 
+          }
+          .small-text {
+            font-size: 0.8rem; 
           }
         }
 
