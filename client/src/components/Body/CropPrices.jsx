@@ -137,6 +137,7 @@ const styles = {
     borderCollapse: "collapse",
     marginBottom: "20px",
     fontSize: "1rem",
+    backgroundColor: "white", // Set the table background color to white
   },
   th: {
     backgroundColor: "#C1E899",
