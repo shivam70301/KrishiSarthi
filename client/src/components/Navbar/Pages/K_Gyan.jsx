@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const K_Gyan = () => {
   const [videos, setVideos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [watchlist, setWatchlist] = useState([]); // State for watchlist
 
   // Function to convert regular YouTube URL to embedded URL
   const getEmbeddedUrl = (url) => {
@@ -30,6 +31,12 @@ const K_Gyan = () => {
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Function to add a video to the watchlist
+  const addToWatchlist = (video) => {
+    setWatchlist((prevWatchlist) => [...prevWatchlist, video]);
+    alert(`${video.title} has been added to your watchlist!`); // Alert for confirmation
+  };
+
   return (
     <div className="container my-5">
       <h1 className="text-center mb-4 display-4" style={{ fontWeight: 'bold', color: '#2c3e50' }}>
@@ -49,26 +56,39 @@ const K_Gyan = () => {
       </div>
 
       <div className="row">
-        {filteredVideos.map((video) => (
-          <div className="col-md-4 col-sm-12 mb-4" key={video._id}>
-            <div className="card h-100 shadow border-0 video-card">
-              <div className="ratio ratio-16x9">
-                <iframe
-                  src={getEmbeddedUrl(video.url)}  // Convert the URL before embedding
-                  allowFullScreen
-                  title={video.title}
-                  className="embed-responsive-item"
-                  style={{ borderRadius: '10px' }}
-                />
-              </div>
-              <div className="card-body text-center">
-                <h5 className="card-title" style={{ fontWeight: '600', color: '#34495e' }}>
-                  {video.title}
-                </h5>
+        {filteredVideos.map((video) => {
+          const isInWatchlist = watchlist.some(item => item._id === video._id); // Check if the video is in the watchlist
+          return (
+            <div className="col-md-4 col-sm-12 mb-4" key={video._id}>
+              <div className="card h-100 shadow border-0 video-card">
+                <div className="ratio ratio-16x9">
+                  <iframe
+                    src={getEmbeddedUrl(video.url)}  // Convert the URL before embedding
+                    allowFullScreen
+                    title={video.title}
+                    className="embed-responsive-item"
+                    style={{ borderRadius: '10px' }}
+                  />
+                </div>
+                <div className="card-body text-center">
+                  <h5 className="card-title" style={{ fontWeight: '600', color: '#34495e' }}>
+                    {video.title}
+                  </h5>
+                  <button
+                    className={`btn ${isInWatchlist ? 'btn-success' : 'btn-primary'}`} // Change button color based on state
+                    onClick={() => {
+                      if (!isInWatchlist) {
+                        addToWatchlist(video);
+                      }
+                    }}
+                  >
+                    {isInWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'} {/* Change button text */}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Inline CSS styles */}
