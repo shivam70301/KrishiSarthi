@@ -154,13 +154,18 @@ const NavButton = ({ onClick, children, isActive }) => {
 // Styles
 const styles = {
     appContainer: {
-        padding: '1%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
+        padding: '2%',
         textAlign: 'center',
         background: 'linear-gradient(to right, #56ccf2, #2f80ed)',
         minHeight: '60vh',
-        fontFamily: 'sans-serif , Arial',
+        fontFamily: 'sans-serif, Arial',
         marginLeft: '8%',
         marginRight: '8%',
+        marginTop: '6.5%',
     },
     heading: {
         fontSize: '2.5em',
