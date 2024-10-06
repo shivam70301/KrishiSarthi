@@ -170,21 +170,14 @@ const CropRecommendations = () => {
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        .heading-container {
-          background-color: white;
-          padding: 10px;
-          border-radius: 15px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          display: inline-block;
-        }
-
-        .stylish-heading {
-          font-family: 'Georgia', serif;
-          font-weight: bold;
-          color: black;
-          text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
+      .stylish-heading {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: #254222;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid black; /* Adjust the thickness and color as needed */
+    padding-bottom: 10px; /* Optional: adds some space between the text and the border */
+}
         .crop-card {
           transition: transform 0.2s;
           border-radius: 10px;

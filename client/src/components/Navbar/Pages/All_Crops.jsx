@@ -119,8 +119,7 @@ const AllCrops = () => {
           border-radius: 8px;
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
-
-.stylish-heading {
+          .stylish-heading {
   font-family: 'Georgia', serif;
   font-weight: bold;
   color: #223634;
@@ -133,7 +132,6 @@ const AllCrops = () => {
   max-width: 600px; /* Set a max width to limit size */
   margin: 20px auto; /* Center the heading and add margin above and below */
 }
-
 
         .search-bar {
           width: 100%;
