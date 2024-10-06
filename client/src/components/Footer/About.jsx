@@ -23,10 +23,32 @@ function About() {
     setFeedback({ ...feedback, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(feedback),
+      });
+      
+      if (response.ok) {
+        setSubmitted(true);
+        setFeedback({ name: '', email: '', message: '' }); // Reset form
+      } else {
+        const errorData = await response.json();
+        console.error('Error:', errorData);
+        // Handle error (e.g., show a message to the user)
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      // Handle network error (e.g., show a message to the user)
+    }
   };
+  
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
