@@ -26,6 +26,7 @@ const responsive = {
 const MarketTrends = () => {
   return (
     <div className="container my-5">
+      {/* Carousel starts here */}
       <Carousel
         swipeable={true}
         draggable={true}
@@ -42,27 +43,38 @@ const MarketTrends = () => {
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
+        {/* Agronomy + Tech = Precision Agriculture Slide (moved to the top) */}
         <div className="carousel-item-content animate__animated animate__fadeInUp text-center p-4">
-          <h3 className="text-primary animate__animated animate__zoomIn">Market Trends</h3>
-          <ul className="list-unstyled animate__animated animate__fadeInLeft animate__delay-1s">
-            <li className="mb-2"><strong>Organic Produce:</strong> 25%</li>
-            <li className="mb-2"><strong>Sustainable Farming:</strong> 30%</li>
-            <li className="mb-2"><strong>Artisanal Foods:</strong> 20%</li>
-          </ul>
+          <div className="heading-container">
+            <h3 className="heading-part animate__animated animate__zoomIn">Agronomy + Tech =</h3>
+            <h3 className="heading-part animate__animated animate__zoomIn">Precision Agriculture</h3>
+          </div>
+          <p className="small-text animate__animated animate__fadeInUp animate__delay-1s">
+            Powerful combination of agronomy expertise with Technology enables any farmer to
+            adopt and succeed <p>with precision agriculture practices.</p>
+          </p>
         </div>
 
+        {/* Updated Crop Planning and Production Slide */}
         <div className="carousel-item-content animate__animated animate__fadeInRight text-center p-4">
-          <h3 className="text-primary animate__animated animate__bounceIn">Market Analysis</h3>
-          <p className="animate__animated animate__fadeInUp animate__delay-1s">The demand for organic produce is increasing rapidly.</p>
-          <p className="animate__animated animate__fadeInUp animate__delay-2s">Sustainable farming practices are becoming more popular.</p>
-          <p className="animate__animated animate__fadeInUp animate__delay-3s">Artisanal foods are gaining traction among consumers.</p>
+          <div className="heading-container">
+            <h3 className="heading-part animate__animated animate__zoomIn">Crop Planning and</h3>
+            <h3 className="heading-part animate__animated animate__zoomIn">Production</h3>
+          </div>
+          <p className="small-text animate__animated animate__fadeInUp animate__delay-1s">
+            With you at every stage, from soil test through crop selection to production and help you <p> achieve the target yield</p>
+          </p>
         </div>
 
+        {/* Updated Pest and Disease Control Slide */}
         <div className="carousel-item-content animate__animated animate__fadeInLeft text-center p-4">
-          <h3 className="text-primary animate__animated animate__lightSpeedInLeft">Market Story</h3>
-          <p className="animate__animated animate__fadeInUp animate__delay-1s">In recent years, the global food industry has undergone a significant shift.</p>
-          <p className="animate__animated animate__fadeInUp animate__delay-2s">Consumers are more conscious about their food choices, focusing on health and sustainability.</p>
-          <p className="animate__animated animate__fadeInUp animate__delay-3s">Local and organic options are now considered premium commodities.</p>
+          <div className="heading-container">
+            <h3 className="heading-part animate__animated animate__zoomIn">Pest and Disease</h3>
+            <h3 className="heading-part animate__animated animate__zoomIn">Control</h3>
+          </div>
+          <p className="small-text animate__animated animate__fadeInUp animate__delay-1s">
+            We provide expert guidance in pest and disease control, ensuring your crops thrive and yield abundantly. Together, we’ll safeguard your harvest and cultivate resilience in your farming practices!
+          </p>
         </div>
       </Carousel>
 
@@ -85,10 +97,18 @@ const MarketTrends = () => {
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); 
         }
 
-        .carousel-item-content h3 {
-          font-size: 2rem; 
+        .heading-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px; /* Adjust this margin to raise the headings */
+        }
+
+        .heading-part {
+          font-size: 2.5rem; 
           font-weight: 700; 
-          margin-bottom: 20px;
+          margin: 0;
           text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -98,13 +118,11 @@ const MarketTrends = () => {
           text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
 
-        .carousel-item-content ul {
-          padding-left: 0;
-          list-style: none;
-        }
-
-        .carousel-item-content li {
-          margin-bottom: 10px;
+        .small-text {
+          font-size: 1rem; 
+          margin-top: 0px;
+          color: #555;
+          line-height: 1.6;
         }
 
         .custom-dot-list-style {
@@ -124,6 +142,12 @@ const MarketTrends = () => {
           .carousel-item-content {
             padding: 20px; 
             min-height: 300px ;
+          }
+          .heading-part {
+            font-size: 2rem; 
+          }
+          .small-text {
+            font-size: 0.9rem;
           }
         }
 
