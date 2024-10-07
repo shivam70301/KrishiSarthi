@@ -219,6 +219,9 @@ const CropRecommendations = () => {
         .modal-title {
           font-size: 1.75rem;
         }
+          .modal-body {
+          background-color: #cae4c5;
+          }
 
         h5 {
           font-weight: bold;
@@ -226,7 +229,7 @@ const CropRecommendations = () => {
         }
 
         p {
-          color: #555;
+          color: black;
         }
       `}</style>
     </div>
