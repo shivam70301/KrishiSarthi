@@ -32,6 +32,7 @@ function NavigationBar() {
     setSearchTerm(event.target.value);
   };
 
+
   // Handle location selection and close dropdown
   const handleLocationSelect = (district) => {
     setSelectedLocation(district);
@@ -113,6 +114,7 @@ function NavigationBar() {
                   onClick={() => handleLocationSelect(district)} // Close dropdown on selection
                 >
                   {district}
+                  
                 </div>
               ))}
             </div>
