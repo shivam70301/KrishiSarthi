@@ -11,6 +11,7 @@ import Fair_Events from "./components/Navbar/Pages/Fair_Events";
 import Watchlist from "./components/Navbar/Pages/Watchlist";
 import Notification from "./components/Navbar/Pages/Notification";
 import Profile from "./components/Navbar/Pages/Profile";
+import GoogleTranslate from "./components/Navbar/GoogleTranslate";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/Notification" element={<Notification />} />
         <Route path="/Profile" element={<Profile />} />
       </Routes>
+      <GoogleTranslate />
     </BrowserRouter>
   );
 }

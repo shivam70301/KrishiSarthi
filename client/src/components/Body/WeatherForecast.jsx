@@ -43,6 +43,7 @@ const weatherData = {
     ],
 };
 
+
 const WeatherForecast = () => {
     const [selected, setSelected] = useState('TODAY');
 

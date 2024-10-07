@@ -18,6 +18,7 @@ const maharashtraDistricts = [
   "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"
 ];
 
+
 function NavigationBar() {
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,6 +59,8 @@ function NavigationBar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  console.log(localStorage.getItem("maharashtraDistricts"))
+
   return (
     <nav className="nav-bar">
       <div className="logo-container">
@@ -88,8 +91,8 @@ function NavigationBar() {
             style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
           >
             <GoogleTranslate />
-            <div className="dropdown-item">English</div>
-            <div className="dropdown-item">मराठी</div>
+            {/* <div className="dropdown-item">English</div> */}
+            {/* <div className="dropdown-item">मराठी</div> */}
           </div>
         )}
       </div>
@@ -113,7 +116,10 @@ function NavigationBar() {
                 <div
                   key={district}
                   className="dropdown-item"
-                  onClick={() => handleLocationSelect(district)} // Close dropdown on selection
+                  onClick={() => {
+                    handleLocationSelect(district) 
+                    localStorage.setItem("maharashtraDistricts",district)
+                  }} // Close dropdown on selection
                 >
                   {district}
                   
