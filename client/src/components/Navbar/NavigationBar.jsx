@@ -78,20 +78,22 @@ function NavigationBar() {
       <div className="nav-links" ref={dropdownRef}>
         {/* Translator Dropdown */}
         <div
-          className="nav-link"
-          onClick={(e) => toggleDropdown("translator", e)}
-        >
-          <img src={translateIcon} alt="Translator" />
-          {showDropdown === "translator" && (
-            <div
-              className="translator-dropdown"
-              style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
-            >
-              <div className="dropdown-item">English</div>
-              <div className="dropdown-item">मराठी</div>
-            </div>
-          )}
-        </div>
+        className="nav-link"
+        onClick={(e) => toggleDropdown("translator", e)}
+      >
+        <img src={translateIcon} alt="Translator" />
+        {showDropdown === "translator" && (
+          <div
+            className="translator-dropdown"
+            style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
+          >
+            <GoogleTranslate />
+            <div className="dropdown-item">English</div>
+            <div className="dropdown-item">मराठी</div>
+          </div>
+        )}
+      </div>
+
 
         {/* Location Dropdown */}
 
@@ -170,7 +172,6 @@ function NavigationBar() {
           </Link>
         </div>
       </div>
-      <GoogleTranslate />
 
       <style jsx>{`
 /* Base style for larger screens (laptops and desktops) */
