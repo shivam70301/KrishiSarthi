@@ -104,7 +104,7 @@ const Lower_Navbar = () => {
         .nav-list {
           list-style: none;
           display: flex;
-          gap: 6rem;
+          gap: 4rem;
           flex-wrap: nowrap;
           padding: 0;
           margin: 0;
