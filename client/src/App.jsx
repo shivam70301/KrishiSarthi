@@ -18,8 +18,8 @@ import NavigationBar from "./components/Navbar/NavigationBar";
 function App() {
   return (
     <BrowserRouter>
-      <BrowserRouter>
-    <NavigationBar />
+<NavigationBar />
+    <Lower_Navbar />
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/All_Crops" element={<All_Crops />} />
