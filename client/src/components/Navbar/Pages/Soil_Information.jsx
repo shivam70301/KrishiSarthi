@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaLeaf, FaWater, FaVials } from 'react-icons/fa';
+import { ProgressBar } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 const SoilInformation = () => {
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+
+  useEffect(() => {
+    const checkLocalStorage = () => {
+      const district = localStorage.getItem('maharashtraDistricts');
+      if (district && district !== selectedDistrict) {
+        setSelectedDistrict(district);
+      }
+    };
+
+    // Initial fetch
+    checkLocalStorage();
+
+    const interval = setInterval(checkLocalStorage, 100); // Check every 100ms
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, [selectedDistrict]);
+
   const soilData = [
     {
       region: "Ahmednagar",
@@ -86,190 +107,105 @@ const SoilInformation = () => {
     }
   ];
 
+  const filteredSoilData = soilData.filter(soilInfo => soilInfo.region === selectedDistrict);
+
   return (
-    <div className="container mt-5 hover-shadow">
-      {soilData.map((soilInfo, index) => (
-        <div className="card shadow-lg mb-4" key={index}>
-          <div className="card-header bg-success text-white text-center">
-            <h2>Soil Information for {soilInfo.region}</h2>
-          </div>
-          <div className="card-body">
-            {/* General Soil Information */}
-            <div className="row mb-4">
-              <div className="col-md-6">
-                <h5><strong>Soil Type:</strong></h5>
-                <p>{soilInfo.soilType}</p>
-              </div>
-              <div className="col-md-6">
-                <h5><strong>pH Level:</strong></h5>
-                <p>{soilInfo.pH}</p>
-              </div>
+    <div className="container mt-5">
+      {filteredSoilData.length > 0 ? (
+        filteredSoilData.map((soilInfo, index) => (
+          <div className="card shadow-lg mb-4" key={index}>
+            <div className="card-header bg-success text-white text-center">
+              <h2>Soil Information for {soilInfo.region}</h2>
             </div>
-
-            {/* Soil Properties in two columns */}
-            <div className="row mb-4">
-              <div className="col-md-6">
-                <h5><strong>Moisture Level:</strong></h5>
-                <p>{soilInfo.moistureLevel}</p>
-              </div>
-              <div className="col-md-6">
-                <h5><strong>Soil Depth:</strong></h5>
-                <p>{soilInfo.soilDepth}</p>
-              </div>
-            </div>
-
-            <div className="row mb-4">
-              <div className="col-md-6">
-                <h5><strong>Electrical Conductivity:</strong></h5>
-                <p>{soilInfo.electricalConductivity}</p>
-              </div>
-              <div className="col-md-6">
-                <h5><strong>Soil Texture:</strong></h5>
-                <p>{soilInfo.texture}</p>
-              </div>
-            </div>
-
-            <div className="row mb-4">
-              <div className="col-md-6">
-                <h5><strong>Fertility:</strong></h5>
-                <p>{soilInfo.fertility}</p>
-              </div>
-              <div className="col-md-6">
-                <h5><strong>Organic Matter:</strong></h5>
-                <p>{soilInfo.nutrients.organicMatter}</p>
-              </div>
-            </div>
-
-            {/* Macro Nutrients with Progress Bars */}
-            <div className="mb-4">
-              <h5><strong>Macro Nutrients:</strong></h5>
-              <div className="progress mb-2">
-                <div className="progress-bar bg-info" role="progressbar" style={{ width: `${soilInfo.nutrients.nitrogen}%` }}>
-                  Nitrogen: {soilInfo.nutrients.nitrogen}%
+            <div className="card-body">
+              {/* General Soil Information */}
+              <div className="row mb-4">
+                <div className="col-md-6">
+                  <h5><strong>Soil Type:</strong> <FaLeaf /></h5>
+                  <p>{soilInfo.soilType}</p>
+                </div>
+                <div className="col-md-6">
+                  <h5><strong>pH Level:</strong> <FaVials /></h5>
+                  <p>{soilInfo.pH}</p>
                 </div>
               </div>
-              <div className="progress mb-2">
-                <div className="progress-bar bg-warning" role="progressbar" style={{ width: `${soilInfo.nutrients.phosphorus}%` }}>
-                  Phosphorus: {soilInfo.nutrients.phosphorus}%
-                </div>
-              </div>
-              <div className="progress mb-2">
-                <div className="progress-bar bg-success" role="progressbar" style={{ width: `${soilInfo.nutrients.potassium}%` }}>
-                  Potassium: {soilInfo.nutrients.potassium}%
-                </div>
-              </div>
-            </div>
 
-            {/* Micronutrients Displayed in a Different Way */}
-            <div className="mb-4">
-              <h5><strong>Micronutrients:</strong></h5>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="card text-center">
-                    <div className="card-body">
-                      <h6><strong>Zinc (Zn):</strong></h6>
-                      <p>{soilInfo.micronutrients.zinc}</p>
-                    </div>
-                  </div>
+              {/* Additional Soil Information */}
+              <div className="row mb-4">
+                <div className="col-md-6">
+                  <h5><strong>Fertility:</strong></h5>
+                  <p>{soilInfo.fertility}</p>
                 </div>
-                <div className="col-md-4">
-                  <div className="card text-center">
-                    <div className="card-body">
-                      <h6><strong>Iron (Fe):</strong></h6>
-                      <p>{soilInfo.micronutrients.iron}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="card text-center">
-                    <div className="card-body">
-                      <h6><strong>Manganese (Mn):</strong></h6>
-                      <p>{soilInfo.micronutrients.manganese}</p>
-                    </div>
-                  </div>
+                <div className="col-md-6">
+                  <h5><strong>Moisture Level:</strong></h5>
+                  <p>{soilInfo.moistureLevel}</p>
                 </div>
               </div>
-            </div>
 
-            {/* Soil Test Results with Highlight and Hover Effect */}
-            <div className="mb-4">
-              <h5><strong>Soil Test Results:</strong></h5>
-              <table className="table table-bordered table-striped">
-                <thead className="thead-light">
+              <div className="row mb-4">
+                <div className="col-md-6">
+                  <h5><strong>Soil Depth:</strong></h5>
+                  <p>{soilInfo.soilDepth}</p>
+                </div>
+                <div className="col-md-6">
+                  <h5><strong>Electrical Conductivity:</strong></h5>
+                  <p>{soilInfo.electricalConductivity}</p>
+                </div>
+              </div>
+
+              {/* Nutrient Details */}
+              <h5><strong>Nutrients:</strong></h5>
+              <ul className="list-group mb-4">
+                <li className="list-group-item">Nitrogen: {soilInfo.nutrients.nitrogen} ppm</li>
+                <li className="list-group-item">Phosphorus: {soilInfo.nutrients.phosphorus} ppm</li>
+                <li className="list-group-item">Potassium: {soilInfo.nutrients.potassium} ppm</li>
+                <li className="list-group-item">Organic Matter: {soilInfo.nutrients.organicMatter}</li>
+              </ul>
+
+              {/* Progress Bars for Nutrients */}
+              <h5><strong>Nutrient Levels:</strong></h5>
+              <ProgressBar now={soilInfo.nutrients.nitrogen} label={`Nitrogen: ${soilInfo.nutrients.nitrogen} ppm`} max={100} className="mb-3" variant="success" />
+              <ProgressBar now={soilInfo.nutrients.phosphorus} label={`Phosphorus: ${soilInfo.nutrients.phosphorus} ppm`} max={100} className="mb-3" variant="warning" />
+              <ProgressBar now={soilInfo.nutrients.potassium} label={`Potassium: ${soilInfo.nutrients.potassium} ppm`} max={100} className="mb-3" variant="info" />
+
+              {/* Soil Test Results Table */}
+              <h5 className="mt-4"><strong>Soil Test Results:</strong></h5>
+              <table className="table table-bordered table-striped mt-2">
+                <thead className="thead-dark">
                   <tr>
                     <th>Parameter</th>
-                    <th>Test Result</th>
+                    <th>Result</th>
                     <th>Optimal Range</th>
                     <th>Recommendation</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {soilInfo.soilTestResults.map((test, index) => {
-                    const isOptimal = test.result >= parseFloat(test.optimalRange.split(' ')[0]) && test.result <= parseFloat(test.optimalRange.split(' ')[2]);
-                    return (
-                      <tr key={index} className={`hover-effect ${isOptimal ? 'optimal' : 'out-of-range'}`}>
-                        <td><strong>{test.parameter}</strong></td>
-                        <td>{test.result}</td>
-                        <td>{test.optimalRange}</td>
-                        <td>{test.recommendation}</td>
-                      </tr>
-                    );
-                  })}
+                  {soilInfo.soilTestResults.map((test, index) => (
+                    <tr key={index}>
+                      <td>{test.parameter}</td>
+                      <td>{test.result}</td>
+                      <td>{test.optimalRange}</td>
+                      <td>{test.recommendation}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-            </div>
 
-            {/* Best Agricultural Practices */}
-            <div className="mb-4">
-              <h5><FaCheckCircle /> <strong>Best Agricultural Practices:</strong></h5>
-              <ul className="list-group">
+              {/* Best Practices */}
+              <h5 className="mt-4"><strong>Best Practices:</strong></h5>
+              <ul>
                 {soilInfo.bestPractices.map((practice, index) => (
-                  <li key={index} className="list-group-item list-group-item-action hover-effect">
-                    {practice}
-                  </li>
+                  <li key={index}><FaCheckCircle className="text-success" /> {practice}</li>
                 ))}
               </ul>
             </div>
           </div>
+        ))
+      ) : (
+        <div className="alert alert-warning text-center">
+          <h5>No soil information available for the selected district.</h5>
         </div>
-      ))}
-
-      <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap');
-        body {
-          font-family: 'Quicksand', sans-serif;
-          background-color: #cae4c5;
-          margin: 0;
-          padding: 0;
-        }
-        .card {
-          border-radius: 15px;
-          transition: transform 0.2s;
-        }
-        .hover-shadow:hover {
-          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-          transform: translateY(-5px);
-        }
-        h2, h5 {
-          font-weight: bold;
-        }
-        .progress-bar {
-          font-size: 14px;
-          padding: 2px 0;
-        }
-        .table {
-          margin-top: 1rem;
-        }
-        .table-striped tbody tr:nth-of-type(odd) {
-          background-color: #f2f2f2;
-        }
-        .optimal {
-          background-color: #c8e6c9;
-        }
-        .out-of-range {
-          background-color: #ffccbc;
-        }
-      `}</style>
+      )}
     </div>
   );
 };
