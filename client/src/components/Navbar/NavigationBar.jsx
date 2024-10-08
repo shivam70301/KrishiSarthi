@@ -54,12 +54,12 @@ function NavigationBar() {
         setShowDropdown(null);
       }
     };
-
+setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  console.log(localStorage.getItem("maharashtraDistricts"))
+ 
 
   return (
     <nav className="nav-bar">
