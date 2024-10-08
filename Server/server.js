@@ -19,16 +19,17 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Define routes
-app.use("/api/crops", require("./routes/CropRoutes"));
+
 // Add your other routes as needed
 app.use("/api/AllCrops", require("./routes/AllCropsRoutes"));
 app.use("/api/K_Gyan", require("./routes/K_GyanRoutes"));
 app.use("/api/Policies", require("./routes/PoliciesRoutes"));
 app.use("/api/Pesticides", require("./routes/PesticidesRoutes"));
 app.use("/api/Fair_Events", require("./routes/Fair_EventsRoutes"));
+app.use("/api/crops", require("./routes/CropRoutes"));
 app.use("/api/Notifications", require("./routes/NotificationsRoutes"));
 app.use("/api/Feedback", require("./routes/FeedbackRoutes"));
+app.use("/api/Soil", require("./routes/SoilRoutes"));
 
 // Define the port
 const PORT = process.env.PORT || 8080;
