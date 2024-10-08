@@ -12,10 +12,14 @@ import Watchlist from "./components/Navbar/Pages/Watchlist";
 import Notification from "./components/Navbar/Pages/Notification";
 import Profile from "./components/Navbar/Pages/Profile";
 import GoogleTranslate from "./components/Navbar/GoogleTranslate";
+import Lower_Navbar from "./components/Navbar/LowerNavbar";
+import NavigationBar from "./components/Navbar/NavigationBar";
 
 function App() {
   return (
     <BrowserRouter>
+      <BrowserRouter>
+    <NavigationBar />
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/All_Crops" element={<All_Crops />} />
