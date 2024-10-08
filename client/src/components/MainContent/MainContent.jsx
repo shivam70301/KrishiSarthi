@@ -10,8 +10,7 @@ import ChatBot from "../ChatBot/ChatBot";
 function MainContent() {
   return (
     <div>
-      <NavigationBar />
-      <LowerNavbar />
+      
       <MarketInsights />
       <WeatherForecast />
       <CropPrices />
