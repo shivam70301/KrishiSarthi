@@ -1,239 +1,143 @@
-import React, { useState } from 'react';
-import { Modal, Card, Row, Col, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Import images from the assets folder
-import wheat from "../../../assets/wheat.jpg";
-import rice from "../../../assets/rice.jpg";   
-import corn from "../../../assets/corn.jpg";
-import ashGourd from "../../../assets/ashGourd.jpg";
-import banana from "../../../assets/banana.jpg";
+const K_Gyan = () => {
+  const [videos, setVideos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [watchlist, setWatchlist] = useState([]);
 
-// Sample data for crops with more detailed information
-const cropsData = [
-  {
-    id: 1,
-    name: 'Wheat',
-    image: wheat,
-    growingTechnique: 'Plant in well-drained soil with full sun exposure.',
-    diseases: 'Rust, Blight, Fusarium.',
-    benefits: 'Rich in carbohydrates and proteins.',
-    climate: 'Temperate climate with moderate rainfall.',
-    watering: 'Moderate watering, especially during dry spells.',
-    soil: 'Loamy soil with neutral pH.',
-    fertilizer: 'Apply nitrogen and phosphorus-based fertilizers.',
-    pestControl: 'Use fungicides to control rust and blight.',
-    harvesting: 'Harvest when wheat turns golden yellow and hard.',
-  },
-  {
-    id: 2,
-    name: 'Rice',
-    image: rice,
-    growingTechnique: 'Requires flooded conditions for optimal growth.',
-    diseases: 'Blast, Sheath blight.',
-    benefits: 'Staple food rich in carbohydrates.',
-    climate: 'Warm and humid climate.',
-    watering: 'Water regularly to maintain flooded conditions.',
-    soil: 'Clay or silt soils that can hold water.',
-    fertilizer: 'Apply urea-based fertilizers in stages.',
-    pestControl: 'Use resistant varieties and crop rotation to control pests.',
-    harvesting: 'Harvest when rice grains turn golden and dry.',
-  },
-  {
-    id: 3,
-    name: 'Corn',
-    image: corn,
-    growingTechnique: 'Needs full sun and rich, well-drained soil.',
-    diseases: 'Northern corn leaf blight, Rootworm.',
-    benefits: 'Versatile crop used for food and fuel.',
-    climate: 'Warm climate with plenty of sunlight.',
-    watering: 'Regular watering, especially during pollination.',
-    soil: 'Well-drained loamy soil.',
-    fertilizer: 'Apply nitrogen-rich fertilizers at planting and early growth stages.',
-    pestControl: 'Use insecticides and crop rotation to control rootworms.',
-    harvesting: 'Harvest when ears are full and kernels are firm.',
-  },
-  {
-    id: 4,
-    name: 'Ash Gourd',
-    image: ashGourd,
-    growingTechnique: 'Requires warm temperatures and well-drained soil.',
-    diseases: 'Powdery mildew, Aphids.',
-    benefits: 'Low in calories and high in water content.',
-    climate: 'Tropical and subtropical climates.',
-    watering: 'Keep soil consistently moist.',
-    soil: 'Well-drained sandy or loamy soil.',
-    fertilizer: 'Fertilize with balanced NPK fertilizer.',
-    pestControl: 'Use insect traps and neem oil for pests.',
-    harvesting: 'Harvest when fruit is firm and mature.',
-  },
-  {
-    id: 5,
-    name: 'Banana',
-    image: banana,
-    seedSelection: 'Choose healthy and disease-free suckers or tissue-cultured plants.',
-    soilPreparation: 'Prepare well-drained, fertile soil rich in organic matter.',
-    planting: 'Plant in well-drained soil with full sunlight.',
-    waterManagement: 'Water regularly to keep soil moist.',
-    fertilizer: 'Use high-potassium fertilizer.',
-    diseases: 'Fusarium wilt, Black sigatoka.',
-    pesticides: 'Use cultural practices to manage pests or apply appropriate pesticides.',
-    harvesting: 'Harvest when the fruit is fully developed but still green.',
-    benefits: 'High in potassium and dietary fiber.',
-    climate: 'Tropical and subtropical climates.',
-    soil: 'Fertile, well-drained soil rich in organic matter.',
-  },
-];
+  // Function to convert regular YouTube URL to embedded URL
+  const getEmbeddedUrl = (url) => {
+    const videoId = url.includes('watch?v=') ? url.split('v=')[1] : url.split('/').pop();
+    return `https://www.youtube.com/embed/${videoId}`;
+  };
 
-const CropRecommendations = () => {
-  const [show, setShow] = useState(false);
-  const [selectedCrop, setSelectedCrop] = useState(null);
+  // Fetch videos on component mount
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/K_Gyan');
+        const data = await response.json();
+        setVideos(data);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
 
-  const handleClose = () => setShow(false);
-  const handleShow = (crop) => {
-    setSelectedCrop(crop);
-    setShow(true);
+    // Load watchlist from localStorage
+    const savedWatchlist = JSON.parse(localStorage.getItem('Watchlist')) || [];
+    setWatchlist(savedWatchlist);
+
+    fetchVideos();
+  }, []);
+
+  // Function to filter videos based on search input
+  const filteredVideos = videos.filter((video) =>
+    video.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Function to add a video to the watchlist
+  const addToWatchlist = (video) => {
+    const updatedWatchlist = [...watchlist, video];
+
+    // Update the state and save the watchlist to localStorage
+    setWatchlist(updatedWatchlist);
+    localStorage.setItem('Watchlist', JSON.stringify(updatedWatchlist));
   };
 
   return (
-    <div className="container">
-      <Row className="align-items-center mb-5">
-        {/* Heading "Crop Recommendations" */}
-        <Col md={12} className="text-center">
-          <div className="heading-container">
-            <h1 className="display-4 stylish-heading">CROPS FOR YOU</h1>
-          </div>
-        </Col>
-      </Row>
+    <div className="container my-5">
+      <h1 className="text-center mb-4 display-4" style={{ fontWeight: 'bold', color: '#2c3e50' }}>
+        K Gyan: Agriculture Knowledge Videos
+      </h1>
       
-      <Row>
-        {cropsData.map((crop) => (
-          <Col md={4} key={crop.id} className="mb-3">
-            <Card className="shadow border-0 rounded crop-card" onClick={() => handleShow(crop)}>
-              <Card.Img
-                variant="top"
-                src={crop.image}
-                className="crop-image"
-                aria-label={`Click to view details for ${crop.name}`}
-              />
-              <Card.Body className="text-center">
-                <Card.Title className="font-weight-bold">{crop.name}</Card.Title>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {/* Search Bar */}
+      <div className="mb-5 text-center">
+        <input
+          type="text"
+          className="form-control search-bar"
+          placeholder="Search videos by title..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ width: '50%', margin: '0 auto', padding: '10px', fontSize: '1.1rem' }}
+        />
+      </div>
 
-      {selectedCrop && (
-        <Modal show={show} onHide={handleClose} centered size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title className="font-weight-bold">{selectedCrop.name}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <img 
-                src={selectedCrop.image} 
-                alt={selectedCrop.name} 
-                className="img-fluid mb-3 crop-image d-block mx-auto" 
-              />
-              <h5>Seed Selection:</h5>
-              <p>{selectedCrop.seedSelection}</p>
-              <h5>Soil Preparation:</h5>
-              <p>{selectedCrop.soilPreparation}</p>
-              <h5>Planting:</h5>
-              <p>{selectedCrop.planting}</p>
-              <h5>Water Management:</h5>
-              <p>{selectedCrop.waterManagement}</p>
-              <h5>Fertilizer:</h5>
-              <p>{selectedCrop.fertilizer}</p>
-              <h5>Diseases:</h5>
-              <p>{selectedCrop.diseases}</p>
-              <h5>Pesticides:</h5>
-              <p>{selectedCrop.pesticides}</p>
-              <h5>Harvesting:</h5>
-              <p>{selectedCrop.harvesting}</p>
+      <div className="row">
+        {filteredVideos.map((video) => {
+          const isInWatchlist = watchlist.some(item => item._id === video._id); // Check if the video is in the watchlist
+          return (
+            <div className="col-md-4 col-sm-12 mb-4" key={video._id}>
+              <div className="card h-100 shadow border-0 video-card">
+                <div className="ratio ratio-16x9">
+                  <iframe
+                    src={getEmbeddedUrl(video.url)}  // Convert the URL before embedding
+                    allowFullScreen
+                    title={video.title}
+                    className="embed-responsive-item"
+                    style={{ borderRadius: '10px' }}
+                  />
+                </div>
+                <div className="card-body text-center">
+                  <h5 className="card-title" style={{ fontWeight: '600', color: '#34495e' }}>
+                    {video.title}
+                  </h5>
+                  <button
+                    className={`btn ${isInWatchlist ? 'btn-success' : 'btn-primary'}`} // Change button color based on state
+                    onClick={() => {
+                      if (!isInWatchlist) {
+                        addToWatchlist({
+                          _id: video._id,
+                          title: video.title,
+                          url: video.url
+                        });
+                      }
+                    }}
+                  >
+                    {isInWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'} {/* Change button text */}
+                  </button>
+                </div>
+              </div>
             </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+          );
+        })}
+      </div>
 
-      <style>{`
-       body {
+      {/* Inline CSS styles */}
+      <style jsx>{`
+        body {
           background-color: #cae4c5; /* Change to your desired background color */
           margin: 0; /* Remove default margin */
           padding: 0; /* Remove default padding */
         }
-        .container {
-          background-color: #cae4c5;
-          padding: 20px;
-          border-radius: 8px;
-         /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); */
+
+        .video-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-      .stylish-heading {
-    font-family: serif, Georgia;
-    font-weight: bold;
-    color: #2c3e50;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    border-bottom: 2px solid black; /* Adjust the thickness and color as needed */
-    padding-bottom: 10px; /* Optional: adds some space between the text and the border */
-}
-        .crop-card {
-          transition: transform 0.2s;
-          border-radius: 10px;
-          cursor: pointer;
+        .video-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .crop-card:hover {
-          transform: scale(1.05);
-          box-shadow: 1px 20px 20px #008000;
+        .card-title {
+          transition: color 0.3s ease;
         }
 
-        .crop-image {
-          height: 250px;
-          object-fit: cover;
-          border-radius: 10px 10px 0 0;
+        .video-card:hover .card-title {
+          color: #e67e22; /* Change to a more vibrant color on hover */
         }
 
-        @media (max-width: 768px) {
-          .crop-image {
-            height: 200px;
-          }
-
-          .stylish-heading {
-            font-size: 1.75rem;
-          }
+        .search-bar {
+          transition: box-shadow 0.3s ease;
         }
 
-        .modal-header {
-          background-color: #007bff;
-          color: white;
-          border-bottom: 2px solid #0056b3;
-        }
-
-        .modal-title {
-          font-size: 1.75rem;
-        }
-          .modal-body {
-          background-color: #cae4c5;
-          }
-
-        h5 {
-          font-weight: bold;
-          color: #333;
-        }
-
-        p {
-          color: black;
+        .search-bar:hover {
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
       `}</style>
     </div>
   );
 };
 
-export default CropRecommendations;
+export default K_Gyan;
