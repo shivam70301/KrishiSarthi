@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const K_Gyan = () => {
   const [videos, setVideos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [watchlist, setWatchlist] = useState([]); // State for watchlist
+  const [watchlist, setWatchlist] = useState([]);
 
   // Function to convert regular YouTube URL to embedded URL
   const getEmbeddedUrl = (url) => {
@@ -12,6 +12,7 @@ const K_Gyan = () => {
     return `https://www.youtube.com/embed/${videoId}`;
   };
 
+  // Fetch videos on component mount
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -23,6 +24,10 @@ const K_Gyan = () => {
       }
     };
 
+    // Load watchlist from localStorage
+    const savedWatchlist = JSON.parse(localStorage.getItem('Watchlist')) || [];
+    setWatchlist(savedWatchlist);
+
     fetchVideos();
   }, []);
 
@@ -33,8 +38,11 @@ const K_Gyan = () => {
 
   // Function to add a video to the watchlist
   const addToWatchlist = (video) => {
-    setWatchlist((prevWatchlist) => [...prevWatchlist, video]);
-    // Removed the alert notification
+    const updatedWatchlist = [...watchlist, video];
+
+    // Update the state and save the watchlist to localStorage
+    setWatchlist(updatedWatchlist);
+    localStorage.setItem('Watchlist', JSON.stringify(updatedWatchlist));
   };
 
   return (
@@ -78,7 +86,11 @@ const K_Gyan = () => {
                     className={`btn ${isInWatchlist ? 'btn-success' : 'btn-primary'}`} // Change button color based on state
                     onClick={() => {
                       if (!isInWatchlist) {
-                        addToWatchlist(video);
+                        addToWatchlist({
+                          _id: video._id,
+                          title: video.title,
+                          url: video.url
+                        });
                       }
                     }}
                   >

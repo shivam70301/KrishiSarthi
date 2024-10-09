@@ -14,7 +14,6 @@ const Crop_Recommendations = () => {
     setShow(true);
   };
 
-  // Function to fetch crops based on district from the backend
   const fetchCropsByDistrict = async () => {
     const storedDistrict = localStorage.getItem('maharashtraDistricts');
     if (storedDistrict) {
@@ -25,7 +24,7 @@ const Crop_Recommendations = () => {
           setDistrictCrops(data);
           setDistrict(storedDistrict);
         } else {
-          setDistrictCrops([]); // Set to empty if no data for the district
+          setDistrictCrops([]);
         }
       } catch (error) {
         console.error('Error fetching crops:', error);
@@ -33,15 +32,14 @@ const Crop_Recommendations = () => {
     }
   };
 
-  // useEffect to set the interval for fetching crops
   useEffect(() => {
     fetchCropsByDistrict(); // Initial fetch
 
     const interval = setInterval(() => {
       fetchCropsByDistrict();
-    }, 100); // Set interval to fetch every 100ms
+    }, 100);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -57,7 +55,7 @@ const Crop_Recommendations = () => {
       <Row>
         {districtCrops.length > 0 ? (
           <Col md={12} className="mb-4">
-            <Row>
+            <Row className="g-4"> {/* Use Bootstrap's g-4 class for gap */}
               {districtCrops.map((crop) => (
                 <Col md={4} key={crop.name}>
                   <Card className="shadow border-0 rounded crop-card" onClick={() => handleShow(crop)}>
@@ -131,10 +129,6 @@ const Crop_Recommendations = () => {
           background-color: #cae4c5;
           margin: 0;
           padding: 0;
-        }
-        .container {
-          padding: 20px;
-          border-radius: 8px;
         }
         .stylish-heading {
           font-family: serif, Georgia;

@@ -3,12 +3,11 @@ import logo from '../../assets/logo.svg';
 import watchlist from '../../assets/watchlist.png';
 import notification from '../../assets/notification.png';
 import profile from '../../assets/profile.png';
-import translateIcon from '../../assets/translator.png';       
+import homeIcon from '../../assets/translator.png'; // Import your home icon
 import locationIcon from '../../assets/location.png';
 import { Link } from "react-router-dom";
-import GoogleTranslate from './GoogleTranslate'
 
-// Sample districts of Maharashtra (replace with your actual data)
+// Sample districts of Maharashtra
 const maharashtraDistricts = [
   "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara",
   "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli",
@@ -18,48 +17,40 @@ const maharashtraDistricts = [
   "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"
 ];
 
-
 function NavigationBar() {
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showDropdown, setShowDropdown] = useState(null); // Track which dropdown is currently shown
-  const [selectedLocation, setSelectedLocation] = useState(maharashtraDistricts[0]); // Default to first district
-  const [dropdownPosition, setDropdownPosition] = useState({}); // Track the position of the dropdown
-
+  const [showDropdown, setShowDropdown] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(maharashtraDistricts[0]);
+  const [dropdownPosition, setDropdownPosition] = useState({});
   const dropdownRef = useRef(null);
 
-  // Handle search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-
-  // Handle location selection and close dropdown
   const handleLocationSelect = (district) => {
     setSelectedLocation(district);
-    setShowDropdown(null); // Close dropdown after selection
+    localStorage.setItem("maharashtraDistricts", district);
+    setShowDropdown(null);
   };
 
-  // Toggle dropdown visibility and set its position
   const toggleDropdown = (dropdown, event) => {
-    const rect = event.currentTarget.getBoundingClientRect(); // Get the position of the button
-    setDropdownPosition({ left: rect.left, top: rect.bottom }); // Set the dropdown position dynamically
-    setShowDropdown((prev) => (prev === dropdown ? null : dropdown)); // Toggle the dropdown
+    const rect = event.currentTarget.getBoundingClientRect();
+    setDropdownPosition({ left: rect.left, top: rect.bottom });
+    setShowDropdown((prev) => (prev === dropdown ? null : dropdown));
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(null);
       }
     };
-setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
+    setSelectedLocation(localStorage.getItem('maharashtraDistricts') || maharashtraDistricts[0]);
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
- 
 
   return (
     <nav className="nav-bar">
@@ -68,43 +59,25 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
         <span className="logo-text">KrishiSarthi</span>
       </div>
 
-      {/* Search Input */}
       <div>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
       </div>
 
       <div className="nav-links" ref={dropdownRef}>
-        {/* Translator Dropdown */}
-        <div
-        className="nav-link"
-        onClick={(e) => toggleDropdown("translator", e)}
-      >
-        <img src={translateIcon} alt="Translator" />
-        {showDropdown === "translator" && (
-          <div
-            className="translator-dropdown"
-            style={{ left: dropdownPosition.left, top: dropdownPosition.top }}
-          >
-            <GoogleTranslate />
-            {/* <div className="dropdown-item">English</div> */}
-            {/* <div className="dropdown-item">मराठी</div> */}
-          </div>
-        )}
-      </div>
-
+        {/* Home Button */}
+        <div className="nav-link">
+          <Link to="/">
+            <img src={homeIcon} alt="Home" />
+          </Link>
+        </div>
 
         {/* Location Dropdown */}
-
-        
-        <div
-          className="nav-link"
-          onClick={(e) => toggleDropdown("location", e)}
-        >
+        <div className="nav-link" onClick={(e) => toggleDropdown("location", e)}>
           <img src={locationIcon} alt="Location" />
           <span>{selectedLocation}</span>
           {showDropdown === "location" && (
@@ -116,13 +89,9 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
                 <div
                   key={district}
                   className="dropdown-item"
-                  onClick={() => {
-                    handleLocationSelect(district) 
-                    localStorage.setItem("maharashtraDistricts",district)
-                  }} // Close dropdown on selection
+                  onClick={() => handleLocationSelect(district)}
                 >
                   {district}
-                  
                 </div>
               ))}
             </div>
@@ -140,7 +109,6 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
             {hoveredIcon === "Watchlist" && (
               <div className="hover-content">
                 <div>Watchlist</div>
-                {/* Add watchlist items dynamically here */}
               </div>
             )}
           </Link>
@@ -156,7 +124,6 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
             {hoveredIcon === "Notification" && (
               <div className="hover-content">
                 <div>Notifications</div>
-                {/* Add notification items dynamically here */}
               </div>
             )}
           </Link>
@@ -172,7 +139,6 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
             {hoveredIcon === "Profile" && (
               <div className="hover-content">
                 <div>Profile</div>
-                {/* Add profile details dynamically here */}
               </div>
             )}
           </Link>
@@ -180,62 +146,43 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
       </div>
 
       <style jsx>{`
-/* Base style for larger screens (laptops and desktops) */
-.nav-bar {
-  background-color: #009400; 
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100px;
-  white-space: nowrap;
-  box-sizing: border-box;
-  overflow: hidden;
-}
+        .nav-bar {
+          background-color: #009400; 
+          padding: 1rem 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 100px;
+          white-space: nowrap;
+          box-sizing: border-box;
+          overflow: hidden;
+        }
 
-/* For large screens (desktops, large laptops) */
-@media (min-width: 1024px) {
-  .nav-bar {
-    height: 80px;
-    padding: 1rem 3rem;
-  }
-}
+        @media (min-width: 1024px) {
+          .nav-bar {
+            height: 80px;
+            padding: 1rem 3rem;
+          }
+        }
 
-/* For medium screens (tablets, smaller laptops) */
-@media (max-width: 1024px) {
-  .nav-bar {
-    height: 70px;
-    padding: 0.8rem 1.5rem;
-  }
-}
+        @media (max-width: 1024px) {
+          .nav-bar {
+            height: 70px;
+            padding: 0.8rem 1.5rem;
+          }
+        }
 
-/* For small screens (phones, small tablets) */
-@media (max-width: 768px) {
-  .nav-bar {
-    height: auto;
-    padding: 0.5rem 1rem;
-    flex-direction: column;
-    align-items: center; /* Center items in a column */
-  }
-
-  .nav-link {
-    margin-bottom: 0.5rem;
-  }
-}
-
-/* For extra small screens (small phones) */
-@media (max-width: 480px) {
-  .nav-bar {
-    height: auto;
-    padding: 0.5rem;
-    flex-direction: column;
-  }
-
-  .nav-link {
-    font-size: 14px;
-  }
-}
-
+        @media (max-width: 768px) {
+          .nav-bar {
+            height: auto;
+            padding: 0.5rem 1rem;
+            flex-direction: column;
+            align-items: center;
+          }
+          .nav-link {
+            margin-bottom: 0.5rem;
+          }
+        }
 
         .logo-container {
           display: flex;
@@ -287,7 +234,6 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
           margin-right: 0.5rem;
         }
 
-        .translator-dropdown,
         .location-dropdown {
           position: fixed;
           background-color: #fff;
@@ -311,15 +257,15 @@ setSelectedLocation(localStorage.getItem('maharashtraDistricts'))
 
         .hover-content {
           position: absolute;
-          top: 130%; /* Adjust to show hover text below the icon */
-          left: 40%; /* Start at the middle of the icon */
-          transform: translateX(-50%); /* Center it horizontally */
-          background-color: white; /* White background */
-          color: black; /* Black text color */
+          top: 130%;
+          left: 40%;
+          transform: translateX(-50%);
+          background-color: white;
+          color: black;
           padding: 8px;
           border-radius: 4px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-          z-index: 9999; /* High z-index to ensure it appears on top */
+          z-index: 9999;
           white-space: nowrap;
           font-size: 14px;
         }

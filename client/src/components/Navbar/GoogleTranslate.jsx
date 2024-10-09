@@ -10,7 +10,7 @@ const GoogleTranslate = () => {
             } else {
                 new window.google.translate.TranslateElement({
                     pageLanguage: 'en',
-                    includedLanguages: 'en,hi,pa,sa,mr,ur,bn,ta,te,kn,ml,gu,or,as,ne,si,ks,ma,sd,bo',
+                    includedLanguages: 'en,hi,mr,sa',
                     layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
                     defaultLanguage: 'en',
                 }, 'google_element');

@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Function to extract video ID from YouTube URL
+const extractVideoId = (url) => {
+  const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^&\n]{11})/);
+  return match ? match[1] : null;
+};
+
 // VideoCard Component to render individual video items
-const VideoCard = ({ video, onRemove }) => {
+const VideoCard = ({ video, onRemove, onWatch }) => {
+  const videoId = extractVideoId(video.url);
+  const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : "";
+
   return (
     <Col xs={12} md={6} lg={3} style={styles.videoCard}>
       <Card className="h-100" style={styles.animatedCard}>
         <div style={styles.videoThumbnail}>
-          <Card.Img variant="top" src={video.thumbnail} alt={video.title} style={styles.thumbnailImg} />
+          <Card.Img
+            variant="top"
+            src={thumbnailUrl}
+            alt={video.title}
+            style={styles.thumbnailImg}
+          />
           <div style={styles.thumbnailOverlay}>
-            <Button href={video.videoLink} target="_blank" style={styles.watchBtn}>
+            <Button onClick={() => onWatch(video.url)} style={styles.watchBtn}>
               Watch Now
             </Button>
           </div>
         </div>
         <Card.Body style={styles.cardBody}>
           <Card.Title style={styles.cardTitle}>{video.title}</Card.Title>
-          <Button variant="danger" style={styles.removeBtn} onClick={() => onRemove(video.id)}>
+          <Button variant="danger" style={styles.removeBtn} onClick={() => onRemove(video.url)}>
             Remove
           </Button>
         </Card.Body>
@@ -27,39 +41,37 @@ const VideoCard = ({ video, onRemove }) => {
 };
 
 const Watchlist = () => {
-  const [watchlist, setWatchlist] = useState([
-    {
-      id: 1,
-      title: "How to grow organic wheat",
-      thumbnail: "https://example.com/thumbnail1.jpg",
-      videoLink: "https://youtube.com/example1",
-    },
-    {
-      id: 2,
-      title: "Best practices for rice cultivation",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      videoLink: "https://youtube.com/example2",
-    },
-    {
-      id: 3,
-      title: "Best practices for rice cultivation",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      videoLink: "https://youtube.com/example2",
-    },
-    // Add more videos as needed
-  ]);
+  const [watchlist, setWatchlist] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const removeFromWatchlist = (id) => {
-    setWatchlist(watchlist.filter((video) => video.id !== id));
-  };
-
-  // Apply body background color when component mounts
   useEffect(() => {
+    // Retrieve videos from localStorage
+    const storedWatchlist = JSON.parse(localStorage.getItem("Watchlist")) || [];
+    setWatchlist(storedWatchlist);
+
+    // Apply body background color when component mounts
     document.body.style.backgroundColor = "#cae4c5"; // Green color
     return () => {
       document.body.style.backgroundColor = ""; // Reset background color when component unmounts
     };
   }, []);
+
+  const removeFromWatchlist = (url) => {
+    const updatedWatchlist = watchlist.filter((video) => video.url !== url);
+    setWatchlist(updatedWatchlist);
+    localStorage.setItem("Watchlist", JSON.stringify(updatedWatchlist)); // Update localStorage
+  };
+
+  const handleWatch = (url) => {
+    setSelectedVideo(url);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedVideo(null);
+  };
 
   return (
     <Container fluid style={styles.watchlistContainer}>
@@ -67,7 +79,7 @@ const Watchlist = () => {
       <Row className="justify-content-center">
         {watchlist.length > 0 ? (
           watchlist.map((video) => (
-            <VideoCard key={video.id} video={video} onRemove={removeFromWatchlist} />
+            <VideoCard key={video.url} video={video} onRemove={removeFromWatchlist} onWatch={handleWatch} />
           ))
         ) : (
           <Col>
@@ -75,6 +87,25 @@ const Watchlist = () => {
           </Col>
         )}
       </Row>
+
+      {/* Modal for video playback */}
+      <Modal show={showModal} onHide={handleClose} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedVideo && extractVideoId(selectedVideo)}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedVideo && (
+            <iframe
+              width="100%"
+              height="400"
+              src={`https://www.youtube.com/embed/${extractVideoId(selectedVideo)}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allowFullScreen
+            />
+          )}
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
