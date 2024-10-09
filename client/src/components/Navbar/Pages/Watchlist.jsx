@@ -24,7 +24,7 @@ const VideoCard = ({ video, onRemove, onWatch }) => {
             style={styles.thumbnailImg}
           />
           <div style={styles.thumbnailOverlay}>
-            <Button onClick={() => onWatch(video.url)} style={styles.watchBtn}>
+            <Button onClick={() => onWatch(video.url, video.title)} style={styles.watchBtn}>
               Watch Now
             </Button>
           </div>
@@ -43,6 +43,7 @@ const VideoCard = ({ video, onRemove, onWatch }) => {
 const Watchlist = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedVideoTitle, setSelectedVideoTitle] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -63,14 +64,16 @@ const Watchlist = () => {
     localStorage.setItem("Watchlist", JSON.stringify(updatedWatchlist)); // Update localStorage
   };
 
-  const handleWatch = (url) => {
+  const handleWatch = (url, title) => {
     setSelectedVideo(url);
+    setSelectedVideoTitle(title);
     setShowModal(true);
   };
 
   const handleClose = () => {
     setShowModal(false);
     setSelectedVideo(null);
+    setSelectedVideoTitle("");
   };
 
   return (
@@ -91,7 +94,7 @@ const Watchlist = () => {
       {/* Modal for video playback */}
       <Modal show={showModal} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>{selectedVideo && extractVideoId(selectedVideo)}</Modal.Title>
+          <Modal.Title>{selectedVideoTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedVideo && (
