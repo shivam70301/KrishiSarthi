@@ -12,7 +12,7 @@ const CropPrices = () => {
   const fetchCrops = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:8080/api/crops/scrape/today`); // Fetch today's data
+      const res = await axios.get(`http://localhost:8080/api/cropprice/scrape/today`); // Fetch today's data
       console.log("Response data:", res.data);
       setCrops(res.data);
     } catch (error) {
@@ -61,26 +61,29 @@ const CropPrices = () => {
         <p>No data available.</p>
       ) : (
         <table style={styles.table}>
+          <tbody>
+            <tr></tr>
+          </tbody>
           <thead>
             <tr>
               <th style={styles.th}>Vegetables</th>
-              <th style={styles.th}>Wholesale Price</th>
+              <th style={styles.th}>Unit</th>
+              <th style={styles.th}>Market Price</th>
               <th style={styles.th}>Retail Price</th>
-              <th style={styles.th}>Shopping Mall</th>
-              <th style={styles.th}>Units</th>
+              <th style={styles.th}>Super Market</th>
             </tr>
           </thead>
-          <tbody>
+          <tfoot>
             {filteredCrops.slice(0, visibleCount).map((crop, index) => (
               <tr key={index} style={styles.row}>
                 <td style={styles.td}><span style={styles.cropText}>{crop.name}</span></td>
-                <td style={styles.td}>₹{crop.wholesale}</td>
-                <td style={styles.td}>{crop.retail}</td>
-                <td style={styles.td}>{crop.mall}</td>
                 <td style={styles.td}>{crop.unit}</td>
+                <td style={styles.td}>₹{crop.market}</td>
+                <td style={styles.td}>{crop.retail}</td>
+                <td style={styles.td}>{crop.supermall}</td>
               </tr>
             ))}
-          </tbody>
+          </tfoot>
         </table>
       )}
 
@@ -147,7 +150,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginRight:"2px",
+    marginRight: "2px",
   },
   viewLessBtn: {
     backgroundColor: "#dc3545",
@@ -156,7 +159,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginRight:"2px",
+    marginRight: "2px",
   },
   refreshBtn: {
     marginTop: "10px",
@@ -166,7 +169,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    marginLeft:"2px",
+    marginLeft: "2px",
   },
   searchInput: {
     width: "80%",

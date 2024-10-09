@@ -26,7 +26,7 @@ app.use("/api/K_Gyan", require("./routes/K_GyanRoutes"));
 app.use("/api/Policies", require("./routes/PoliciesRoutes"));
 app.use("/api/Pesticides", require("./routes/PesticidesRoutes"));
 app.use("/api/Fair_Events", require("./routes/Fair_EventsRoutes"));
-app.use("/api/crops", require("./routes/CropRoutes"));
+app.use("/api/cropprice", require("./routes/CropRoutes"));
 app.use("/api/Notifications", require("./routes/NotificationsRoutes"));
 app.use("/api/Feedback", require("./routes/FeedbackRoutes"));
 app.use("/api/Soil", require("./routes/SoilRoutes"));
