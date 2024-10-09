@@ -30,6 +30,7 @@ app.use("/api/crops", require("./routes/CropRoutes"));
 app.use("/api/Notifications", require("./routes/NotificationsRoutes"));
 app.use("/api/Feedback", require("./routes/FeedbackRoutes"));
 app.use("/api/Soil", require("./routes/SoilRoutes"));
+app.use("/api/CropRecommendation", require("./routes/CropRecommendationRoutes"));
 
 // Define the port
 const PORT = process.env.PORT || 8080;

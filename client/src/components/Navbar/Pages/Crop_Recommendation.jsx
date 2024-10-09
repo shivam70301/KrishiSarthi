@@ -2,68 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Card, Row, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Sample data for crops with more detailed information for each district
-const cropsData = {
-  Pune: [
-    {
-      name: 'Wheat',
-      image: 'path_to_wheat_image', // Replace with actual image path
-      growingTechnique: 'Plant in well-drained soil with full sun exposure.',
-      diseases: 'Rust, Blight, Fusarium.',
-      benefits: 'Rich in carbohydrates and proteins.',
-      climate: 'Temperate climate with moderate rainfall.',
-      watering: 'Moderate watering, especially during dry spells.',
-      soil: 'Loamy soil with neutral pH.',
-      fertilizer: 'Apply nitrogen and phosphorus-based fertilizers.',
-      pestControl: 'Use fungicides to control rust and blight.',
-      harvesting: 'Harvest when wheat turns golden yellow and hard.',
-    },
-    {
-      name: 'Corn',
-      image: 'path_to_corn_image', // Replace with actual image path
-      growingTechnique: 'Needs full sun and rich, well-drained soil.',
-      diseases: 'Northern corn leaf blight, Rootworm.',
-      benefits: 'Versatile crop used for food and fuel.',
-      climate: 'Warm climate with plenty of sunlight.',
-      watering: 'Regular watering, especially during pollination.',
-      soil: 'Well-drained loamy soil.',
-      fertilizer: 'Apply nitrogen-rich fertilizers at planting and early growth stages.',
-      pestControl: 'Use insecticides and crop rotation to control rootworms.',
-      harvesting: 'Harvest when ears are full and kernels are firm.',
-    },
-  ],
-  Nashik: [
-    {
-      name: 'Rice',
-      image: 'path_to_rice_image', // Replace with actual image path
-      growingTechnique: 'Requires flooded conditions for optimal growth.',
-      diseases: 'Blast, Sheath blight.',
-      benefits: 'Staple food rich in carbohydrates.',
-      climate: 'Warm and humid climate.',
-      watering: 'Water regularly to maintain flooded conditions.',
-      soil: 'Clay or silt soils that can hold water.',
-      fertilizer: 'Apply urea-based fertilizers in stages.',
-      pestControl: 'Use resistant varieties and crop rotation to control pests.',
-      harvesting: 'Harvest when rice grains turn golden and dry.',
-    },
-    {
-      name: 'Banana',
-      image: 'path_to_banana_image', // Replace with actual image path
-      seedSelection: 'Choose healthy and disease-free suckers or tissue-cultured plants.',
-      soilPreparation: 'Prepare well-drained, fertile soil rich in organic matter.',
-      planting: 'Plant in well-drained soil with full sunlight.',
-      waterManagement: 'Water regularly to keep soil moist.',
-      fertilizer: 'Use high-potassium fertilizer.',
-      diseases: 'Fusarium wilt, Black sigatoka.',
-      pesticides: 'Use cultural practices to manage pests or apply appropriate pesticides.',
-      harvesting: 'Harvest when the fruit is fully developed but still green.',
-      benefits: 'High in potassium and dietary fiber.',
-      climate: 'Tropical and subtropical climates.',
-      soil: 'Fertile, well-drained soil rich in organic matter.',
-    },
-  ],
-};
-
 const Crop_Recommendations = () => {
   const [show, setShow] = useState(false);
   const [selectedCrop, setSelectedCrop] = useState(null);
@@ -76,14 +14,22 @@ const Crop_Recommendations = () => {
     setShow(true);
   };
 
-  // Function to fetch crops based on district from localStorage
-  const fetchCropsByDistrict = () => {
+  // Function to fetch crops based on district from the backend
+  const fetchCropsByDistrict = async () => {
     const storedDistrict = localStorage.getItem('maharashtraDistricts');
-    if (storedDistrict && cropsData[storedDistrict]) {
-      setDistrictCrops(cropsData[storedDistrict]);
-      setDistrict(storedDistrict);
-    } else {
-      setDistrictCrops([]); // Set to empty if no data for the district
+    if (storedDistrict) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/croprecommendation/district/${storedDistrict}`);
+        if (response.ok) {
+          const data = await response.json();
+          setDistrictCrops(data);
+          setDistrict(storedDistrict);
+        } else {
+          setDistrictCrops([]); // Set to empty if no data for the district
+        }
+      } catch (error) {
+        console.error('Error fetching crops:', error);
+      }
     }
   };
 
@@ -182,9 +128,9 @@ const Crop_Recommendations = () => {
 
       <style>{`
         body {
-          background-color: #cae4c5; /* Change to your desired background color */
-          margin: 0; /* Remove default margin */
-          padding: 0; /* Remove default padding */
+          background-color: #cae4c5;
+          margin: 0;
+          padding: 0;
         }
         .container {
           padding: 20px;
@@ -195,8 +141,8 @@ const Crop_Recommendations = () => {
           font-weight: bold;
           color: #2c3e50;
           text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-          border-bottom: 2px solid black; /* Adjust the thickness and color as needed */
-          padding-bottom: 10px; /* Optional: adds some space between the text and the border */
+          border-bottom: 2px solid black;
+          padding-bottom: 10px;
         }
         .crop-card {
           transition: transform 0.2s;
