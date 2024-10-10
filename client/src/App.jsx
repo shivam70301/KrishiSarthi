@@ -31,7 +31,7 @@ function App() {
         <Route path="/Fair_Events" element={<Fair_Events />} />
         <Route path="/Watchlist" element={<Watchlist />} />
         <Route path="/Notification" element={<Notification />} />
-        <Route path="/Profile" element={<Profile />} />
+        
       </Routes>
       <GoogleTranslate />
     </BrowserRouter>

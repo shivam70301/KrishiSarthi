@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../assets/logo.svg';
 import watchlist from '../../assets/watchlist.png';
 import notification from '../../assets/notification.png';
-import profile from '../../assets/profile.png';
-import homeIcon from '../../assets/translator.png'; // Import your home icon
+import homeIcon from '../../assets/home.png'; // Import your home icon
 import locationIcon from '../../assets/location.png';
 import { Link } from "react-router-dom";
 
@@ -128,26 +127,11 @@ function NavigationBar() {
             )}
           </Link>
         </div>
-
-        <div
-          className="nav-link"
-          onMouseEnter={() => setHoveredIcon("Profile")}
-          onMouseLeave={() => setHoveredIcon(null)}
-        >
-          <Link to="/Profile">
-            <img src={profile} alt="Profile" />
-            {hoveredIcon === "Profile" && (
-              <div className="hover-content">
-                <div>Profile</div>
-              </div>
-            )}
-          </Link>
-        </div>
       </div>
 
       <style jsx>{`
         .nav-bar {
-          background-color: #009400; 
+          background-color: #009400;
           padding: 1rem 2rem;
           display: flex;
           justify-content: space-between;
