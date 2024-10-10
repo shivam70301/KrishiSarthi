@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'animate.css'; // For animations
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import soil from '../../assets/soil.png';
 import allcrop from '../../assets/allcrop.png';
 import croprec from '../../assets/croprec.png';
@@ -7,95 +8,53 @@ import pesticides from '../../assets/pesticides.png';
 import kgyan from '../../assets/KGyan.png';
 import policies from '../../assets/policies.png';
 import fair from '../../assets/fair.png';
-import { Link } from "react-router-dom";
 
 const Lower_Navbar = () => {
+  const location = useLocation(); // Get current location
+  const [activeLink, setActiveLink] = useState(location.pathname); // Track the active link
+
+  // Update the active link state when the location changes
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location.pathname]);
+
+  const handleLinkClick = (path) => {
+    setActiveLink(path); // Update the active link state when a button is clicked
+  };
+
+  const links = [
+    { to: "/All_Crops", img: allcrop, alt: "All Crops", text: "All Crops" },
+    { to: "/Soil_Information", img: soil, alt: "Soil Information", text: "Soil Information" },
+    { to: "/Crop_Recommendation", img: croprec, alt: "Crop Recommendation", text: "Crop Recommendation" },
+    { to: "/K_Gyan", img: kgyan, alt: "KGyan", text: "KGyan" },
+    { to: "/Policies", img: policies, alt: "Government Schemes", text: "Government Schemes" },
+    { to: "/Pesticides", img: pesticides, alt: "Pesticides", text: "Pesticides" },
+    { to: "/Fair_Events", img: fair, alt: "Fair", text: "Fair & Events" }
+  ];
+
   return (
     <nav className="navbar">
       <ul className="nav-list">
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/All_Crops" className="nav-link">
-                <img src={allcrop} alt="All Crops" className="nav-icon" />
-                <span className="nav-text">All Crops</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/Soil_Information" className="nav-link">
-                <img src={soil} alt="Soil Information" className="nav-icon" />
-                <span className="nav-text">Soil Information</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/Crop_Recommendation" className="nav-link">
-                <img src={croprec} alt="Crop Recommendation" className="nav-icon" />
-                <span className="nav-text">Crop Recommendation</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/K_Gyan" className="nav-link">
-                <img src={kgyan} alt="KGyan" className="nav-icon" />
-                <span className="nav-text">KGyan</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/Policies" className="nav-link">
-                <img src={policies} alt="Policies" className="nav-icon" />
-                <span className="nav-text">Government Schemes</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/Pesticides" className="nav-link">
-                <img src={pesticides} alt="Pesticides" className="nav-icon" />
-                <span className="nav-text">Pesticides</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
-        <li className="nav-item animate__animated animate__fadeInUp">
-          <button className="nav-button">
-            <div className="navbar-buttons mbr-section-btn">
-              <Link to="/Fair_Events" className="nav-link">
-                <img src={fair} alt="Fair" className="nav-icon" />
-                <span className="nav-text">Fair & Events</span>
-              </Link>
-            </div>
-          </button>
-        </li>
-
+        {links.map((link, index) => (
+          <li key={index} className="nav-item animate__animated animate__fadeInUp">
+            <button 
+              className={`nav-button ${activeLink === link.to ? 'active' : ''}`}
+              onClick={() => handleLinkClick(link.to)}
+            >
+              <div className="navbar-buttons mbr-section-btn">
+                <Link to={link.to} className="nav-link">
+                  <img src={link.img} alt={link.alt} className="nav-icon" />
+                  <span className="nav-text">{link.text}</span>
+                </Link>
+              </div>
+            </button>
+          </li>
+        ))}
       </ul>
       <style jsx>{`
         .navbar {
           background-color: #f0f0f0;
-          padding: 0.5rem;
+          padding: 0rem;
           display: flex;
           justify-content: center;
           overflow-x: auto;
@@ -151,12 +110,15 @@ const Lower_Navbar = () => {
         .nav-button {
           background-color: transparent;
           border: none;
-          padding: 0;
+          padding-top: 0.5rem;
           cursor: pointer;
           display: flex;
           flex-direction: column;
           align-items: center;
           transition: background-color 0.3s ease;
+        }
+        .nav-button.active .nav-text {
+          color: #009400; /* Text color changes to yellow when active */
         }
         .nav-button:hover {
           background-color: #e0e0e0; /* Button background changes to light gray */
