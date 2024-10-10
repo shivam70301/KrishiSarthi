@@ -54,7 +54,7 @@ const Lower_Navbar = () => {
       <style jsx>{`
         .navbar {
           background-color: #f0f0f0;
-          padding: 0rem;
+          padding: 0 1rem;
           display: flex;
           justify-content: center;
           overflow-x: auto;
