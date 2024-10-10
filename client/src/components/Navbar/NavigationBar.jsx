@@ -18,15 +18,10 @@ const maharashtraDistricts = [
 
 function NavigationBar() {
   const [hoveredIcon, setHoveredIcon] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(maharashtraDistricts[0]);
   const [dropdownPosition, setDropdownPosition] = useState({});
   const dropdownRef = useRef(null);
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   const handleLocationSelect = (district) => {
     setSelectedLocation(district);
@@ -56,15 +51,6 @@ function NavigationBar() {
       <div className="logo-container">
         <img src={logo} alt="KrishiSarthi Logo" />
         <span className="logo-text">KrishiSarthi</span>
-      </div>
-
-      <div>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
       </div>
 
       <div className="nav-links" ref={dropdownRef}>
@@ -97,7 +83,7 @@ function NavigationBar() {
           )}
         </div>
 
-        {/* Other Icons */}
+        {/* Watchlist Icon */}
         <div
           className="nav-link"
           onMouseEnter={() => setHoveredIcon("Watchlist")}
@@ -113,6 +99,7 @@ function NavigationBar() {
           </Link>
         </div>
 
+        {/* Notification Icon */}
         <div
           className="nav-link"
           onMouseEnter={() => setHoveredIcon("Notification")}
@@ -186,15 +173,6 @@ function NavigationBar() {
           font-weight: bold;
         }
 
-        input {
-          padding: 8px;
-          border: 1px solid #ccc;
-          border-radius: 20px;
-          font-size: 16px;
-          width: 300px;
-          max-width: 100%;
-        }
-
         .nav-links {
           display: flex;
           align-items: center;
@@ -265,11 +243,6 @@ function NavigationBar() {
         @media screen and (max-width: 768px) {
           .nav-bar {
             flex-direction: column;
-          }
-
-          input {
-            width: 100%;
-            margin-bottom: 10px;
           }
 
           .nav-links {

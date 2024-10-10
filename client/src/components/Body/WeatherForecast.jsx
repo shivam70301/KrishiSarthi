@@ -12,8 +12,8 @@ const icons = {
 // Mock weather data for today, daily, weekly, and monthly forecasts
 const weatherData = {
     TODAY: {
-        day: "Saturday",
-        date: "October 5, 2024",
+        day: "Thursday",
+        date: "October 10, 2024",
         time: "12:58 PM",
         temperature: '33°C',
         realFeel: '40°C',

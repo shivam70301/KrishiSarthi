@@ -64,10 +64,15 @@ const SoilInformation = () => {
     listItemHover: {
       backgroundColor: '#e2e6ea',
     },
+    container: {
+      backgroundColor: '#cae4c5', // Set background color to red
+      padding: '20px',
+      minHeight: '100vh',
+    }
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={styles.container}>
       {filteredSoilData.length > 0 ? (
         filteredSoilData.map((soilInfo, index) => (
           <div
@@ -179,8 +184,19 @@ const SoilInformation = () => {
           <h5>No soil information found for the selected district.</h5>
         </div>
       )}
+        <style jsx>{`
+    body {
+      background-color: #cae4c5; /* Change to your desired background color */
+      margin: 0; /* Remove default margin */
+      padding: 0; /* Remove default padding */
+    }
+
+};
+`}</style>
     </div>
+    
   );
+  
 };
 
 export default SoilInformation;

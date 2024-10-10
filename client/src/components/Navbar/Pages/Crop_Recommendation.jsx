@@ -57,7 +57,7 @@ const Crop_Recommendations = () => {
           <Col md={12} className="mb-4">
             <Row className="g-4"> {/* Use Bootstrap's g-4 class for gap */}
               {districtCrops.map((crop) => (
-                <Col md={4} key={crop.name}>
+                <Col md={3} key={crop.name}>
                   <Card className="shadow border-0 rounded crop-card" onClick={() => handleShow(crop)}>
                     <Card.Img
                       variant="top"
@@ -142,6 +142,7 @@ const Crop_Recommendations = () => {
           transition: transform 0.2s;
           border-radius: 10px;
           cursor: pointer;
+        
         }
         .crop-card:hover {
           transform: scale(1.05);
