@@ -11,7 +11,14 @@ const Pesticides = () => {
       try {
         const response = await fetch('http://localhost:8080/api/pesticides'); // Replace with your actual API URL
         const data = await response.json();
-        setPesticides(data);
+
+        // Adding random prices to each pesticide
+        const pesticidesWithPrices = data.map(pesticide => ({
+          ...pesticide,
+          price: Math.floor(Math.random() * (5000 - 100 + 1)) + 100, // Random price between 100 and 5000
+        }));
+
+        setPesticides(pesticidesWithPrices);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching pesticide data:', error);
@@ -54,6 +61,9 @@ const Pesticides = () => {
                 <p className="font-weight-bold">Active Ingredient: {pesticide.activeIngredient}</p>
                 <p>Application: {pesticide.application}</p>
 
+                {/* Display random price below the image without 'INR' */}
+                <p style={styles.price}>Price: <span>{pesticide.price}</span></p>
+
                 {expandedIndex === index && (
                   <div style={styles.expandedText}>
                     <p className="font-weight-bold">Precautions: {pesticide.precautions}</p>
@@ -61,14 +71,24 @@ const Pesticides = () => {
                     <p className="font-weight-bold">Recommended Usage: {pesticide.recommendedUsage}</p>
                   </div>
                 )}
-                <button
-                  style={expandedIndex === index ? styles.btnViewLess : styles.btnLearnMore}
-                  onClick={() => handleLearnMoreClick(index)}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnLearnMoreHover.backgroundColor : styles.btnLearnMoreHover.backgroundColor)}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnViewLess.backgroundColor : styles.btnLearnMore.backgroundColor)}
-                >
-                  {expandedIndex === index ? 'View Less' : 'Read Now'}
-                </button>
+                <div className="d-flex justify-content-start" style={styles.buttonContainer}>
+                  <button
+                    style={expandedIndex === index ? styles.btnViewLess : styles.btnLearnMore}
+                    onClick={() => handleLearnMoreClick(index)}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnLearnMoreHover.backgroundColor : styles.btnLearnMoreHover.backgroundColor)}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnViewLess.backgroundColor : styles.btnLearnMore.backgroundColor)}
+                  >
+                    {expandedIndex === index ? 'View Less' : 'Read Now'}
+                  </button>
+                  <a
+                    href={pesticide.buyLink} // Set this property to pesticide's buy link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={styles.btnBuyNow}
+                  >
+                    Buy Now
+                  </a>
+                </div>
               </div>
             </div>
           ))
@@ -83,7 +103,6 @@ const styles = {
     padding: '2rem',
     backgroundColor: '#cae4c5',
   },
-  
   heading: {
     marginBottom: '0.5rem',
     fontSize: '3.5rem',
@@ -113,7 +132,6 @@ const styles = {
     maxWidth: '100%', // Centering the card by limiting its width
     flexWrap: 'wrap',
   },
-
   image: {
     width: '100%',
     maxWidth: '200px',
@@ -140,10 +158,21 @@ const styles = {
   },
   expandedText: {
     display: 'block',
+    marginTop: '0rem',
+  },
+  price: {
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+    color: '#333',
+    marginTop: '1px',
+  },
+  buttonContainer: {
     marginTop: '1rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem', // Adjust gap to reduce space between buttons
   },
   btnLearnMore: {
-    marginTop: '1rem',
     padding: '0.5rem 1rem',
     fontSize: '1rem',
     fontWeight: 'bold',
@@ -158,7 +187,6 @@ const styles = {
     backgroundColor: '#218838',
   },
   btnViewLess: {
-    marginTop: '1rem',
     padding: '0.5rem 1rem',
     fontSize: '1rem',
     fontWeight: 'bold',
@@ -167,6 +195,16 @@ const styles = {
     color: 'white',
     border: 'none',
     cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
+  btnBuyNow: {
+    padding: '0.5rem 1rem',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    borderRadius: '8px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    textDecoration: 'none',
     transition: 'background-color 0.3s ease',
   },
   noData: {
