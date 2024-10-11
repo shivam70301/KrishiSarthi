@@ -12,7 +12,7 @@ const icons = {
 
 // OpenWeatherMap API configuration
 const API_KEY = '53c0b54f8db437f1a51861991e512b88'; // Replace with your OpenWeatherMap API key
-const DEFAULT_CITY = 'palghar'; // Default city
+const DEFAULT_CITY = 'vasai'; // Default city
 const API_URL = (city) => `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
 const WeatherForecast = () => {
