@@ -12,11 +12,10 @@ const icons = {
 
 // OpenWeatherMap API configuration
 const API_KEY = '53c0b54f8db437f1a51861991e512b88'; // Replace with your OpenWeatherMap API key
-const DEFAULT_CITY = 'Mumbai'; // Default city
+const DEFAULT_CITY = 'palghar'; // Default city
 const API_URL = (city) => `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
 const WeatherForecast = () => {
-    const [selected, setSelected] = useState('TODAY');
     const [weatherData, setWeatherData] = useState(null);
     const [city, setCity] = useState(DEFAULT_CITY);
 
@@ -32,20 +31,16 @@ const WeatherForecast = () => {
                 const data = response.data;
                 console.log("Weather data fetched:", data); // Log fetched data
                 const realTimeWeatherData = {
-                    TODAY: {
-                        day: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
-                        date: new Date().toLocaleDateString(),
-                        time: new Date().toLocaleTimeString(),
-                        temperature: `${data.main.temp}°C`,
-                        realFeel: `${data.main.feels_like}°C`,
-                        condition: data.weather[0].description,
-                        lookingAhead: 'Stay tuned for upcoming weather conditions.',
-                        icon: getWeatherIcon(data.weather[0].main),
-                    },
+                    day: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
+                    date: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString(),
+                    temperature: `${data.main.temp}°C`,
+                    realFeel: `${data.main.feels_like}°C`,
+                    condition: data.weather[0].description,
+                    icon: getWeatherIcon(data.weather[0].main),
                 };
                 setWeatherData(realTimeWeatherData);
-            })
-          
+            });
     };
 
     // Get corresponding icon based on weather condition
@@ -64,14 +59,10 @@ const WeatherForecast = () => {
         }
     };
 
-    const handleButtonClick = (view) => {
-        setSelected(view);
-    };
-
     const handleSearch = (e) => {
         e.preventDefault();
         const searchCity = e.target.elements.city.value.trim();
-        setCity(searchCity || DEFAULT_CITY); // Set city to searchCity or default to Mumbai if empty
+        setCity(searchCity || DEFAULT_CITY);
     };
 
     const renderContent = () => {
@@ -79,71 +70,38 @@ const WeatherForecast = () => {
             return <p style={styles.loadingText}>Loading weather data...</p>;
         }
 
-        switch (selected) {
-            case 'TODAY':
-                return (
-                    <div style={styles.weatherCard}>
-                        <div style={styles.header}>
-                            <h2 style={styles.day}>{weatherData.TODAY.day}</h2>
-                            <h2 style={styles.dateTime}>{weatherData.TODAY.time}</h2>
-                        </div>
-                        <h2 style={styles.date}>{weatherData.TODAY.date}</h2>
-                        <div style={styles.iconContainer}>
-                            <span style={styles.icon}>
-                                {weatherData.TODAY.icon}
-                            </span>
-                            <h1 style={styles.temp}>
-                                {weatherData.TODAY.temperature}
-                            </h1>
-                        </div>
-                        <p style={styles.realFeel}>RealFeel: <span style={styles.realFeelValue}>{weatherData.TODAY.realFeel}</span></p>
-                        <p style={styles.condition}>
-                            {weatherData.TODAY.condition}
-                        </p>
-                        <div style={styles.forecast}>
-                            <p>{weatherData.TODAY.lookingAhead}</p>
-                        </div>
-                    </div>
-                );
-            default:
-                return null;
-        }
+        return (
+            <div style={styles.weatherCard}>
+                <div style={styles.header}>
+                    <h2 style={styles.day}>{weatherData.day}</h2>
+                    <h2 style={styles.dateTime}>{weatherData.time}</h2>
+                </div>
+                <h2 style={styles.date}>{weatherData.date}</h2>
+                <div style={styles.iconContainer}>
+                    <span style={styles.icon}>{weatherData.icon}</span>
+                    <h1 style={styles.temp}>{weatherData.temperature}</h1>
+                </div>
+                <p style={styles.realFeel}>RealFeel: <span style={styles.realFeelValue}>{weatherData.realFeel}</span></p>
+                <p style={styles.condition}>{weatherData.condition}</p>
+            </div>
+        );
     };
 
     return (
         <div style={styles.appContainer}>
             <h1 style={styles.heading}>Weather Forecast</h1>
             <form onSubmit={handleSearch} style={styles.searchForm}>
-                <input 
-                    type="text" 
-                    name="city" 
-                    placeholder="Enter city in Maharashtra" 
+                <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city in Maharashtra"
                     defaultValue={DEFAULT_CITY}
                     style={styles.searchInput}
                 />
                 <button type="submit" style={styles.searchButton}>Search</button>
             </form>
-            <div style={styles.buttonContainer}>
-                <NavButton isActive={selected === 'TODAY'} onClick={() => handleButtonClick('TODAY')}>TODAY</NavButton>
-            </div>
             {renderContent()}
         </div>
-    );
-};
-
-// Button component
-const NavButton = ({ onClick, children, isActive }) => {
-    return (
-        <button
-            onClick={onClick}
-            style={{
-                ...styles.navButton,
-                backgroundColor: isActive ? '#007BFF' : '#e0e0e0',
-                color: isActive ? '#fff' : '#007BFF',
-            }}
-        >
-            {children}
-        </button>
     );
 };
 
@@ -188,20 +146,6 @@ const styles = {
         cursor: 'pointer',
         transition: 'background-color 0.3s',
     },
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: '60%',
-        marginBottom: '20px',
-    },
-    navButton: {
-        padding: '10px 15px',
-        borderRadius: '5px',
-        border: 'none',
-        cursor: 'pointer',
-        fontWeight: 'bold',
-        transition: 'background-color 0.3s',
-    },
     weatherCard: {
         padding: '20px',
         marginBottom: '20px',
@@ -229,11 +173,12 @@ const styles = {
     },
     iconContainer: {
         display: 'flex',
+        flexDirection: 'column', // Stack icon and temperature vertically
         alignItems: 'center',
     },
     icon: {
         fontSize: '4em',
-        marginRight: '10px',
+        marginBottom: '0px', // Add space between icon and temperature
     },
     temp: {
         fontSize: '3em',
@@ -241,21 +186,24 @@ const styles = {
         margin: '0',
     },
     realFeel: {
-        fontSize: '1.2em',
+        fontSize: '1em',
         color: '#777',
+        fontStyle: 'italic',
     },
     realFeelValue: {
         fontWeight: 'bold',
     },
     condition: {
         margin: '10px 0',
-        fontSize: '1.2em',
+        fontSize: '1.8rem',
         color: '#333',
+        fontWeight: 'bold', // Makes the text bold
+        width: '100%', // Adjust the width as needed, here it's set to full width
+        fontFamily: 'Georgia, serif', // Example of a different font family (you can replace with your preferred font)
+        textAlign: 'center', // Center the text
+        textTransform: 'capitalize',
     },
-    forecast: {
-        marginTop: '20px',
-        color: '#555',
-    },
+    
     loadingText: {
         fontSize: '1.5em',
         color: '#999',
