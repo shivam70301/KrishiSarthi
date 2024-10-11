@@ -10,30 +10,30 @@ const pesticideSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  category: {
+  technicalContent: {
     type: String,
     required: true,
   },
-  application: {
+  usage: {
     type: String,
     required: true,
   },
   image: {
     type: String,
   },
-  activeIngredient: {
+  price: {
     type: String,
     required: true,
   },
-  precautions: {
+  dosage: {
     type: String,
     required: true,
   },
-  environmentalImpact: {
+  benefits: {
     type: String,
     required: true,
   },
-  recommendedUsage: {
+  buy: {
     type: String,
     required: true,
   },

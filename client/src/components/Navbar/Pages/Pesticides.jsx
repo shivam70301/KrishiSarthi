@@ -11,14 +11,7 @@ const Pesticides = () => {
       try {
         const response = await fetch('http://localhost:8080/api/pesticides'); // Replace with your actual API URL
         const data = await response.json();
-
-        // Adding random prices to each pesticide
-        const pesticidesWithPrices = data.map(pesticide => ({
-          ...pesticide,
-          price: Math.floor(Math.random() * (5000 - 100 + 1)) + 100, // Random price between 100 and 5000
-        }));
-
-        setPesticides(pesticidesWithPrices);
+        setPesticides(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching pesticide data:', error);
@@ -56,19 +49,15 @@ const Pesticides = () => {
               <img src={pesticide.image} alt={pesticide.name} style={styles.image} />
               <div className="card-body" style={styles.cardBody}>
                 <h5 className="card-title" style={styles.cardTitle}>{pesticide.name}</h5>
-                <p className="card-text" style={styles.cardText}>{pesticide.description}</p>
-                <p className="font-weight-bold">Category: {pesticide.category}</p>
-                <p className="font-weight-bold">Active Ingredient: {pesticide.activeIngredient}</p>
-                <p>Application: {pesticide.application}</p>
-
-                {/* Display random price below the image without 'INR' */}
-                <p style={styles.price}>Price: <span>{pesticide.price}</span></p>
-
+                <p style={styles.price}><span style={styles.headingText}>Price: ₹</span><span>{pesticide.price}</span></p>
+                <p><span style={styles.headingText}>Description:</span> <span style={styles.infoText}>{pesticide.description}</span></p>
+                <p><span style={styles.headingText}>Technical Content:</span> <span style={styles.infoText}>{pesticide.technicalContent}</span></p>
+                <p><span style={styles.headingText}>Usage:</span> <span style={styles.infoText}>{pesticide.usage}</span></p>
+                
                 {expandedIndex === index && (
                   <div style={styles.expandedText}>
-                    <p className="font-weight-bold">Precautions: {pesticide.precautions}</p>
-                    <p className="font-weight-bold">Environmental Impact: {pesticide.environmentalImpact}</p>
-                    <p className="font-weight-bold">Recommended Usage: {pesticide.recommendedUsage}</p>
+                    <p><span style={styles.headingText}>Dosage:</span> <span style={styles.infoText}>{pesticide.Dosage}</span></p>
+                    <p><span style={styles.headingText}>Benefits:</span> <span style={styles.infoText}>{pesticide.benefits}</span></p>
                   </div>
                 )}
                 <div className="d-flex justify-content-start" style={styles.buttonContainer}>
@@ -78,12 +67,12 @@ const Pesticides = () => {
                     onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnLearnMoreHover.backgroundColor : styles.btnLearnMoreHover.backgroundColor)}
                     onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnViewLess.backgroundColor : styles.btnLearnMore.backgroundColor)}
                   >
-                    {expandedIndex === index ? 'View Less' : 'Read Now'}
+                    {expandedIndex === index ? 'View Less' : 'Read More'}
                   </button>
                   <a
-                    href={pesticide.buyLink} // Set this property to pesticide's buy link
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={pesticide.buy} // This is the link from the database
+                    target="_blank"          // Opens the link in a new tab
+                    rel="noopener noreferrer" // Security measure for external links
                     style={styles.btnBuyNow}
                   >
                     Buy Now
@@ -129,7 +118,7 @@ const styles = {
     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
     cursor: 'pointer',
     width: '90%',
-    maxWidth: '100%', // Centering the card by limiting its width
+    maxWidth: '100%',
     flexWrap: 'wrap',
   },
   image: {
@@ -151,14 +140,17 @@ const styles = {
     color: '#027c68',
     marginBottom: '0.75rem',
   },
-  cardText: {
+  headingText: {
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: '#333',
     fontSize: '1.1rem',
-    color: '#6c757d',
-    lineHeight: '1.6',
+    letterSpacing: '0.5px',
   },
-  expandedText: {
-    display: 'block',
-    marginTop: '0rem',
+  infoText: {
+    fontWeight: 'normal',
+    color: '#666',
+    fontSize: '1rem',
   },
   price: {
     fontWeight: 'bold',
@@ -166,11 +158,15 @@ const styles = {
     color: '#333',
     marginTop: '1px',
   },
+  expandedText: {
+    display: 'block',
+    marginTop: '0.5rem',
+  },
   buttonContainer: {
     marginTop: '1rem',
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem', // Adjust gap to reduce space between buttons
+    gap: '0.5rem',
   },
   btnLearnMore: {
     padding: '0.5rem 1rem',
