@@ -40,7 +40,7 @@ const Pesticides = () => {
           Discover the best pesticides for your crops and protect your yield efficiently.
         </p>
       </div>
-      <div className="d-flex flex-column align-items-center"> {/* Centering container */}
+      <div className="d-flex flex-column align-items-center">
         {pesticides.length === 0 ? (
           <p style={styles.noData}>No pesticides available.</p>
         ) : (
@@ -49,14 +49,14 @@ const Pesticides = () => {
               <img src={pesticide.image} alt={pesticide.name} style={styles.image} />
               <div className="card-body" style={styles.cardBody}>
                 <h5 className="card-title" style={styles.cardTitle}>{pesticide.name}</h5>
-                <p style={styles.price}><span style={styles.headingText}>Price: ₹</span><span>{pesticide.price}</span></p>
+                <p style={styles.price}><span style={styles.headingText}>Price: </span><span>{pesticide.price}</span></p>
                 <p><span style={styles.headingText}>Description:</span> <span style={styles.infoText}>{pesticide.description}</span></p>
                 <p><span style={styles.headingText}>Technical Content:</span> <span style={styles.infoText}>{pesticide.technicalContent}</span></p>
                 <p><span style={styles.headingText}>Usage:</span> <span style={styles.infoText}>{pesticide.usage}</span></p>
-                
+
                 {expandedIndex === index && (
                   <div style={styles.expandedText}>
-                    <p><span style={styles.headingText}>Dosage:</span> <span style={styles.infoText}>{pesticide.Dosage}</span></p>
+                    <p><span style={styles.headingText}>Dosage:</span> <span style={styles.infoText}>{pesticide.dosage}</span></p>
                     <p><span style={styles.headingText}>Benefits:</span> <span style={styles.infoText}>{pesticide.benefits}</span></p>
                   </div>
                 )}
@@ -70,7 +70,7 @@ const Pesticides = () => {
                     {expandedIndex === index ? 'View Less' : 'Read More'}
                   </button>
                   <a
-                    href={pesticide.buy} // This is the link from the database
+                    href={pesticide.buyLink} // This is the link from the database
                     target="_blank"          // Opens the link in a new tab
                     rel="noopener noreferrer" // Security measure for external links
                     style={styles.btnBuyNow}
@@ -107,7 +107,7 @@ const styles = {
   },
   card: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column', // Changed to column for image on top
     alignItems: 'center',
     marginBottom: '2rem',
     border: 'none',
@@ -123,12 +123,12 @@ const styles = {
   },
   image: {
     width: '100%',
-    maxWidth: '200px',
+    maxWidth: '400px', // Adjust max-width for better responsiveness
     height: 'auto',
     objectFit: 'cover',
     borderRadius: '15px',
     border: '2px solid #ddd',
-    marginRight: '1rem',
+    marginBottom: '1rem', // Changed margin to bottom to place image above the text
   },
   cardBody: {
     flex: 1,

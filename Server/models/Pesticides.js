@@ -33,7 +33,7 @@ const pesticideSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  buy: {
+  buyLink: {
     type: String,
     required: true,
   },
