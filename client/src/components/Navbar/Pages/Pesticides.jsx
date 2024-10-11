@@ -139,6 +139,7 @@ const styles = {
     fontWeight: 'bold',
     color: '#027c68',
     marginBottom: '0.75rem',
+    textAlign: 'center', // Center the title
   },
   headingText: {
     fontWeight: 'bold',
