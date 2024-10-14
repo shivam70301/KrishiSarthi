@@ -68,7 +68,7 @@ const CropPrices = () => {
             <tr>
               <th style={styles.th}>Vegetables</th>
               <th style={styles.th}>Unit</th>
-              <th style={styles.th}>Market Price</th>
+              <th style={styles.th}>Wholesale Price</th>
               <th style={styles.th}>Retail Price</th>
               <th style={styles.th}>Super Market</th>
             </tr>
