@@ -46,37 +46,39 @@ const Pesticides = () => {
         ) : (
           pesticides.map((pesticide, index) => (
             <div className="card shadow-sm" style={styles.card} key={index}>
-              <img src={pesticide.image} alt={pesticide.name} style={styles.image} />
-              <div className="card-body" style={styles.cardBody}>
-                <h5 className="card-title" style={styles.cardTitle}>{pesticide.name}</h5>
-                <p style={styles.price}><span style={styles.headingText}>Price: </span><span>{pesticide.price}</span></p>
-                <p><span style={styles.headingText}>Description:</span> <span style={styles.infoText}>{pesticide.description}</span></p>
-                <p><span style={styles.headingText}>Technical Content:</span> <span style={styles.infoText}>{pesticide.technicalContent}</span></p>
-                <p><span style={styles.headingText}>Usage:</span> <span style={styles.infoText}>{pesticide.usage}</span></p>
+              <div className="d-flex" style={styles.cardContent}>
+                <img src={pesticide.image} alt={pesticide.name} style={styles.image} />
+                <div className="card-body" style={styles.cardBody}>
+                  <h5 className="card-title" style={styles.cardTitle}>{pesticide.name}</h5>
+                  <p style={styles.price}><span style={styles.headingText}>Price: </span><span>{pesticide.price}</span></p>
+                  <p style={styles.headingText}>Description:</p>
+                  <p style={styles.infoText}>{pesticide.description}</p>
 
-                {expandedIndex === index && (
-                  <div style={styles.expandedText}>
-                    <p><span style={styles.headingText}>Dosage:</span> <span style={styles.infoText}>{pesticide.dosage}</span></p>
-                    <p><span style={styles.headingText}>Benefits:</span> <span style={styles.infoText}>{pesticide.benefits}</span></p>
+                  {expandedIndex === index && (
+                    <div style={styles.expandedText}>
+                      <p><span style={styles.headingText}>Technical Content:</span> <span className={styles.infoText}>{pesticide.technicalContent}</span></p>
+                      <p><span style={styles.headingText}>Usage:</span> <span className={styles.infoText}>{pesticide.usage}</span></p>
+                      <p><span style={styles.headingText}>Dosage:</span> <span className={styles.infoText}>{pesticide.dosage}</span></p>
+                      <p><span style={styles.headingText}>Benefits:</span> <span className={styles.infoText}>{pesticide.benefits}</span></p>
+                    </div>
+                  )}
+
+                  <div className="d-flex justify-content-start" style={styles.buttonContainer}>
+                    <button
+                      style={expandedIndex === index ? styles.btnViewLess : styles.btnLearnMore}
+                      onClick={() => handleLearnMoreClick(index)}
+                    >
+                      {expandedIndex === index ? 'View Less' : 'Read More'}
+                    </button>
+                    <a
+                      href={pesticide.buyLink} // This is the link from the database
+                      target="_blank"          // Opens the link in a new tab
+                      rel="noopener noreferrer" // Security measure for external links
+                      style={styles.btnBuyNow}
+                    >
+                      Buy Now
+                    </a>
                   </div>
-                )}
-                <div className="d-flex justify-content-start" style={styles.buttonContainer}>
-                  <button
-                    style={expandedIndex === index ? styles.btnViewLess : styles.btnLearnMore}
-                    onClick={() => handleLearnMoreClick(index)}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnLearnMoreHover.backgroundColor : styles.btnLearnMoreHover.backgroundColor)}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = expandedIndex === index ? styles.btnViewLess.backgroundColor : styles.btnLearnMore.backgroundColor)}
-                  >
-                    {expandedIndex === index ? 'View Less' : 'Read More'}
-                  </button>
-                  <a
-                    href={pesticide.buyLink} // This is the link from the database
-                    target="_blank"          // Opens the link in a new tab
-                    rel="noopener noreferrer" // Security measure for external links
-                    style={styles.btnBuyNow}
-                  >
-                    Buy Now
-                  </a>
                 </div>
               </div>
             </div>
@@ -106,30 +108,33 @@ const styles = {
     fontStyle: 'italic',
   },
   card: {
-    display: 'flex',
-    flexDirection: 'column', // Changed to column for image on top
-    alignItems: 'center',
     marginBottom: '2rem',
     border: 'none',
     padding: '1rem',
     borderRadius: '12px',
     boxShadow: '0 6px 15px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#e6e7e9',
-    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-    cursor: 'pointer',
     width: '90%',
     maxWidth: '100%',
-    flexWrap: 'wrap',
+    display: 'flex',
+    flexDirection: 'column',
+    transition: 'height 0.3s ease', // Smooth transition for height
+  },
+  cardContent: {
+    display: 'flex',
+    alignItems: 'flex-start', // Align image and text at the top
   },
   image: {
-    width: '100%',
-    maxWidth: '400px', // Adjust max-width for better responsiveness
-    height: 'auto',
+    width: '40%', // Set width for the image
+    maxWidth: '150px', // Maximum width for the image
+    height: '200px',
     objectFit: 'cover',
     borderRadius: '15px',
     border: '2px solid #ddd',
-    marginBottom: '1rem', // Changed margin to bottom to place image above the text
-  },
+    marginRight: '0rem', // Space between image and text
+    marginTop: '3rem', // Corrected to use semicolon
+},
+
   cardBody: {
     flex: 1,
     textAlign: 'left',
@@ -139,7 +144,7 @@ const styles = {
     fontWeight: 'bold',
     color: '#027c68',
     marginBottom: '0.75rem',
-    textAlign: 'center', // Center the title
+    textAlign: 'left', // Align title to the left
   },
   headingText: {
     fontWeight: 'bold',
@@ -179,9 +184,6 @@ const styles = {
     border: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
-  },
-  btnLearnMoreHover: {
-    backgroundColor: '#218838',
   },
   btnViewLess: {
     padding: '0.5rem 1rem',
