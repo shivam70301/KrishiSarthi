@@ -145,13 +145,13 @@ const AllCrops = () => {
 }
 
 
-        .sticky-search-bar {
-          position: sticky;
-          top: 0; /* Stick to the top of the viewport */
-          background-color: #cae4c5; /* Match the container background */
-          z-index: 10; /* Ensure it stays above other elements */
-          padding: 10px 0; /* Optional: padding for aesthetics */
-        }
+        // .sticky-search-bar {
+        //   position: sticky;
+        //   top: 0; /* Stick to the top of the viewport */
+        //   background-color: #cae4c5; /* Match the container background */
+        //   z-index: 10; /* Ensure it stays above other elements */
+        //   padding: 10px 0; /* Optional: padding for aesthetics */
+        // }
 
         .search-bar {
           width: 30%; /* Reduce the width of the search bar further */
