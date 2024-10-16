@@ -111,6 +111,7 @@ const FairsAndEvents = () => {
             <div
               className={`list-group-item mb-4 animate__animated animate__fadeInUp ${expanded[index] ? 'expanded' : ''}`}
               key={index}
+              onClick={() => handleExpandClick(index)} // Handle click to toggle expansion
             >
               <div className="row w-100">
                 <div className="col-sm-4 col-md-3">
@@ -129,9 +130,6 @@ const FairsAndEvents = () => {
                     <strong>Date:</strong> {event.date}
                   </p>
                   <p className="event-description">{event.description}</p>
-                  <button className="btn btn-primary mt-2" onClick={() => handleExpandClick(index)}>
-                    {expanded[index] ? 'Close' : 'Learn More'}
-                  </button>
                 </div>
               </div>
             </div>
