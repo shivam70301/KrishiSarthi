@@ -16,9 +16,9 @@ const soilSchema = new mongoose.Schema({
     organicMatter: { type: String },  
   },
   micronutrients: {
-    zinc: { type: String },  
-    iron: { type: String },  
-    manganese: { type: String },  
+    zinc: { type: Number },  
+    iron: { type: Number },  
+    manganese: { type: Number },  
   },
   waterRetention: { type: String },  
   texture: { type: String },  

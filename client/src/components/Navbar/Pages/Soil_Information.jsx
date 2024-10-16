@@ -129,9 +129,9 @@ const SoilInformation = () => {
 
               {/* Micronutrient Levels */}
               <h5><strong>Micronutrient Levels:</strong></h5>
-              <ProgressBar now={soilInfo.micronutrients.zinc} label={`ZINC: ${soilInfo.micronutrients.zinc}`} max={100} className="mb-3" variant="success" />
-              <ProgressBar now={soilInfo.micronutrients.iron} label={`IRON: ${soilInfo.micronutrients.iron}`} max={100} className="mb-3" variant="warning" />
-              <ProgressBar now={soilInfo.micronutrients.manganese} label={`MANGANESE: ${soilInfo.micronutrients.manganese}`} max={100} className="mb-3" variant="danger" />
+              <ProgressBar now={soilInfo.micronutrients.zinc} label={`ZINC: ${soilInfo.micronutrients.zinc} mg/kg`} max={10} className="mb-3" variant="success" />
+              <ProgressBar now={soilInfo.micronutrients.iron} label={`IRON: ${soilInfo.micronutrients.iron}mg/kg`} max={10} className="mb-3" variant="warning" />
+              <ProgressBar now={soilInfo.micronutrients.manganese} label={`MANGANESE: ${soilInfo.micronutrients.manganese}mg/kg`} max={10} className="mb-3" variant="danger" />
 
               <h5 className="mt-4"><strong>Soil Test Results:</strong></h5>
               <table className="table table-bordered table-striped mt-2">
