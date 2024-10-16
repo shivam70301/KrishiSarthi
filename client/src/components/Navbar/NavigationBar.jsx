@@ -64,7 +64,7 @@ function NavigationBar() {
         {/* Location Dropdown */}
         <div className="nav-link" onClick={(e) => toggleDropdown("location", e)}>
           <img src={locationIcon} alt="Location" />
-          <span>{selectedLocation}</span>
+          <span className="location-text">{selectedLocation}</span>
           {showDropdown === "location" && (
             <div
               className="location-dropdown"
@@ -194,6 +194,10 @@ function NavigationBar() {
           width: 20px;
           height: 20px;
           margin-right: 0.5rem;
+        }
+
+        .location-text {
+          color: white; /* Set the location text color to white */
         }
 
         .location-dropdown {
