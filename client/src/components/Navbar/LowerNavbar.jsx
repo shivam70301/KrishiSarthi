@@ -76,10 +76,6 @@ const Lower_Navbar = () => {
           align-items: center;
           transition: transform 0.3s ease, background-color 0.3s ease;
         }
-        .nav-item:hover {
-          transform: scale(1.1);
-          background-color: rgba(0, 128, 0, 0.1); /* Light green background on hover */
-        }
         .nav-link {
           display: flex;
           flex-direction: column;
@@ -91,11 +87,7 @@ const Lower_Navbar = () => {
           width: 100px;
           height: 100px;
           border-radius: 50%;
-          transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-        .nav-icon:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-          transform: rotate(5deg); /* Rotate the icon slightly on hover */
+          transition: transform 0.3s ease;
         }
         .nav-text {
           text-align: center;
@@ -103,9 +95,6 @@ const Lower_Navbar = () => {
           font-size: 1.2rem;
           font-weight: bold;
           transition: color 0.3s ease;
-        }
-        .nav-text:hover {
-          color: green; /* Text turns green on hover */
         }
         .nav-button {
           background-color: transparent;
@@ -120,8 +109,8 @@ const Lower_Navbar = () => {
         .nav-button.active .nav-text {
           color: #009400; /* Text color changes to yellow when active */
         }
-        .nav-button:hover {
-          background-color: #e0e0e0; /* Button background changes to light gray */
+        .nav-button:hover .nav-text {
+          color: green; /* Change text color to green on hover */
         }
 
         /* Responsive Styles */
