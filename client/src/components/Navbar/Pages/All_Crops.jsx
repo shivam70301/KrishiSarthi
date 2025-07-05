@@ -15,19 +15,19 @@ const AllCrops = () => {
     setShow(true);
   };
 
-  // Fetch crop data from the backend
-  useEffect(() => {
-    const fetchCrops = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/allCrops'); // Update this URL if needed
-        setCropsData(response.data);
-      } catch (error) {
-        console.error('Error fetching crops data:', error);
-      }
-    };
+  // // Fetch crop data from the backend
+  // useEffect(() => {
+  //   const fetchCrops = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:8080/api/allCrops'); // Update this URL if needed
+  //       setCropsData(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching crops data:', error);
+  //     }
+  //   };
 
-    fetchCrops();
-  }, []);
+  //   fetchCrops();
+  // }, []);
 
   const filteredCrops = cropsData.filter(crop =>
     crop.name.toLowerCase().includes(searchTerm.toLowerCase())

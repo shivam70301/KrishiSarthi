@@ -28,7 +28,7 @@ const Lower_Navbar = () => {
     { to: "/Crop_Recommendation", img: croprec, alt: "Crop Recommendation", text: "Crop Recommendation" },
     { to: "/K_Gyan", img: kgyan, alt: "KGyan", text: "KGyan" },
     { to: "/Policies", img: policies, alt: "Government Schemes", text: "Government Schemes" },
-    { to: "/Pesticides", img: pesticides, alt: "Pesticides", text: "Pesticides" },
+    { to: "/Pesticides", img: pesticides, alt: "Pesticides", text: "Crop Health" },
     { to: "/Fair_Events", img: fair, alt: "Fair", text: "Fair & Events" }
   ];
 
